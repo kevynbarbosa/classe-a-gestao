@@ -1,7 +1,7 @@
 <template>
     <Head title="Dashboard" />
 
-    <AuthenticatedLayout>
+    <DefaultLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>
         </template>
@@ -12,10 +12,6 @@
                     <div class="p-6 text-gray-900">You're logged in!</div>
                 </div>
             </div>
-        </div>
-
-        <div class="card flex justify-center mb-4">
-            <Button label="Check" />
         </div>
 
         <div class="card flex justify-center mb-4">
@@ -33,15 +29,49 @@
         </div>
 
         <div class="card flex justify-center mb-4">
+            <IconField>
+                <InputIcon class="mdi mdi-cog" />
+                <InputText v-model="value" placeholder="Search" />
+            </IconField>
+        </div>
+
+        <div class="card flex justify-center mb-4">
             <Button label="Dark mode" @click="toggleDarkMode" />
         </div>
-    </AuthenticatedLayout>
+
+        <div class="card flex justify-center mb-4">
+            <OverlayBadge severity="danger" size="small">
+                <Button icon="mdi mdi-bell" aria-label="Save" />
+            </OverlayBadge>
+
+            <OverlayBadge value="2">
+                <i class="mdi mdi-bell" style="font-size: 2rem" />
+            </OverlayBadge>
+
+            <OverlayBadge value="4" severity="danger">
+                <i class="mdi mdi-bell" style="font-size: 2rem" />
+            </OverlayBadge>
+
+            <OverlayBadge severity="danger">
+                <i class="mdi mdi-bell" style="font-size: 2rem" />
+            </OverlayBadge>
+        </div>
+
+        <div class="card text-center mb-4">
+            Long content
+            <div v-for="i in 50">Item {{ i }}</div>
+        </div>
+    </DefaultLayout>
 </template>
 
 <script setup>
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
+import DefaultLayout from "@/Layouts/DefaultLayout.vue";
 import { Head } from "@inertiajs/vue3";
 import Button from "primevue/button";
+import IconField from "primevue/iconfield";
+import InputIcon from "primevue/inputicon";
+import InputText from "primevue/inputtext";
+import OverlayBadge from "primevue/overlaybadge";
 import Select from "primevue/select";
 import Textarea from "primevue/textarea";
 import { ref } from "vue";
