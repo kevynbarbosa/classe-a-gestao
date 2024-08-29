@@ -1,10 +1,11 @@
 <script setup>
-import { Head } from "@inertiajs/vue3";
+import Layout2 from "@/Layouts/Layout2.vue";
 </script>
 
 <template>
-    <Layout>
-        <Head title="Welcome" />
-        <h1>Welcome</h1>
-    </Layout>
+    <Layout2>
+        <div class="text-center">
+            <!-- <div v-for="i in 100">Item da lista - {{ i }}</div> -->
+        </div>
+    </Layout2>
 </template>
