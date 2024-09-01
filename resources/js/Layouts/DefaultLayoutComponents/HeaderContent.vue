@@ -18,8 +18,6 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
-
 const props = defineProps([]);
 const emits = defineEmits(["toggleSideBar"]);
 
