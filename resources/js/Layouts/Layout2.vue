@@ -17,16 +17,6 @@
         </div>
 
         <!-- Menu -->
-        <!-- <Transition>
-            <div v-show="sideBarVisible" class="w-[240px] border-r-[#2c2d33] border-r-[1px]">
-                <div class="h-full w-[240px] fixed overflow-y-auto">
-                    <div class="text-center">
-                        <div v-for="i in 200">Item do menu - {{ i }}</div>
-                    </div>
-                </div>
-            </div>
-        </Transition> -->
-
         <Transition>
             <div class="w-[240px]" v-if="sideBarVisible"></div>
         </Transition>
