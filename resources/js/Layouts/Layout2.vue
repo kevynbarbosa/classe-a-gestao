@@ -5,52 +5,63 @@
             class="fixed top-0 right-0 z-10 bg-blue-300 transition-header"
             :class="{ 'w-header': sideBarVisible, 'w-full': !sideBarVisible }"
         >
-            <div class="h-[116px] p-4 pr-8 flex justify-between items-center">
+            <div class="h-header p-4 pr-8 flex justify-between items-center">
                 <HeaderContent @toggleSideBar="toggleSideBar" />
             </div>
         </div>
 
         <!-- Menu -->
         <Transition>
-            <div class="w-[240px]" v-if="sideBarVisible"></div>
+            <div class="w-sidebar" v-if="sideBarVisible"></div>
         </Transition>
 
         <Transition>
-            <div v-show="sideBarVisible" class="fixed h-full w-[240px] border-r border-[#2c2d33] overflow-y-auto">
+            <div v-show="sideBarVisible" class="fixed h-full w-sidebar border-r border-[#2c2d33] overflow-y-auto">
                 <LeftBarContent />
             </div>
         </Transition>
 
         <!-- Main -->
-        <main class="w-full flex-1 mt-[116px] bg-purple-300">
+        <main class="w-full flex-1 bg-purple-300 main-content">
             <slot />
         </main>
     </div>
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
 import HeaderContent from "./DefaultLayoutComponents/HeaderContent.vue";
 import LeftBarContent from "./DefaultLayoutComponents/LeftBarContent.vue";
 
 const props = defineProps([]);
 
-const value = ref(null);
-// const topBarSize = ref("3.5rem");
-
 const sideBarVisible = ref(true);
 function toggleSideBar() {
     sideBarVisible.value = !sideBarVisible.value;
 }
-
-onMounted(() => {
-    // Mounted
-});
 </script>
+
+<style>
+:root {
+    --header-height: 60px;
+    --sidebar-width: 240px;
+}
+</style>
 
 <style scoped>
 .w-header {
-    width: calc(100% - 240px);
+    width: calc(100% - var(--sidebar-width));
+}
+
+.h-header {
+    height: var(--header-height);
+}
+
+.main-content {
+    margin-top: var(--header-height);
+}
+
+.w-sidebar {
+    width: var(--sidebar-width);
 }
 
 .transition-header {

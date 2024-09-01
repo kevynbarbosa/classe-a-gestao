@@ -11,10 +11,8 @@
     </div>
 
     <div>
-        <OverlayBadge value="4" severity="danger">
-            <div class="bg-primary p-4">
-                <i class="mdi mdi-bell" />
-            </div>
+        <OverlayBadge severity="danger">
+            <Button icon="mdi mdi-bell"></Button>
         </OverlayBadge>
     </div>
 </template>
