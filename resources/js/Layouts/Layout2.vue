@@ -2,7 +2,7 @@
     <div class="flex min-h-screen bg-[#181822] text-slate-200">
         <!-- Header -->
         <div
-            class="fixed top-0 right-0 z-10 bg-blue-300 transition-all duration-500 ease-in-out"
+            class="fixed top-0 right-0 z-10 bg-blue-300 transition-header"
             :class="{ 'w-header': sideBarVisible, 'w-full': !sideBarVisible }"
         >
             <div class="h-[116px] p-4 flex justify-between items-center">
@@ -53,9 +53,14 @@ onMounted(() => {
     width: calc(100% - 240px);
 }
 
+.transition-header {
+    transition: all 0.2s;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 .v-enter-active,
 .v-leave-active {
-    transition: all 0.5s;
+    transition: all 0.2s;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
