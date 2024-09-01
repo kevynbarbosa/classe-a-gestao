@@ -1,7 +1,10 @@
 <template>
     <div class="flex min-h-screen bg-[#181822] text-slate-200">
         <!-- Header -->
-        <div class="fixed top-0 right-0 w-header z-10 bg-blue-300">
+        <div
+            class="fixed top-0 right-0 z-10 bg-blue-300xx transition-all duration-500 ease-in-out"
+            :class="{ 'w-header': sideBarVisible, 'w-full': !sideBarVisible }"
+        >
             <div class="h-[116px] p-4 flex justify-between items-center">
                 <div>
                     <Button icon="mdi mdi-menu" aria-label="Save" @click="toggleSideBar" />
@@ -14,13 +17,27 @@
         </div>
 
         <!-- Menu -->
-        <div class="w-[240px] border-r-[#2c2d33] border-r-[1px]" v-show="sideBarVisible">
-            <div class="h-full w-[240px] fixed overflow-y-auto">
-                <div class="text-center">
-                    <div v-for="i in 200">Item do menu - {{ i }}</div>
+        <!-- <Transition>
+            <div v-show="sideBarVisible" class="w-[240px] border-r-[#2c2d33] border-r-[1px]">
+                <div class="h-full w-[240px] fixed overflow-y-auto">
+                    <div class="text-center">
+                        <div v-for="i in 200">Item do menu - {{ i }}</div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </Transition> -->
+
+        <Transition>
+            <div class="w-[240px]" v-if="sideBarVisible"></div>
+        </Transition>
+
+        <Transition>
+            <div v-show="sideBarVisible" class="fixed h-full w-[240px] border-r border-[#2c2d33] overflow-y-auto">
+                <div class="text-center">
+                    <div v-for="i in 200" :key="i">Item do menu - {{ i }}</div>
+                </div>
+            </div>
+        </Transition>
 
         <!-- Main -->
         <main class="w-full flex-1 mt-[116px] bg-purple-300">
@@ -51,5 +68,17 @@ onMounted(() => {
 <style scoped>
 .w-header {
     width: calc(100% - 240px);
+}
+
+.v-enter-active,
+.v-leave-active {
+    transition: all 0.5s;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.v-enter-from,
+.v-leave-to {
+    width: 0;
+    overflow: hidden;
 }
 </style>
