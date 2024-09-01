@@ -5,7 +5,7 @@
             class="fixed top-0 right-0 z-10 bg-blue-300 transition-header"
             :class="{ 'w-header': sideBarVisible, 'w-full': !sideBarVisible }"
         >
-            <div class="h-[116px] p-4 flex justify-between items-center">
+            <div class="h-[116px] p-4 pr-8 flex justify-between items-center">
                 <HeaderContent @toggleSideBar="toggleSideBar" />
             </div>
         </div>
