@@ -2,17 +2,11 @@
     <div class="flex min-h-screen bg-[#181822] text-slate-200">
         <!-- Header -->
         <div
-            class="fixed top-0 right-0 z-10 bg-blue-300xx transition-all duration-500 ease-in-out"
+            class="fixed top-0 right-0 z-10 bg-blue-300 transition-all duration-500 ease-in-out"
             :class="{ 'w-header': sideBarVisible, 'w-full': !sideBarVisible }"
         >
             <div class="h-[116px] p-4 flex justify-between items-center">
-                <div>
-                    <Button icon="mdi mdi-menu" aria-label="Save" @click="toggleSideBar" />
-                </div>
-
-                <div>Teste</div>
-
-                <div>Teste</div>
+                <HeaderContent @toggleSideBar="toggleSideBar" />
             </div>
         </div>
 
@@ -23,9 +17,7 @@
 
         <Transition>
             <div v-show="sideBarVisible" class="fixed h-full w-[240px] border-r border-[#2c2d33] overflow-y-auto">
-                <div class="text-center">
-                    <div v-for="i in 200" :key="i">Item do menu - {{ i }}</div>
-                </div>
+                <LeftBarContent />
             </div>
         </Transition>
 
@@ -37,8 +29,9 @@
 </template>
 
 <script setup>
-import Button from "primevue/button";
 import { onMounted, ref } from "vue";
+import HeaderContent from "./DefaultLayoutComponents/HeaderContent.vue";
+import LeftBarContent from "./DefaultLayoutComponents/LeftBarContent.vue";
 
 const props = defineProps([]);
 
