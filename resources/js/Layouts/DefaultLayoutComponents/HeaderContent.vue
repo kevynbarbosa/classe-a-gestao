@@ -12,7 +12,9 @@
 
     <div>
         <OverlayBadge value="4" severity="danger">
-            <i class="mdi mdi-bell" style="font-size: 1.5rem" />
+            <div class="bg-primary p-4">
+                <i class="mdi mdi-bell" />
+            </div>
         </OverlayBadge>
     </div>
 </template>
