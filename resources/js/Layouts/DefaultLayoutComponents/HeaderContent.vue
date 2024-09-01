@@ -18,11 +18,6 @@
 </template>
 
 <script setup>
-import Button from "primevue/button";
-import IconField from "primevue/iconfield";
-import InputIcon from "primevue/inputicon";
-import InputText from "primevue/inputtext";
-import OverlayBadge from "primevue/overlaybadge";
 import { onMounted, ref } from "vue";
 
 const props = defineProps([]);
