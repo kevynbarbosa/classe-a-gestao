@@ -10,6 +10,15 @@
             </div>
         </div>
 
+        <!-- Header Mobile -->
+        <Drawer v-model:visible="rightBarVisible" header="Notificações" position="right">
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                ex ea commodo consequat.
+            </p>
+        </Drawer>
+
         <!-- Menu -->
         <Transition>
             <div class="w-sidebar" v-if="sideBarVisible"></div>
@@ -29,6 +38,8 @@
                 ex ea commodo consequat.
             </p>
         </Drawer>
+
+        <Toast />
 
         <!-- Main -->
         <main class="w-full flex-1 bg-purple-300 main-content">
