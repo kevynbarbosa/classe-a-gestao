@@ -6,7 +6,7 @@
             :class="{ 'w-header': sideBarVisible, 'w-full': !sideBarVisible }"
         >
             <div class="h-header p-4 pr-8 flex justify-between items-center">
-                <HeaderContent @toggleSideBar="toggleSideBar" />
+                <HeaderContent @toggleSideBar="toggleSideBar" @toggleRightBar="toggleRightBar" />
             </div>
         </div>
 
@@ -20,6 +20,15 @@
                 <LeftBarContent />
             </div>
         </Transition>
+
+        <!-- Right Drawer -->
+        <Drawer v-model:visible="rightBarVisible" header="Notificações" position="right">
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                ex ea commodo consequat.
+            </p>
+        </Drawer>
 
         <!-- Main -->
         <main class="w-full flex-1 bg-purple-300 main-content">
@@ -37,6 +46,11 @@ const props = defineProps([]);
 const sideBarVisible = ref(true);
 function toggleSideBar() {
     sideBarVisible.value = !sideBarVisible.value;
+}
+
+const rightBarVisible = ref(true);
+function toggleRightBar() {
+    rightBarVisible.value = !rightBarVisible.value;
 }
 </script>
 

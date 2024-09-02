@@ -12,14 +12,14 @@
 
     <div>
         <OverlayBadge severity="danger">
-            <Button icon="mdi mdi-bell"></Button>
+            <Button icon="mdi mdi-bell" @click="emits('toggleRightBar')"></Button>
         </OverlayBadge>
     </div>
 </template>
 
 <script setup>
 const props = defineProps([]);
-const emits = defineEmits(["toggleSideBar"]);
+const emits = defineEmits(["toggleSideBar", "toggleRightBar"]);
 
 const value = ref(null);
 
