@@ -1,18 +1,18 @@
 <template>
     <div>
-        <Button icon="mdi mdi-menu" aria-label="Save" @click="emits('toggleSideBar')" />
+        <Button icon="mdi mdi-menu" aria-label="Save" @click="emits('toggleSideBar')" size="small" />
     </div>
 
     <div>
         <IconField>
             <InputIcon class="mdi mdi-magnify" />
-            <InputText v-model="value" placeholder="Search" />
+            <InputText v-model="value" placeholder="Search" size="small" />
         </IconField>
     </div>
 
     <div>
         <OverlayBadge severity="danger">
-            <Button icon="mdi mdi-bell" @click="emits('toggleRightBar')"></Button>
+            <Button icon="mdi mdi-bell" @click="emits('toggleRightBar')" size="small"></Button>
         </OverlayBadge>
     </div>
 </template>

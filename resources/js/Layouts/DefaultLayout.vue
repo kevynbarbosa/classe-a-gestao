@@ -24,7 +24,7 @@
             <!-- Left menu Mobile -->
             <Drawer v-if="windowWidth < 1024" v-model:visible="sideBarVisible" header="Menu">
                 <template #container="{ closeCallback }">
-                    <div class="bg-surface">
+                    <div class="bg-surface bg-[#181822] h-full overflow-y-auto">
                         <LeftBarContent />
                     </div>
                 </template>
