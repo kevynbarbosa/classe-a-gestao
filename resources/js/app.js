@@ -8,6 +8,7 @@ import { ZiggyVue } from "../../vendor/tightenco/ziggy";
 
 import Aura from "@primevue/themes/aura";
 import PrimeVue from "primevue/config";
+import DialogService from "primevue/dialogservice";
 import ToastService from "primevue/toastservice";
 
 const appName = import.meta.env.VITE_APP_NAME || "Laravel";
@@ -27,6 +28,7 @@ createInertiaApp({
                     },
                 },
             })
+            .use(DialogService)
             .use(ToastService)
             .mount(el);
     },

@@ -40,6 +40,7 @@
             </p>
         </Drawer>
 
+        <DynamicDialog />
         <Toast />
 
         <!-- Main -->
