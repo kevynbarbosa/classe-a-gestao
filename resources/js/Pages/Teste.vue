@@ -1,5 +1,5 @@
 <template>
-    <Layout2>
+    <DefaultLayout>
         <div class="card flex justify-center">
             <!-- <Toast /> -->
             <Button label="Show" @click="show()" />
@@ -8,11 +8,11 @@
         <div class="text-center">
             <div v-for="i in 100">Item da lista - {{ i }}</div>
         </div>
-    </Layout2>
+    </DefaultLayout>
 </template>
 
 <script setup>
-import Layout2 from "@/Layouts/Layout2.vue";
+import DefaultLayout from "@/Layouts/DefaultLayout.vue";
 
 import { useToast } from "primevue/usetoast";
 const toast = useToast();
