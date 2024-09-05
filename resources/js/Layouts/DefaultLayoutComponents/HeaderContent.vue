@@ -50,7 +50,10 @@ const emits = defineEmits(["toggleSideBar", "toggleRightBar"]);
 function toggleDarkMode() {
     const element = document.querySelector("html");
     element.classList.toggle("dark-mode-active");
+
     checkDarkMode();
+
+    localStorage.setItem("theme", isDarkMode.value ? "dark" : "light");
 }
 
 const isDarkMode = ref(false);
@@ -58,9 +61,19 @@ function checkDarkMode() {
     isDarkMode.value = document.documentElement.classList.contains("dark-mode-active");
 }
 
+function loadTheme() {
+    const savedTheme = localStorage.getItem("theme");
+
+    if (savedTheme == "dark") {
+        toggleDarkMode();
+    }
+
+    checkDarkMode();
+}
+
 const value = ref("");
 
 onMounted(() => {
-    checkDarkMode();
+    loadTheme();
 });
 </script>
