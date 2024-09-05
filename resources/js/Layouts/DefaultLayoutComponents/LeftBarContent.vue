@@ -4,7 +4,7 @@
         <img class="h-12 w-auto m-auto" src="assets/logo-with-text.png" alt="Logo" />
 
         <!-- Menu -->
-        <ul class="list-none p-4 m-0 text-white">
+        <ul class="list-none p-4 m-0">
             <li>
                 <div
                     v-ripple
@@ -15,7 +15,7 @@
                         leaveToClass: 'hidden',
                         leaveActiveClass: 'animate-slideup',
                     }"
-                    class="p-4 flex items-center justify-between cursor-pointer p-ripple"
+                    class="p-4 flex items-center justify-between text-surface-500 dark:text-surface-400 cursor-pointer p-ripple"
                 >
                     <i class="mdi mdi-apple-safari"></i>
                     <span class="font-medium">APPLICATION</span>
@@ -25,7 +25,7 @@
                     <li>
                         <a
                             v-ripple
-                            class="flex items-center cursor-pointer p-4 rounded duration-150 transition-colors p-ripple"
+                            class="flex items-center cursor-pointer p-4 rounded text-surface-700 hover:bg-surface-100 dark:text-surface-0 dark:hover:bg-surface-800 duration-150 transition-colors p-ripple"
                         >
                             <i class="mdi mdi-folder mr-2"></i>
                             <span class="font-medium">Projects</span>
@@ -34,7 +34,7 @@
                     <li>
                         <a
                             v-ripple
-                            class="flex items-center cursor-pointer p-4 rounded duration-150 transition-colors p-ripple"
+                            class="flex items-center cursor-pointer p-4 rounded text-surface-700 hover:bg-surface-100 dark:text-surface-0 dark:hover:bg-surface-800 duration-150 transition-colors p-ripple"
                         >
                             <i class="mdi mdi-chart-bar mr-2"></i>
                             <span class="font-medium">Performance</span>
@@ -43,7 +43,7 @@
                     <li>
                         <a
                             v-ripple
-                            class="flex items-center cursor-pointer p-4 rounded duration-150 transition-colors p-ripple"
+                            class="flex items-center cursor-pointer p-4 rounded text-surface-700 hover:bg-surface-100 dark:text-surface-0 dark:hover:bg-surface-800 duration-150 transition-colors p-ripple"
                         >
                             <i class="mdi mdi-cog mr-2"></i>
                             <span class="font-medium">Settings</span>

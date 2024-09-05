@@ -8,8 +8,8 @@
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg dark:bg-purple-400">
-                    <div class="p-6 text-gray-900">You're logged in!</div>
+                <div class="overflow-hidden shadow-sm sm:rounded-lg surface-card">
+                    <div class="p-6">You're logged in!</div>
                 </div>
             </div>
         </div>
@@ -36,10 +36,6 @@
         </div>
 
         <div class="card flex justify-center mb-4">
-            <Button label="Dark mode" @click="toggleDarkMode" />
-        </div>
-
-        <div class="card flex justify-center mb-4">
             <OverlayBadge severity="danger" size="small">
                 <Button icon="mdi mdi-bell" aria-label="Save" />
             </OverlayBadge>
@@ -55,6 +51,14 @@
             <OverlayBadge severity="danger">
                 <i class="mdi mdi-bell" style="font-size: 2rem" />
             </OverlayBadge>
+        </div>
+
+        <div class="card flex justify-center mb-4 gap-2">
+            <div class="w-60 h-60 bg-slate-500"></div>
+            <div class="w-60 h-60 bg-zinc-500"></div>
+
+            <div class="w-60 h-60 bg-surface-500"></div>
+            <div class="w-60 h-60 bg-surface-500"></div>
         </div>
 
         <div class="card text-center mb-4">
@@ -86,9 +90,4 @@ const cities = ref([
 ]);
 
 const value = ref("");
-
-function toggleDarkMode() {
-    const element = document.querySelector("html");
-    element.classList.toggle("dark-mode-active");
-}
 </script>

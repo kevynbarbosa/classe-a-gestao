@@ -3,3 +3,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.surface-base {
+    @apply dark:bg-surface-900 bg-surface-100;
+}
+
+.surface-layout {
+    @apply dark:bg-surface-700 bg-surface-0;
+}
+
+.surface-card {
+    @apply dark:bg-surface-700 bg-surface-50;
+}

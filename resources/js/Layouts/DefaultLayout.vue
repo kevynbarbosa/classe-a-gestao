@@ -1,10 +1,13 @@
 <template>
-    <div class="flex min-h-screen bg-[#181822] text-slate-200">
+    <div class="flex min-h-screen surface-base">
         <!-- Header -->
         <div
-            :class="['fixed top-0 right-0 z-10 bg-blue-300 transition-header', sideBarVisible ? 'w-header' : 'w-full']"
+            :class="[
+                'fixed top-0 right-0 z-10 surface-layout transition-header',
+                sideBarVisible ? 'w-header' : 'w-full',
+            ]"
         >
-            <div class="h-header p-4 pr-8 flex justify-between items-center">
+            <div class="h-header p-4 pr-8 flex justify-between items-center text-[--p-drawer-color]">
                 <HeaderContent @toggleSideBar="toggleSideBar" @toggleRightBar="toggleRightBar" />
             </div>
         </div>
@@ -16,7 +19,10 @@
             </Transition>
 
             <Transition>
-                <div v-show="sideBarVisible" class="fixed h-full w-sidebar border-r border-[#2c2d33] overflow-y-auto">
+                <div
+                    v-show="sideBarVisible"
+                    class="fixed h-full w-sidebar surface-layout border-r border-[--p-drawer-border-color] overflow-y-auto"
+                >
                     <LeftBarContent />
                 </div>
             </Transition>
@@ -24,7 +30,7 @@
             <!-- Left menu Mobile -->
             <Drawer v-if="windowWidth < 1024" v-model:visible="sideBarVisible" header="Menu">
                 <template #container="{ closeCallback }">
-                    <div class="bg-surface bg-[#181822] h-full overflow-y-auto">
+                    <div class="h-full overflow-y-auto">
                         <LeftBarContent />
                     </div>
                 </template>
@@ -44,7 +50,7 @@
         <Toast />
 
         <!-- Main -->
-        <main class="w-full flex-1 bg-purple-300 main-content">
+        <main class="w-full flex-1 main-content">
             <slot />
         </main>
     </div>
@@ -84,6 +90,7 @@ onUnmounted(() => {
 :root {
     --header-height: 60px;
     --sidebar-width: 240px;
+    --ground-background: #ffff;
 }
 </style>
 
