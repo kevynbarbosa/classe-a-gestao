@@ -2,10 +2,6 @@
     <Head title="Dashboard" />
 
     <DefaultLayout>
-        <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>
-        </template>
-
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="overflow-hidden shadow-sm sm:rounded-lg surface-card">
@@ -71,14 +67,6 @@
 <script setup>
 import DefaultLayout from "@/Layouts/DefaultLayout.vue";
 import { Head } from "@inertiajs/vue3";
-import Button from "primevue/button";
-import IconField from "primevue/iconfield";
-import InputIcon from "primevue/inputicon";
-import InputText from "primevue/inputtext";
-import OverlayBadge from "primevue/overlaybadge";
-import Select from "primevue/select";
-import Textarea from "primevue/textarea";
-import { ref } from "vue";
 
 const selectedCity = ref();
 const cities = ref([
