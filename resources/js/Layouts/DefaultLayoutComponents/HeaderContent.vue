@@ -60,6 +60,9 @@ function setLightMode() {
 function toggleDarkMode() {
     const element = document.querySelector("html");
     element.classList.toggle("dark-mode-active");
+
+    checkDarkMode();
+    localStorage.setItem("theme", isDarkMode.value ? "dark" : "light");
 }
 
 const isDarkMode = ref(false);
@@ -69,10 +72,13 @@ function checkDarkMode() {
 }
 
 function loadTheme() {
+    // debugger;
     const savedTheme = localStorage.getItem("theme");
 
     if (savedTheme == "dark") {
-        toggleDarkMode();
+        setDarkMode();
+    } else {
+        setLightMode();
     }
 
     checkDarkMode();
