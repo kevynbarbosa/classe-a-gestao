@@ -47,18 +47,25 @@
 const props = defineProps([]);
 const emits = defineEmits(["toggleSideBar", "toggleRightBar"]);
 
+function setDarkMode() {
+    const element = document.querySelector("html");
+    element.classList.add("dark-mode-active");
+}
+
+function setLightMode() {
+    const element = document.querySelector("html");
+    element.classList.remove("dark-mode-active");
+}
+
 function toggleDarkMode() {
     const element = document.querySelector("html");
     element.classList.toggle("dark-mode-active");
-
-    checkDarkMode();
-
-    localStorage.setItem("theme", isDarkMode.value ? "dark" : "light");
 }
 
 const isDarkMode = ref(false);
 function checkDarkMode() {
     isDarkMode.value = document.documentElement.classList.contains("dark-mode-active");
+    localStorage.setItem("theme", isDarkMode.value ? "dark" : "light");
 }
 
 function loadTheme() {
