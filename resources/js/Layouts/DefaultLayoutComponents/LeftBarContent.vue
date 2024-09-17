@@ -18,6 +18,23 @@
                         :href="route('dashboard')"
                         :active="route().current('dashboard')"
                     />
+
+                    <NavSubmenu label="Submenu 1" icon="mdi mdi-view-list">
+                        <NavLink
+                            icon="mdi mdi-view-list"
+                            label="Item 1"
+                            :href="route('dashboard')"
+                            :active="route().current('dashboard')"
+                        />
+                        <NavSubmenu label="Submenu 2" icon="mdi mdi-view-list">
+                            <NavLink
+                                icon="mdi mdi-view-list"
+                                label="Item 2.1"
+                                :href="route('dashboard')"
+                                :active="route().current('dashboard')"
+                            />
+                        </NavSubmenu>
+                    </NavSubmenu>
                 </ul>
             </li>
         </ul>
@@ -26,6 +43,7 @@
 
 <script setup>
 import NavLink from "@/Components/LeftMenu/NavLink.vue";
+import NavSubmenu from "@/Components/LeftMenu/NavSubmenu.vue";
 import NavTitle from "@/Components/LeftMenu/NavTitle.vue";
 import { onMounted, ref } from "vue";
 

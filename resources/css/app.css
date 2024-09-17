@@ -5,7 +5,7 @@
 @tailwind utilities;
 
 .surface-base {
-    @apply dark:bg-surface-900 bg-surface-100;
+    @apply dark:bg-surface-900 bg-surface-300;
 }
 
 .surface-layout {
