@@ -4,40 +4,32 @@
         <img class="my-4 h-12 w-auto m-auto" src="/assets/logo-with-text.png" alt="Logo" />
 
         <!-- Menu -->
-        <ul class="list-none p-2 m-0">
-            <li>
-                <!-- Titulo da seção -->
-                <NavTitle label="Menu titulo" icon="mdi mdi-white-balance-sunny" />
+        <NavTitle label="Menu titulo" icon="mdi mdi-white-balance-sunny">
+            <!-- Item navegavel (rota) -->
+            <NavLink
+                icon="mdi mdi-white-balance-sunny"
+                label="Dashboard"
+                :href="route('dashboard')"
+                :active="route().current('dashboard')"
+            />
 
-                <!-- Lista de itens -->
-                <ul class="list-none p-0 m-0 overflow-hidden">
-                    <!-- Item navegavel (rota) -->
+            <NavSubmenu label="Submenu 1" icon="mdi mdi-view-list">
+                <NavLink
+                    icon="mdi mdi-view-list"
+                    label="Item 1"
+                    :href="route('dashboard')"
+                    :active="route().current('dashboard')"
+                />
+                <NavSubmenu label="Submenu 2" icon="mdi mdi-view-list">
                     <NavLink
-                        icon="mdi mdi-white-balance-sunny"
-                        label="Dashboard"
+                        icon="mdi mdi-view-list"
+                        label="Item 2.1"
                         :href="route('dashboard')"
                         :active="route().current('dashboard')"
                     />
-
-                    <NavSubmenu label="Submenu 1" icon="mdi mdi-view-list">
-                        <NavLink
-                            icon="mdi mdi-view-list"
-                            label="Item 1"
-                            :href="route('dashboard')"
-                            :active="route().current('dashboard')"
-                        />
-                        <NavSubmenu label="Submenu 2" icon="mdi mdi-view-list">
-                            <NavLink
-                                icon="mdi mdi-view-list"
-                                label="Item 2.1"
-                                :href="route('dashboard')"
-                                :active="route().current('dashboard')"
-                            />
-                        </NavSubmenu>
-                    </NavSubmenu>
-                </ul>
-            </li>
-        </ul>
+                </NavSubmenu>
+            </NavSubmenu>
+        </NavTitle>
     </div>
 </template>
 
