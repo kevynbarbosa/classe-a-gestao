@@ -1,71 +1,68 @@
 <template>
     <Head title="Dashboard" />
 
-    <DefaultLayout>
-        <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="overflow-hidden shadow-sm sm:rounded-lg surface-card">
-                    <div class="p-6">You're logged in!</div>
-                </div>
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="overflow-hidden shadow-sm sm:rounded-lg surface-card">
+                <div class="p-6">You're logged in!</div>
             </div>
         </div>
+    </div>
 
-        <div class="card flex justify-center mb-4">
-            <Select
-                v-model="selectedCity"
-                :options="cities"
-                optionLabel="name"
-                placeholder="Select a City"
-                class="w-full md:w-56"
-            />
-        </div>
+    <div class="card flex justify-center mb-4">
+        <Select
+            v-model="selectedCity"
+            :options="cities"
+            optionLabel="name"
+            placeholder="Select a City"
+            class="w-full md:w-56"
+        />
+    </div>
 
-        <div class="card flex justify-center mb-4">
-            <Textarea v-model="value" rows="5" cols="30" />
-        </div>
+    <div class="card flex justify-center mb-4">
+        <Textarea v-model="value" rows="5" cols="30" />
+    </div>
 
-        <div class="card flex justify-center mb-4">
-            <IconField>
-                <InputIcon class="mdi mdi-cog" />
-                <InputText v-model="value" placeholder="Search" />
-            </IconField>
-        </div>
+    <div class="card flex justify-center mb-4">
+        <IconField>
+            <InputIcon class="mdi mdi-cog" />
+            <InputText v-model="value" placeholder="Search" />
+        </IconField>
+    </div>
 
-        <div class="card flex justify-center mb-4">
-            <OverlayBadge severity="danger" size="small">
-                <Button icon="mdi mdi-bell" aria-label="Save" />
-            </OverlayBadge>
+    <div class="card flex justify-center mb-4">
+        <OverlayBadge severity="danger" size="small">
+            <Button icon="mdi mdi-bell" aria-label="Save" />
+        </OverlayBadge>
 
-            <OverlayBadge value="2">
-                <i class="mdi mdi-bell" style="font-size: 2rem" />
-            </OverlayBadge>
+        <OverlayBadge value="2">
+            <i class="mdi mdi-bell" style="font-size: 2rem" />
+        </OverlayBadge>
 
-            <OverlayBadge value="4" severity="danger">
-                <i class="mdi mdi-bell" style="font-size: 2rem" />
-            </OverlayBadge>
+        <OverlayBadge value="4" severity="danger">
+            <i class="mdi mdi-bell" style="font-size: 2rem" />
+        </OverlayBadge>
 
-            <OverlayBadge severity="danger">
-                <i class="mdi mdi-bell" style="font-size: 2rem" />
-            </OverlayBadge>
-        </div>
+        <OverlayBadge severity="danger">
+            <i class="mdi mdi-bell" style="font-size: 2rem" />
+        </OverlayBadge>
+    </div>
 
-        <div class="card flex justify-center mb-4 gap-2">
-            <div class="w-60 h-60 bg-slate-500"></div>
-            <div class="w-60 h-60 bg-zinc-500"></div>
+    <div class="card flex justify-center mb-4 gap-2">
+        <div class="w-60 h-60 bg-slate-500"></div>
+        <div class="w-60 h-60 bg-zinc-500"></div>
 
-            <div class="w-60 h-60 bg-surface-500"></div>
-            <div class="w-60 h-60 bg-surface-500"></div>
-        </div>
+        <div class="w-60 h-60 bg-surface-500"></div>
+        <div class="w-60 h-60 bg-surface-500"></div>
+    </div>
 
-        <div class="card text-center mb-4">
-            Long content
-            <div v-for="i in 50">Item {{ i }}</div>
-        </div>
-    </DefaultLayout>
+    <div class="card text-center mb-4">
+        Long content
+        <div v-for="i in 50">Item {{ i }}</div>
+    </div>
 </template>
 
 <script setup>
-import DefaultLayout from "@/Layouts/DefaultLayout.vue";
 import { Head } from "@inertiajs/vue3";
 
 const selectedCity = ref();

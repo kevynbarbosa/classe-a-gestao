@@ -10,6 +10,7 @@ import Aura from "@primevue/themes/aura";
 import PrimeVue from "primevue/config";
 import DialogService from "primevue/dialogservice";
 import ToastService from "primevue/toastservice";
+import DefaultLayout from "./Layouts/DefaultLayout.vue";
 
 const appName = import.meta.env.VITE_APP_NAME || "Laravel";
 
