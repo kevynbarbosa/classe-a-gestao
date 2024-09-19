@@ -1,21 +1,20 @@
 <template>
-    <DefaultLayout>
-        <div class="card flex justify-center">
-            <!-- <Toast /> -->
-            <Button label="Show" @click="show()" />
-        </div>
+    <div class="card flex justify-center">
+        <!-- <Toast /> -->
+        <Button label="Show" @click="show()" />
+    </div>
 
-        <div class="text-center">
-            <div v-for="i in 100">Item da lista - {{ i }}</div>
-        </div>
-    </DefaultLayout>
+    <div class="text-center">
+        <div v-for="i in 100">Item da lista - {{ i }}</div>
+    </div>
 </template>
 
 <script setup>
-import DefaultLayout from "@/Layouts/DefaultLayout.vue";
-
+import GuestLayout from "@/Layouts/GuestLayout.vue";
 import { useToast } from "primevue/usetoast";
 const toast = useToast();
+
+defineOptions({ layout: GuestLayout });
 
 const show = () => {
     toast.add({ severity: "info", summary: "Info", detail: "Message Content", life: 3000 });
