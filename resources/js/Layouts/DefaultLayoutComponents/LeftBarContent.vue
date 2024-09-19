@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- Logo -->
-        <img class="my-4 h-12 w-auto m-auto" src="assets/logo-with-text.png" alt="Logo" />
+        <img class="my-4 h-12 w-auto m-auto" src="/assets/logo-with-text.png" alt="Logo" />
 
         <!-- Menu -->
         <ul class="list-none p-2 m-0">
