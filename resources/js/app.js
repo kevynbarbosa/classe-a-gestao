@@ -35,12 +35,12 @@ const CustomTheme = definePreset(Aura, {
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
     resolve: (name) => {
-        return resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob("./Pages/**/*.vue"));
+        // return resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob("./Pages/**/*.vue"));
 
-        // const pages = import.meta.glob("./Pages/**/*.vue", { eager: true });
-        // let page = pages[`./Pages/${name}.vue`];
-        // page.default.layout = page.default.layout || DefaultLayout;
-        // return page;
+        const pages = import.meta.glob("./Pages/**/*.vue", { eager: true });
+        let page = pages[`./Pages/${name}.vue`];
+        page.default.layout = page.default.layout || DefaultLayout;
+        return page;
     },
     setup({ el, App, props, plugin }) {
         return createApp({ render: () => h(App, props) })
