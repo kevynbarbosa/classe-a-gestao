@@ -15,3 +15,28 @@
 .surface-card {
     @apply dark:bg-surface-700 bg-surface-50;
 }
+
+.card {
+    background: var(--p-surface-0);
+    border: 1px solid var(--p-surface-300);
+    padding: 2rem;
+    box-shadow: var(--card-shadow);
+    /* border-radius: $borderRadius; */
+}
+
+/* Classes para alinhas colunas da Data Tabel do primevue */
+td.column-center {
+    text-align: center !important;
+}
+
+.column-center > div.p-datatable-column-header-content {
+    justify-content: center !important;
+}
+
+td.column-right {
+    text-align: right !important;
+}
+
+.column-right > div.p-datatable-column-header-content {
+    justify-content: right !important;
+}
