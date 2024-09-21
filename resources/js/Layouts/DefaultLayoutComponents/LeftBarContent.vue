@@ -4,13 +4,20 @@
         <img class="my-4 h-12 w-auto m-auto" src="/assets/logo-with-text.png" alt="Logo" />
 
         <!-- Menu -->
-        <NavTitle label="Menu titulo" icon="mdi mdi-white-balance-sunny">
+        <NavTitle label="Menu">
             <!-- Item navegavel (rota) -->
             <NavLink
-                icon="mdi mdi-white-balance-sunny"
+                icon="mdi mdi-view-dashboard"
                 label="Dashboard"
                 :href="route('dashboard')"
                 :active="route().current('dashboard')"
+            />
+
+            <NavLink
+                icon="mdi mdi-account-music"
+                label="Artistas"
+                :href="route('artistas.index')"
+                :active="route().current('artistas')"
             />
 
             <NavSubmenu label="Submenu 1" icon="mdi mdi-view-list">
@@ -37,32 +44,9 @@
 import NavLink from "@/Components/LeftMenu/NavLink.vue";
 import NavSubmenu from "@/Components/LeftMenu/NavSubmenu.vue";
 import NavTitle from "@/Components/LeftMenu/NavTitle.vue";
-import { onMounted, ref } from "vue";
+import { onMounted } from "vue";
 
 const props = defineProps([]);
-
-const items = ref([
-    {
-        icon: "",
-        route: "",
-        label: "Item 1",
-    },
-    {
-        icon: "",
-        route: "",
-        label: "Item 2",
-    },
-    {
-        icon: "",
-        route: "",
-        label: "Item 3",
-    },
-    {
-        icon: "",
-        route: "",
-        label: "Item 4",
-    },
-]);
 
 onMounted(() => {
     // Mounted

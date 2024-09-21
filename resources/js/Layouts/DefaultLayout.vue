@@ -50,7 +50,7 @@
         <Toast />
 
         <!-- Main -->
-        <main class="w-full flex-1 main-content">
+        <main class="w-full flex-1 main-content p-4">
             <slot />
         </main>
     </div>
