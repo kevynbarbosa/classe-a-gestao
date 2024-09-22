@@ -19,6 +19,13 @@ class ArtistaController extends Controller
         return Inertia::render('Artista/Form');
     }
 
+    public function store(Request $request)
+    {
+        $post = new Artista($request->all());
+        $post->save();
+        return redirect()->route('artistas.index');
+    }
+
     public function update(Artista $artista)
     {
         return Inertia::render('Artista/Form', ['artista' => $artista, 'updating' => true]);

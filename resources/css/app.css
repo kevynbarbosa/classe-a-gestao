@@ -17,11 +17,7 @@
 }
 
 .card {
-    background: var(--p-surface-0);
-    border: 1px solid var(--p-surface-300);
-    padding: 2rem;
-    box-shadow: var(--card-shadow);
-    /* border-radius: $borderRadius; */
+    @apply dark:bg-surface-700 bg-surface-50 rounded-lg p-4;
 }
 
 /* Classes para alinhas colunas da Data Tabel do primevue */

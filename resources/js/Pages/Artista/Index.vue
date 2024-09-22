@@ -5,7 +5,7 @@
 
     <div class="card">
         <TituloCard titulo="Artistas">
-            <Button label="Novo artista" icon="mdi mdi-plus"></Button>
+            <Button label="Novo artista" icon="mdi mdi-plus" @click="novoArtista"></Button>
         </TituloCard>
 
         <DataTable :value="artistas" paginator :rows="5" :rowsPerPageOptions="[2, 5, 10, 20, 50]">
@@ -34,9 +34,13 @@
 
 <script setup>
 import TituloCard from "@/Components/TituloCard.vue";
-import { Head } from "@inertiajs/vue3";
+import { Head, router } from "@inertiajs/vue3";
 
 defineProps({ artistas: Array });
+
+function novoArtista() {
+    router.visit("/artistas/create");
+}
 
 // Seção Menu
 const menu = ref();
