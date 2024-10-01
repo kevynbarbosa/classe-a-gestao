@@ -8,19 +8,7 @@
             <Button label="Novo artista" icon="mdi mdi-plus" @click="novoArtista"></Button>
         </TituloCard>
 
-        <DataTable
-            :value="artistas.data"
-            paginator
-            :totalRecords="artistas.meta.total"
-            lazy
-            :first="artistas.meta.from"
-            :rows="artistas.meta.per_page"
-            :rowsPerPageOptions="[5, 10, 20, 50]"
-            :loading="loadingTable"
-            @page="pageUpdate"
-            @sort="pageUpdate"
-            @filter="pageUpdate"
-        >
+        <DataTable :value="artistas" paginator :rows="5" :rowsPerPageOptions="[2, 5, 10, 20, 50]">
             <Column field="artista" header="Artista" sortable>
                 <template #body="{ data }">
                     <Avatar label="KB" shape="circle" />
@@ -80,29 +68,5 @@ const menuOpcoes = ref([
 function abrirMenu(event, data) {
     menu.value.toggle(event);
     eventoSelecionado.value = data;
-}
-
-function serialize(obj) {
-    var str = [];
-    for (var p in obj)
-        if (obj.hasOwnProperty(p)) {
-            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-        }
-    return str.join("&");
-}
-
-const loadingTable = ref(false);
-function pageUpdate(params) {
-    const queryObject = {
-        page: params.page + 1 || 0,
-        perPage: params.rows,
-        sortField: params.sortField,
-        sortOrder: params.sortOrder,
-    };
-
-    const queryString = serialize(queryObject);
-
-    loadingTable.value = true;
-    router.visit("/artistas?" + queryString);
 }
 </script>

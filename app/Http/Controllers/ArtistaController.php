@@ -2,16 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CommonResource;
 use App\Models\Artista;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class ArtistaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $artistas = Artista::all();
-        return Inertia::render('Artista/Index', ['artistas' => $artistas]);
+        $perPage = $request->perPage ?? 10;
+
+        $artistas = Artista::paginate($perPage);
+
+        sleep(2);
+
+        return Inertia::render('Artista/Index', ['artistas' => CommonResource::collection($artistas)]);
     }
 
     public function create()
