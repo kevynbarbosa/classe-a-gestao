@@ -6,6 +6,7 @@ use App\Http\Resources\CommonResource;
 use App\Models\Artista;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class ArtistaController extends Controller
 {
@@ -13,9 +14,18 @@ class ArtistaController extends Controller
     {
         $perPage = $request->perPage ?? 10;
 
-        $artistas = Artista::paginate($perPage);
+        // dd($request->filters);
 
-        sleep(2);
+        $artistas = QueryBuilder::for(Artista::class)
+            ->allowedFilters('nome')
+            ->allowedSorts('nome')
+            ->paginate($perPage);
+
+        // $artistas = Artista::query();
+        // if ($request->sortField) {
+        //     $order = $request->sortOrder == 1 ? 'desc' : 'asc';
+        //     $artistas->orderBy($request->sortField, $order);
+        // }
 
         return Inertia::render('Artista/Index', ['artistas' => CommonResource::collection($artistas)]);
     }
