@@ -40,12 +40,20 @@
                 v-tooltip.left="'Notificações'"
             ></Button>
         </OverlayBadge>
+
+        <Button icon="mdi mdi-logout" @click="logout" v-tooltip.left="'Sair'" rounded text outlined />
     </div>
 </template>
 
 <script setup>
+import { router } from "@inertiajs/vue3";
+
 const props = defineProps([]);
 const emits = defineEmits(["toggleSideBar", "toggleRightBar"]);
+
+function logout() {
+    router.visit("/logout", { method: "post" });
+}
 
 function setDarkMode() {
     const element = document.querySelector("html");
