@@ -17,8 +17,8 @@ class ArtistaController extends Controller
         // dd($request->filters);
 
         $artistas = QueryBuilder::for(Artista::class)
-            ->allowedFilters('nome')
-            ->allowedSorts('nome')
+            ->allowedFilters(['id', 'nome'])
+            ->allowedSorts(['id', 'nome'])
             ->paginate($perPage);
 
         // $artistas = Artista::query();

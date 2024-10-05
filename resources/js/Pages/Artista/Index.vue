@@ -8,24 +8,24 @@
             <Button label="Novo artista" icon="mdi mdi-plus" @click="novoArtista"></Button>
         </TituloCard>
 
-        <DataTable
-            :value="artistas.data"
-            paginator
-            lazy
-            v-model:filters="filters"
-            filterDisplay="row"
-            :globalFilterFields="['nome']"
-            :rowsPerPageOptions="[5, 10, 20, 50]"
-            :loading="loadingTable"
-            :totalRecords="artistas.meta.total"
-            :first="artistas.meta.from"
-            :rows="artistas.meta.per_page"
-            :sort-field="route().queryParams.sort?.replace('-', '')"
-            :sort-order="sortOrder"
-            @page="pageUpdate"
-            @sort="pageUpdate"
-            @filter="pageUpdate"
-        >
+        <WrapDataTable :resourceObject="artistas" v-model:filters="filters">
+            <template #paginatorend>
+                <Button type="button" icon="mdi mdi-abacus" text />
+            </template>
+
+            <Column field="id" header="ID" sortable :showFilterMenu="false">
+                <template #filter="{ filterModel, filterCallback }">
+                    <InputText
+                        v-model="filterModel.value"
+                        type="text"
+                        @change="filterCallback()"
+                        placeholder="Pesquisar por ID"
+                    />
+                </template>
+
+                <template #body="{ data }">#{{ data.id }}</template>
+            </Column>
+
             <Column field="nome" header="Artista" sortable :showFilterMenu="false">
                 <template #filter="{ filterModel, filterCallback }">
                     <InputText
@@ -42,7 +42,7 @@
                 </template>
             </Column>
 
-            <Column field="actions" header="" class="column-right">
+            <Column field="actions" header="Açoes" class="column-right">
                 <template #body="{ data }">
                     <Button
                         icon="mdi mdi-dots-vertical"
@@ -54,12 +54,14 @@
                     />
                 </template>
             </Column>
-        </DataTable>
+        </WrapDataTable>
     </div>
 </template>
 
 <script setup>
+import WrapDataTable from "@/Components/DataTable/WrapDataTable.vue";
 import TituloCard from "@/Components/TituloCard.vue";
+import { useTableMenu } from "@/Composables/useTableMenu";
 import { Head, router } from "@inertiajs/vue3";
 
 defineProps({ artistas: Object });
@@ -70,9 +72,15 @@ function novoArtista() {
     router.visit("/artistas/create");
 }
 
+const menu = useTableMenu();
+
 // Seção Menu
 const menu = ref();
 const eventoSelecionado = ref();
+function abrirMenu(event, data) {
+    menu.value.toggle(event);
+    eventoSelecionado.value = data;
+}
 const menuOpcoes = ref([
     {
         label: "Ações",
@@ -93,37 +101,8 @@ const menuOpcoes = ref([
     },
 ]);
 
-function abrirMenu(event, data) {
-    menu.value.toggle(event);
-    eventoSelecionado.value = data;
-}
-
-function serialize(obj) {
-    var str = [];
-    for (var p in obj)
-        if (obj.hasOwnProperty(p)) {
-            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-        }
-    return str.join("&");
-}
-
-const loadingTable = ref(false);
 const filters = ref({
-    nome: { value: null },
+    id: { value: route().queryParams.filter?.id ?? null },
+    nome: { value: route().queryParams.filter?.nome ?? null },
 });
-function pageUpdate(params) {
-    console.log(params);
-    const sortOrderPrefix = params.sortOrder == -1 ? "-" : "";
-    const queryObject = {
-        page: params.page + 1 || 0,
-        perPage: params.rows,
-        sort: sortOrderPrefix + params.sortField,
-        // filters: filters,
-    };
-
-    const queryString = serialize(queryObject);
-
-    loadingTable.value = true;
-    router.visit("/artistas?" + queryString);
-}
 </script>
