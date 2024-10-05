@@ -66,8 +66,6 @@ import { Head, router } from "@inertiajs/vue3";
 
 defineProps({ artistas: Object });
 
-const sortOrder = route().queryParams.sort?.substring(0, 1) == "-" ? -1 : 1;
-
 const filters = ref({
     id: { value: route().queryParams.filter?.id ?? null },
     nome: { value: route().queryParams.filter?.nome ?? null },
@@ -81,25 +79,14 @@ const menuOpcoes = ref([
         items: [
             {
                 label: "Editar",
-                icon: "pi pi-file-edit",
+                icon: "mdi mdi-file-edit",
                 command: () => {
                     router.visit(`/artistas/${item_selecionado.value.id}/edit`);
-                    // console.log(item_selecionado.value.nome);
-                },
-            },
-
-            {
-                label: "Anexar documento",
-                icon: "pi pi-paperclip",
-                command: () => {
-                    // abrirAnexarDocumentoDialog();
                 },
             },
         ],
     },
 ]);
 
-function novoArtista() {
-    router.visit("/artistas/create");
-}
+const novoArtista = () => router.visit("/artistas/create");
 </script>
