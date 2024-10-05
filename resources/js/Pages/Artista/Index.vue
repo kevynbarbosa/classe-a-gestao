@@ -68,19 +68,13 @@ defineProps({ artistas: Object });
 
 const sortOrder = route().queryParams.sort?.substring(0, 1) == "-" ? -1 : 1;
 
-function novoArtista() {
-    router.visit("/artistas/create");
-}
-
-const menu = useTableMenu();
+const filters = ref({
+    id: { value: route().queryParams.filter?.id ?? null },
+    nome: { value: route().queryParams.filter?.nome ?? null },
+});
 
 // Seção Menu
-const menu = ref();
-const eventoSelecionado = ref();
-function abrirMenu(event, data) {
-    menu.value.toggle(event);
-    eventoSelecionado.value = data;
-}
+const { menu, item_selecionado, abrirMenu } = useTableMenu();
 const menuOpcoes = ref([
     {
         label: "Ações",
@@ -88,21 +82,24 @@ const menuOpcoes = ref([
             {
                 label: "Editar",
                 icon: "pi pi-file-edit",
+                command: () => {
+                    router.visit(`/artistas/${item_selecionado.value.id}/edit`);
+                    // console.log(item_selecionado.value.nome);
+                },
             },
 
             {
                 label: "Anexar documento",
                 icon: "pi pi-paperclip",
                 command: () => {
-                    abrirAnexarDocumentoDialog();
+                    // abrirAnexarDocumentoDialog();
                 },
             },
         ],
     },
 ]);
 
-const filters = ref({
-    id: { value: route().queryParams.filter?.id ?? null },
-    nome: { value: route().queryParams.filter?.nome ?? null },
-});
+function novoArtista() {
+    router.visit("/artistas/create");
+}
 </script>

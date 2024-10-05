@@ -17,15 +17,15 @@
 import TituloCard from "@/Components/TituloCard.vue";
 import { Head, useForm } from "@inertiajs/vue3";
 
-const props = defineProps({ artistas: Array, updating: Boolean });
+const props = defineProps({ artista: Object, updating: Boolean });
 
 const titulo = props.updating ? "Editar artista" : "Novo artista";
 
 const form = useForm({
-    nome: "",
+    nome: props.artista?.nome ?? "",
 });
 
-const submit = () => {
-    form.post("/artistas");
-};
+const submit = () => (props.updating ? updateRecord() : addRecord());
+const addRecord = () => form.post("/artistas");
+const updateRecord = () => form.put(`/artistas/${props.artista.id}`);
 </script>

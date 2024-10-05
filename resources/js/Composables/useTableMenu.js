@@ -4,12 +4,12 @@ import { ref } from "vue";
 export function useTableMenu() {
     const menu = ref();
 
-    const linhaSelecionado = ref();
+    const item_selecionado = ref();
 
     function abrirMenu(event, data) {
         menu.value.toggle(event);
-        linhaSelecionado.value = data;
+        item_selecionado.value = data;
     }
 
-    return { menu, abrirMenu };
+    return { menu, item_selecionado, abrirMenu };
 }
