@@ -19,7 +19,6 @@
     </div>
 
     <div class="flex gap-2">
-        <!-- white-balance-sunny -->
         <Button
             :icon="isDarkMode ? 'mdi mdi-white-balance-sunny' : 'mdi mdi-weather-night'"
             @click="toggleDarkMode"
