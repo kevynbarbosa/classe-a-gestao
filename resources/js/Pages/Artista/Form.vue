@@ -8,7 +8,10 @@
                 <InputText type="text" v-model="form.nome" />
             </div>
 
-            <Button class="mt-4" label="Salvar" type="submit" icon="mdi mdi-content-save" />
+            <div class="mt-4 flex gap-2">
+                <Button label="Voltar" severity="secondary" icon="mdi mdi-keyboard-backspace" @click="back" />
+                <Button label="Salvar" type="submit" icon="mdi mdi-content-save" />
+            </div>
         </form>
     </div>
 </template>
@@ -25,6 +28,7 @@ const form = useForm({
     nome: props.artista?.nome ?? "",
 });
 
+const back = () => window.history.back();
 const submit = () => (props.updating ? updateRecord() : addRecord());
 const addRecord = () => form.post("/artistas");
 const updateRecord = () => form.put(`/artistas/${props.artista.id}`);
