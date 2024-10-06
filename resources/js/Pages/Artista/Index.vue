@@ -3,6 +3,12 @@
 
     <Menu ref="menu" id="overlay_menu" :model="menuOpcoes" :popup="true" @hide="eventoSelecionado = null" />
 
+    <ModalLink href="/artistas/create" method="get">Create User</ModalLink>
+
+    <ModalLink href="/artistas/create" #default="{ loading }">
+        {{ loading ? "Loading..." : "Open Modal" }}
+    </ModalLink>
+
     <div class="card">
         <TituloCard titulo="Artistas">
             <Button label="Novo artista" icon="mdi mdi-plus" @click="novoArtista"></Button>
@@ -63,6 +69,7 @@ import WrapDataTable from "@/Components/DataTable/WrapDataTable.vue";
 import TituloCard from "@/Components/TituloCard.vue";
 import { useTableMenu } from "@/Composables/useTableMenu";
 import { Head, router } from "@inertiajs/vue3";
+import { ModalLink } from "@inertiaui/modal-vue";
 
 defineProps({ artistas: Object });
 

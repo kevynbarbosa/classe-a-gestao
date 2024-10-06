@@ -31,4 +31,7 @@ export default defineConfig({
             resolvers: [PrimeVueResolver()],
         }),
     ],
+    resolve: {
+        dedupe: ["@inertiajs/vue3"],
+    },
 });

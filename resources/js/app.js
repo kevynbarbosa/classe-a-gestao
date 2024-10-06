@@ -5,6 +5,8 @@ import { createInertiaApp } from "@inertiajs/vue3";
 import { createApp, h } from "vue";
 import { ZiggyVue } from "../../vendor/tightenco/ziggy";
 
+import { ModalRoot } from "@inertiaui/modal-vue";
+
 import { definePreset } from "@primevue/themes";
 import Aura from "@primevue/themes/aura";
 import PrimeVue from "primevue/config";
@@ -44,7 +46,7 @@ createInertiaApp({
         return page;
     },
     setup({ el, App, props, plugin }) {
-        return createApp({ render: () => h(App, props) })
+        return createApp({ render: () => h(ModalRoot, () => h(App, props)) })
             .use(plugin)
             .use(ZiggyVue)
             .use(PrimeVue, {
