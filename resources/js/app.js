@@ -12,6 +12,7 @@ import Aura from "@primevue/themes/aura";
 import PrimeVue from "primevue/config";
 import DialogService from "primevue/dialogservice";
 import ToastService from "primevue/toastservice";
+import ptBrLocale from "./Config/pt-br-locale.json";
 import DefaultLayout from "./Layouts/DefaultLayout.vue";
 
 const appName = import.meta.env.VITE_APP_NAME || "Laravel";
@@ -48,6 +49,7 @@ createInertiaApp({
             .use(plugin)
             .use(ZiggyVue)
             .use(PrimeVue, {
+                locale: ptBrLocale,
                 theme: {
                     preset: CustomTheme,
                     options: {
