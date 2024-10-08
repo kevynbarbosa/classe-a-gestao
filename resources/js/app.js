@@ -17,7 +17,7 @@ import DefaultLayout from "./Layouts/DefaultLayout.vue";
 const appName = import.meta.env.VITE_APP_NAME || "Laravel";
 
 const CustomTheme = definePreset(Aura, {
-    //Your customizations, see the following sections for examples
+    // Your customizations, see the following sections for examples
     semantic: {
         primary: {
             50: "{indigo.50}",
@@ -38,8 +38,6 @@ const CustomTheme = definePreset(Aura, {
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
     resolve: (name) => {
-        // return resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob("./Pages/**/*.vue"));
-
         const pages = import.meta.glob("./Pages/**/*.vue", { eager: true });
         let page = pages[`./Pages/${name}.vue`];
         page.default.layout = page.default.layout || DefaultLayout;
