@@ -33,7 +33,7 @@ class ArtistaController extends Controller
             'nome' => ['required', 'max:50'],
         ]));
 
-        return redirect()->route('artistas.index');
+        return redirect()->back();
     }
 
     public function edit(Artista $artista)
@@ -47,7 +47,7 @@ class ArtistaController extends Controller
             'nome' => ['required', 'max:50'],
         ]));
 
-        return redirect()->route('artistas.index');
+        return redirect()->back();
     }
 
     public function delete() {}

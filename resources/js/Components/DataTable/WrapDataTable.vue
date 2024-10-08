@@ -9,6 +9,7 @@
         :rows="resourceObject?.meta?.per_page"
         :sort-field="sortField"
         :sort-order="sortOrder"
+        :loading="loading"
         paginator
         lazy
         @page="pageUpdate"
@@ -27,9 +28,6 @@
 </template>
 
 <script setup>
-import { useTableMenu } from "@/Composables/useTableMenu";
-import { router } from "@inertiajs/vue3";
-
 defineProps({
     resourceObject: {
         type: Object,
@@ -49,15 +47,12 @@ defineProps({
     },
 });
 
-const sortField = route().queryParams.sort?.replace("-", "");
-const sortOrder = route().queryParams.sort?.substring(0, 1) == "-" ? -1 : 1;
+const emits = defineEmits(["pageUpdate"]);
 
 const filters = defineModel("filters");
-// const filters = ref({
-//     id: { value: route().queryParams.filter?.id ?? null },
-//     nome: { value: route().queryParams.filter?.nome ?? null },
-// });
-const loadingTable = ref(false);
+
+const sortField = route().queryParams.sort?.replace("-", "");
+const sortOrder = route().queryParams.sort?.substring(0, 1) == "-" ? -1 : 1;
 
 function serialize(obj) {
     var str = [];
@@ -100,7 +95,6 @@ function pageUpdate(params) {
         filter = filterQueryString(params.filters);
     }
 
-    loadingTable.value = true;
-    router.visit("/artistas?" + queryString + "&" + filter);
+    emits("pageUpdate", queryString + "&" + filter);
 }
 </script>

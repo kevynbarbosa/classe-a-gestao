@@ -9,11 +9,7 @@
                 <Button label="Novo artista" icon="mdi mdi-plus" @click="novoArtista" :loading="loadingModal"></Button>
             </TituloCard>
 
-            <WrapDataTable :resourceObject="artistas" v-model:filters="filters">
-                <template #paginatorend>
-                    <Button type="button" icon="mdi mdi-abacus" text />
-                </template>
-
+            <WrapDataTable :resourceObject="artistas" v-model:filters="filters" @pageUpdate="pageUpdate">
                 <Column field="id" header="ID" sortable :showFilterMenu="false">
                     <template #filter="{ filterModel, filterCallback }">
                         <InputText
@@ -65,7 +61,7 @@ import WrapDataTable from "@/Components/DataTable/WrapDataTable.vue";
 import TituloCard from "@/Components/TituloCard.vue";
 import { useTableMenu } from "@/Composables/useTableMenu";
 import { iniciaisNome } from "@/Utils/stringUtils";
-import { Head } from "@inertiajs/vue3";
+import { Head, router } from "@inertiajs/vue3";
 import { visitModal } from "@inertiaui/modal-vue";
 
 defineProps({ artistas: Object });
@@ -97,5 +93,9 @@ const novoArtista = async () => {
     loadingModal.value = true;
     await visitModal("/artistas/create");
     loadingModal.value = false;
+};
+
+const pageUpdate = (queryString) => {
+    router.visit("/artistas?" + queryString);
 };
 </script>
