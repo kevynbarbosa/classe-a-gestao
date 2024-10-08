@@ -96,6 +96,6 @@ const novoArtista = async () => {
 };
 
 const pageUpdate = (queryString) => {
-    router.visit("/artistas?" + queryString);
+    router.visit("/artistas?" + queryString, { preserveScroll: true });
 };
 </script>
