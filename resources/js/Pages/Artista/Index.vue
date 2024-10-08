@@ -3,8 +3,6 @@
 
     <Menu ref="menu" id="overlay_menu" :model="menuOpcoes" :popup="true" @hide="eventoSelecionado = null" />
 
-    <ModalLink href="/artistas/create">Teste de form</ModalLink>
-
     <div class="card">
         <TituloCard titulo="Artistas">
             <Button label="Novo artista" icon="mdi mdi-plus" @click="novoArtista" :loading="loadingModal"></Button>
@@ -65,7 +63,7 @@ import WrapDataTable from "@/Components/DataTable/WrapDataTable.vue";
 import TituloCard from "@/Components/TituloCard.vue";
 import { useTableMenu } from "@/Composables/useTableMenu";
 import { Head } from "@inertiajs/vue3";
-import { ModalLink, visitModal } from "@inertiaui/modal-vue";
+import { visitModal } from "@inertiaui/modal-vue";
 
 defineProps({ artistas: Object });
 

@@ -6,6 +6,20 @@
 
         <form @submit.prevent="submit">
             <div>
+                <div>
+                    <FloatLabel variant="in">
+                        <InputText id="in_label" v-model="form.nome" variant="filled" />
+                        <label for="in_label">In Label</label>
+                    </FloatLabel>
+                </div>
+
+                <div>
+                    <IftaLabel>
+                        <InputText id="username" v-model="form.nome" variant="filled" />
+                        <label for="username">Username</label>
+                    </IftaLabel>
+                </div>
+
                 <InputText class="w-full" type="text" v-model="form.nome" :invalid="form.errors.nome" />
                 <div class="text-red-500" v-if="form.errors.nome">{{ form.errors.nome }}</div>
             </div>
