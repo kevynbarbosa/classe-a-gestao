@@ -3,15 +3,11 @@
 
     <Menu ref="menu" id="overlay_menu" :model="menuOpcoes" :popup="true" @hide="eventoSelecionado = null" />
 
-    <ModalLink href="/artistas/create" method="get">Create User</ModalLink>
-
-    <ModalLink href="/artistas/create" #default="{ loading }">
-        {{ loading ? "Loading..." : "Open Modal" }}
-    </ModalLink>
+    <ModalLink href="/artistas/create">Teste de form</ModalLink>
 
     <div class="card">
         <TituloCard titulo="Artistas">
-            <Button label="Novo artista" icon="mdi mdi-plus" @click="novoArtista"></Button>
+            <Button label="Novo artista" icon="mdi mdi-plus" @click="novoArtista" :loading="loadingModal"></Button>
         </TituloCard>
 
         <WrapDataTable :resourceObject="artistas" v-model:filters="filters">
@@ -68,8 +64,8 @@
 import WrapDataTable from "@/Components/DataTable/WrapDataTable.vue";
 import TituloCard from "@/Components/TituloCard.vue";
 import { useTableMenu } from "@/Composables/useTableMenu";
-import { Head, router } from "@inertiajs/vue3";
-import { ModalLink } from "@inertiaui/modal-vue";
+import { Head } from "@inertiajs/vue3";
+import { ModalLink, visitModal } from "@inertiaui/modal-vue";
 
 defineProps({ artistas: Object });
 
@@ -88,12 +84,19 @@ const menuOpcoes = ref([
                 label: "Editar",
                 icon: "mdi mdi-file-edit",
                 command: () => {
-                    router.visit(`/artistas/${item_selecionado.value.id}/edit`);
+                    // router.visit(`/artistas/${item_selecionado.value.id}/edit`);
+                    visitModal(`/artistas/${item_selecionado.value.id}/edit`);
                 },
             },
         ],
     },
 ]);
 
-const novoArtista = () => router.visit("/artistas/create");
+// const novoArtista = () => router.visit("/artistas/create");
+const loadingModal = ref(false);
+const novoArtista = async () => {
+    loadingModal.value = true;
+    await visitModal("/artistas/create");
+    loadingModal.value = false;
+};
 </script>

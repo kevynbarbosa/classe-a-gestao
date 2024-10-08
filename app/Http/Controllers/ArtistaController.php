@@ -14,18 +14,10 @@ class ArtistaController extends Controller
     {
         $perPage = $request->perPage ?? 10;
 
-        // dd($request->filters);
-
         $artistas = QueryBuilder::for(Artista::class)
             ->allowedFilters(['id', 'nome'])
             ->allowedSorts(['id', 'nome'])
             ->paginate($perPage);
-
-        // $artistas = Artista::query();
-        // if ($request->sortField) {
-        //     $order = $request->sortOrder == 1 ? 'desc' : 'asc';
-        //     $artistas->orderBy($request->sortField, $order);
-        // }
 
         return Inertia::render('Artista/Index', ['artistas' => CommonResource::collection($artistas)]);
     }
@@ -37,8 +29,10 @@ class ArtistaController extends Controller
 
     public function store(Request $request)
     {
-        $artista = new Artista($request->all());
-        $artista->save();
+        Artista::create($request->validate([
+            'nome' => ['required', 'max:50'],
+        ]));
+
         return redirect()->route('artistas.index');
     }
 
@@ -49,7 +43,10 @@ class ArtistaController extends Controller
 
     public function update(Request $request, Artista $artista)
     {
-        $artista->update($request->all());
+        $artista->update($request->validate([
+            'nome' => ['required', 'max:50'],
+        ]));
+
         return redirect()->route('artistas.index');
     }
 
