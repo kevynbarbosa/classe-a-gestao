@@ -15,8 +15,8 @@
             <NavLink
                 icon="mdi mdi-calendar-blank"
                 label="Calendário"
-                :href="route('artistas.index')"
-                :active="route().current('artistas')"
+                :href="route('calendario.index')"
+                :active="route().current('calendario')"
             />
 
             <NavLink

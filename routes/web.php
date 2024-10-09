@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArtistaController;
+use App\Http\Controllers\CalendarioController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\SimulateRealNetwork;
 use Illuminate\Foundation\Application;
@@ -35,6 +36,7 @@ Route::middleware(['auth', SimulateRealNetwork::class])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::resource('artistas', ArtistaController::class);
+    Route::resource('calendario', CalendarioController::class);
 });
 
 require __DIR__ . '/auth.php';
