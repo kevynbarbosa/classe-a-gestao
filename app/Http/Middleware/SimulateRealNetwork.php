@@ -15,7 +15,7 @@ class SimulateRealNetwork
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $sleep_time = rand(0, 50) / 10; # 5seg max de espera
+        $sleep_time = rand(0, 30) / 10; # 3seg max de espera
         if ($sleep_time < 1) usleep($sleep_time);
         else sleep($sleep_time);
 
