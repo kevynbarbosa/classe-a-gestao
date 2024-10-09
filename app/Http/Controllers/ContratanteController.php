@@ -2,63 +2,59 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CommonResource;
 use App\Models\Contratante;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class ContratanteController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        return Inertia::render('Contratantes/Index');
+        $perPage = $request->perPage ?? 10;
+
+        $contratante = QueryBuilder::for(Contratante::class)
+            ->allowedFilters(['id', /*'other_fields...'*/])
+            ->allowedSorts(['id', /*'other_fields...'*/])
+            ->paginate($perPage);
+
+        return Inertia::render('Contratante/Index', ['contratante' => CommonResource::collection($contratante)]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        return Inertia::render('Contratantes/Form');
+        return Inertia::render('Contratante/Form');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        Contratante::create($request->validate([
+            // 'field_1' => ['required'],
+        ]));
+
+        return redirect()->back();
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Contratante $contratante)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Contratante $contratante)
     {
-        return Inertia::render('Contratantes/Form');
+        return Inertia::render('Contratante/Form');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Contratante $contratante)
     {
-        //
+        $contratante->update($request->validate([
+            // 'field_1' => ['required'],
+        ]));
+
+        return redirect()->back();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Contratante $contratante)
     {
         //
