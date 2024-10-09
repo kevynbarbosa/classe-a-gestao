@@ -9,8 +9,8 @@
                 <FloatLabel variant="in">
                     <InputText id="nome" class="w-full" size="small" v-model="form.nome" variant="filled" />
                     <label for="nome">Nome do artista</label>
-                    <div class="text-red-500" v-if="form.errors.nome">{{ form.errors.nome }}</div>
                 </FloatLabel>
+                <div class="text-red-500" v-if="form.errors.nome">{{ form.errors.nome }}</div>
             </div>
 
             <div class="mt-4 flex gap-2 justify-end">

@@ -48,6 +48,7 @@
                             aria-haspopup="true"
                             aria-controls="overlay_menu"
                             @click="abrirMenu($event, data)"
+                            :loading="loadingMenu"
                         />
                     </template>
                 </Column>
@@ -72,6 +73,7 @@ const filters = ref({
 });
 
 // Seção Menu
+const loadingMenu = ref(false);
 const { menu, item_selecionado, abrirMenu } = useTableMenu();
 const menuOpcoes = ref([
     {
@@ -80,8 +82,10 @@ const menuOpcoes = ref([
             {
                 label: "Editar",
                 icon: "mdi mdi-file-edit",
-                command: () => {
-                    visitModal(`/artistas/${item_selecionado.value.id}/edit`);
+                command: async () => {
+                    loadingMenu.value = true;
+                    await visitModal(`/artistas/${item_selecionado.value.id}/edit`);
+                    loadingMenu.value = false;
                 },
             },
         ],
