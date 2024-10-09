@@ -22,8 +22,8 @@
             <NavLink
                 icon="mdi mdi-microphone-variant"
                 label="Eventos"
-                :href="route('artistas.index')"
-                :active="route().current('artistas')"
+                :href="route('eventos.index')"
+                :active="route().current('eventos')"
             />
 
             <NavLink
@@ -43,15 +43,15 @@
             <NavLink
                 icon="mdi mdi-account-star"
                 label="Contratantes"
-                :href="route('artistas.index')"
-                :active="route().current('artistas')"
+                :href="route('contratantes.index')"
+                :active="route().current('contratantes')"
             />
 
             <NavLink
                 icon="mdi mdi-account-tie"
                 label="Vendedores"
-                :href="route('artistas.index')"
-                :active="route().current('artistas')"
+                :href="route('vendedores.index')"
+                :active="route().current('vendedores')"
             />
 
             <!-- <NavSubmenu label="Submenu 1" icon="mdi mdi-view-list">

@@ -2,7 +2,10 @@
 
 use App\Http\Controllers\ArtistaController;
 use App\Http\Controllers\CalendarioController;
+use App\Http\Controllers\ContratanteController;
+use App\Http\Controllers\EventoController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\VendedorController;
 use App\Http\Middleware\SimulateRealNetwork;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -37,6 +40,9 @@ Route::middleware(['auth', SimulateRealNetwork::class])->group(function () {
 
     Route::resource('artistas', ArtistaController::class);
     Route::resource('calendario', CalendarioController::class);
+    Route::resource('eventos', EventoController::class);
+    Route::resource('vendedores', VendedorController::class);
+    Route::resource('contratantes', ContratanteController::class);
 });
 
 require __DIR__ . '/auth.php';
