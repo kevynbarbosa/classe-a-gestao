@@ -1,0 +1,61 @@
+<?php
+
+namespace {{ namespace }};
+
+use App\Http\Resources\CommonResource;
+use {{ namespacedModel }};
+use {{ rootNamespace }}Http\Controllers\Controller;
+use {{ namespacedRequests }}
+
+class {{ class }} extends Controller
+{
+    public function index()
+    {
+        $perPage = $request->perPage ?? 10;
+
+        ${{ modelVariable }} = QueryBuilder::for({{ model }}::class)
+            ->allowedFilters(['id', /*'other_fields...'*/])
+            ->allowedSorts(['id', /*'other_fields...'*/])
+            ->paginate($perPage);
+
+        return Inertia::render('{{ model }}/Index', ['{{ modelVariable }}' => CommonResource::collection(${{ modelVariable }})]);
+    }
+
+    public function create()
+    {
+        return Inertia::render('{{ model }}/Form');
+    }
+
+    public function store({{ storeRequest }} $request)
+    {
+        {{ model }}::create($request->validate([
+            /* validation rules */
+        ]));
+
+        return redirect()->back();
+    }
+
+    public function show({{ model }} ${{ modelVariable }})
+    {
+        //
+    }
+
+    public function edit({{ model }} ${{ modelVariable }})
+    {
+        return Inertia::render('{{ model }}/Form');
+    }
+
+    public function update({{ updateRequest }} $request, {{ model }} ${{ modelVariable }})
+    {
+        ${{ modelVariable }}->update($request->validate([
+            /* validation rules */
+        ]));
+
+        return redirect()->back();
+    }
+
+    public function destroy({{ model }} ${{ modelVariable }})
+    {
+        //
+    }
+}
