@@ -15,8 +15,8 @@ class VendedorController extends Controller
         $perPage = $request->perPage ?? 10;
 
         $vendedores = QueryBuilder::for(Vendedor::class)
-            ->allowedFilters(['id', /*'other_fields...'*/])
-            ->allowedSorts(['id', /*'other_fields...'*/])
+            ->allowedFilters(['id', 'cpf', 'rg', 'nome_completo'])
+            ->allowedSorts(['id', 'cpf', 'rg', 'nome_completo', 'data_nascimento'])
             ->paginate($perPage);
 
         return Inertia::render('Vendedor/Index', ['vendedores' => CommonResource::collection($vendedores)]);
