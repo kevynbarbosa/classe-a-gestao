@@ -47,7 +47,7 @@ class VendedorController extends Controller
 
     public function edit(Vendedor $vendedor)
     {
-        return Inertia::render('Vendedor/Form');
+        return Inertia::render('Vendedor/Form', ['vendedor' => $vendedor, 'updating' => true]);
     }
 
     public function update(Request $request, Vendedor $vendedor)
@@ -57,7 +57,7 @@ class VendedorController extends Controller
             'rg' => ['required'],
             'nome_completo' => ['required'],
             'data_nascimento' => ['required'],
-            'foto_path' => ['required'],
+            'foto_path' => ['nullable'],
         ]));
 
         return redirect()->back();

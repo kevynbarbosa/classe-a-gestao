@@ -44,7 +44,7 @@ class {{ class }} extends Controller
 
     public function edit({{ model }} ${{ modelVariable }})
     {
-        return Inertia::render('{{ model }}/Form');
+        return Inertia::render('{{ model }}/Form', ['{{ model }}' => ${{ model }}, 'updating' => true]);
     }
 
     public function update({{ updateRequest }} $request, {{ model }} ${{ modelVariable }})

@@ -80,7 +80,7 @@
                             severity="secondary"
                             aria-haspopup="true"
                             aria-controls="overlay_menu"
-                            @click="abrirMenu(event, data)"
+                            @click="abrirMenu($event, data)"
                             :loading="loadingMenu"
                         />
                     </template>

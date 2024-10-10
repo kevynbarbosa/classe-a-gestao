@@ -41,7 +41,9 @@ Route::middleware(['auth', SimulateRealNetwork::class])->group(function () {
     Route::resource('artistas', ArtistaController::class);
     Route::resource('calendario', CalendarioController::class);
     Route::resource('eventos', EventoController::class);
-    Route::resource('vendedores', VendedorController::class);
+    Route::resource('vendedores', VendedorController::class)->parameters([
+        'vendedores' => 'vendedor'
+    ]);
     Route::resource('contratantes', ContratanteController::class);
 });
 

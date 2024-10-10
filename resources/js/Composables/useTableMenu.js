@@ -2,7 +2,7 @@
 import { ref } from "vue";
 
 export function useTableMenu() {
-    const menu = ref();
+    const menu = ref(null);
 
     const item_selecionado = ref();
 
