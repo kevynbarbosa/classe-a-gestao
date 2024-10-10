@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('rg');
             $table->string('nome_completo');
             $table->date('data_nascimento');
-            $table->string('foto_path');
+            $table->string('foto_path')->nullable();
             $table->timestamps();
         });
     }

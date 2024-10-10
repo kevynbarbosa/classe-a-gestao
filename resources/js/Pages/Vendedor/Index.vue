@@ -28,7 +28,7 @@
                     <template #body="{ data }">#{{ data.id }}</template>
                 </Column>
 
-                <!-- <Column field="field" header="Field" sortable :showFilterMenu="false">
+                <Column field="nome_completo" header="Nome" sortable :showFilterMenu="false">
                     <template #filter="{ filterModel, filterCallback }">
                         <InputText
                             v-model="filterModel.value"
@@ -39,10 +39,38 @@
                     </template>
 
                     <template #body="{ data }">
-                        <Avatar :label="iniciaisNome(data.nome)" shape="circle" />
-                        {{ data.nome }}
+                        <Avatar :label="iniciaisNome(data.nome_completo)" shape="circle" />
+                        {{ data.nome_completo }}
                     </template>
-                </Column> -->
+                </Column>
+
+                <Column field="data_nascimento" header="Data nascimento" sortable :showFilterMenu="false">
+                    <template #body="{ data }">{{ data.data_nascimento }}</template>
+                </Column>
+
+                <Column field="cpf" header="CPF" sortable :showFilterMenu="false">
+                    <template #filter="{ filterModel, filterCallback }">
+                        <InputText
+                            v-model="filterModel.value"
+                            type="text"
+                            @change="filterCallback()"
+                            placeholder="Pesquisar por CPF"
+                        />
+                    </template>
+
+                    <template #body="{ data }">{{ data.cpf }}</template>
+                </Column>
+
+                <Column field="rg" header="RG" sortable :showFilterMenu="false">
+                    <template #filter="{ filterModel, filterCallback }">
+                        <InputText
+                            v-model="filterModel.value"
+                            type="text"
+                            @change="filterCallback()"
+                            placeholder="Pesquisar por RG"
+                        />
+                    </template>
+                </Column>
 
                 <Column field="actions" header="Ações" class="column-right">
                     <template #body="{ data }">
@@ -66,6 +94,7 @@
 import WrapDataTable from "@/Components/DataTable/WrapDataTable.vue";
 import TituloCard from "@/Components/TituloCard.vue";
 import { useTableMenu } from "@/Composables/useTableMenu";
+import { iniciaisNome } from "@/Utils/stringUtils";
 import { Head, router } from "@inertiajs/vue3";
 import { visitModal } from "@inertiaui/modal-vue";
 
@@ -73,7 +102,9 @@ defineProps({ vendedores: Object });
 
 const filters = ref({
     id: { value: route().queryParams.filter?.id ?? null },
-    nome: { value: route().queryParams.filter?.nome ?? null },
+    nome_completo: { value: route().queryParams.filter?.nome_completo ?? null },
+    cpf: { value: route().queryParams.filter?.cpf ?? null },
+    rg: { value: route().queryParams.filter?.rg ?? null },
 });
 
 // Seção Menu
@@ -88,7 +119,7 @@ const menuOpcoes = ref([
                 icon: "mdi mdi-file-edit",
                 command: async () => {
                     loadingMenu.value = true;
-                    await visitModal(`/vendedor/${item_selecionado.value.id}/edit`);
+                    await visitModal(`/vendedores/${item_selecionado.value.id}/edit`);
                     loadingMenu.value = false;
                 },
             },
