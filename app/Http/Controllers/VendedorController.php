@@ -14,12 +14,12 @@ class VendedorController extends Controller
     {
         $perPage = $request->perPage ?? 10;
 
-        $vendedor = QueryBuilder::for(Vendedor::class)
+        $vendedores = QueryBuilder::for(Vendedor::class)
             ->allowedFilters(['id', /*'other_fields...'*/])
             ->allowedSorts(['id', /*'other_fields...'*/])
             ->paginate($perPage);
 
-        return Inertia::render('Vendedor/Index', ['vendedor' => CommonResource::collection($vendedor)]);
+        return Inertia::render('Vendedor/Index', ['vendedores' => CommonResource::collection($vendedores)]);
     }
 
     public function create()
@@ -30,7 +30,11 @@ class VendedorController extends Controller
     public function store(Request $request)
     {
         Vendedor::create($request->validate([
-            // 'field_1' => ['required'],
+            'cpf' => ['required'],
+            'rg' => ['required'],
+            'nome_completo' => ['required'],
+            'data_nascimento' => ['required'],
+            'foto_path' => ['nullable'],
         ]));
 
         return redirect()->back();
@@ -49,7 +53,11 @@ class VendedorController extends Controller
     public function update(Request $request, Vendedor $vendedor)
     {
         $vendedor->update($request->validate([
-            // 'field_1' => ['required'],
+            'cpf' => ['required'],
+            'rg' => ['required'],
+            'nome_completo' => ['required'],
+            'data_nascimento' => ['required'],
+            'foto_path' => ['required'],
         ]));
 
         return redirect()->back();

@@ -10,4 +10,6 @@ class Vendedor extends Model
     use HasFactory;
 
     protected $table = 'vendedores';
+
+    protected $guarded = [];
 }
