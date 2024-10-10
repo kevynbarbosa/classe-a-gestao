@@ -11,4 +11,28 @@ function iniciaisNome(nome = "") {
     return primeira_inicial + ultima_inicial;
 }
 
-export { iniciaisNome };
+function formataCpfCnpj(value) {
+    // Remove todos os caracteres que não sejam números
+    const cleanValue = value.replace(/\D/g, "");
+
+    // Formata como CPF se o valor tiver 11 dígitos
+    if (cleanValue.length === 11) {
+        return cleanValue.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+    }
+
+    // Formata como CNPJ se o valor tiver 14 dígitos
+    if (cleanValue.length === 14) {
+        return cleanValue.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5");
+    }
+
+    // Retorna o valor original se não for nem CPF nem CNPJ
+    return value;
+}
+
+function dateLocale(date, fuso = "-3") {
+    const [ano, mes, dia] = date.split("-").map(Number);
+    const dateObj = new Date(ano, mes - 1, dia);
+    return dateObj.toLocaleDateString();
+}
+
+export { dateLocale, formataCpfCnpj, iniciaisNome };

@@ -45,10 +45,10 @@
                 </Column>
 
                 <Column field="data_nascimento" header="Data nascimento" sortable :showFilterMenu="false">
-                    <template #body="{ data }">{{ data.data_nascimento }}</template>
+                    <template #body="{ data }">{{ dateLocale(data.data_nascimento) }}</template>
                 </Column>
 
-                <Column field="cpf" header="CPF" sortable :showFilterMenu="false">
+                <Column field="cpf_cnpj" header="CPF/CNPJ" sortable :showFilterMenu="false">
                     <template #filter="{ filterModel, filterCallback }">
                         <InputText
                             v-model="filterModel.value"
@@ -58,7 +58,7 @@
                         />
                     </template>
 
-                    <template #body="{ data }">{{ data.cpf }}</template>
+                    <template #body="{ data }">{{ formataCpfCnpj(data.cpf_cnpj) }}</template>
                 </Column>
 
                 <Column field="rg" header="RG" sortable :showFilterMenu="false">
@@ -94,7 +94,7 @@
 import WrapDataTable from "@/Components/DataTable/WrapDataTable.vue";
 import TituloCard from "@/Components/TituloCard.vue";
 import { useTableMenu } from "@/Composables/useTableMenu";
-import { iniciaisNome } from "@/Utils/stringUtils";
+import { dateLocale, formataCpfCnpj, iniciaisNome } from "@/Utils/stringUtils";
 import { Head, router } from "@inertiajs/vue3";
 import { visitModal } from "@inertiaui/modal-vue";
 
@@ -103,7 +103,7 @@ defineProps({ vendedores: Object });
 const filters = ref({
     id: { value: route().queryParams.filter?.id ?? null },
     nome_completo: { value: route().queryParams.filter?.nome_completo ?? null },
-    cpf: { value: route().queryParams.filter?.cpf ?? null },
+    cpf_cnpj: { value: route().queryParams.filter?.cpf_cnpj ?? null },
     rg: { value: route().queryParams.filter?.rg ?? null },
 });
 

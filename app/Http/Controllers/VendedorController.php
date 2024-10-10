@@ -15,8 +15,8 @@ class VendedorController extends Controller
         $perPage = $request->perPage ?? 10;
 
         $vendedores = QueryBuilder::for(Vendedor::class)
-            ->allowedFilters(['id', 'cpf', 'rg', 'nome_completo'])
-            ->allowedSorts(['id', 'cpf', 'rg', 'nome_completo', 'data_nascimento'])
+            ->allowedFilters(['id', 'cpf_cnpj', 'rg', 'nome_completo'])
+            ->allowedSorts(['id', 'cpf_cnpj', 'rg', 'nome_completo', 'data_nascimento'])
             ->paginate($perPage);
 
         return Inertia::render('Vendedor/Index', ['vendedores' => CommonResource::collection($vendedores)]);
@@ -30,8 +30,9 @@ class VendedorController extends Controller
     public function store(Request $request)
     {
         Vendedor::create($request->validate([
-            'cpf' => ['required'],
-            'rg' => ['required'],
+            'tipo_pessoa' => ['required'],
+            'cpf_cnpj' => ['required'],
+            'rg' => ['nullable'],
             'nome_completo' => ['required'],
             'data_nascimento' => ['required'],
             'foto_path' => ['nullable'],
@@ -53,8 +54,9 @@ class VendedorController extends Controller
     public function update(Request $request, Vendedor $vendedor)
     {
         $vendedor->update($request->validate([
-            'cpf' => ['required'],
-            'rg' => ['required'],
+            'tipo_pessoa' => ['required'],
+            'cpf_cnpj' => ['required'],
+            'rg' => ['nullable'],
             'nome_completo' => ['required'],
             'data_nascimento' => ['required'],
             'foto_path' => ['nullable'],

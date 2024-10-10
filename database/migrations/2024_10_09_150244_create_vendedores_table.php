@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('vendedores', function (Blueprint $table) {
             $table->id();
-            $table->string('cpf');
-            $table->string('rg');
+            $table->string('tipo_pessoa');
+            $table->string('cpf_cnpj');
+            $table->string('rg')->nullable();
             $table->string('nome_completo');
             $table->date('data_nascimento');
             $table->string('foto_path')->nullable();
