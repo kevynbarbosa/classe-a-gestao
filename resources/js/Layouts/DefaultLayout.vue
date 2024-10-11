@@ -1,13 +1,14 @@
 <template>
-    <div class="flex min-h-screen surface-base">
+    <div class="surface-base flex min-h-screen">
+        <RouterEvents />
         <!-- Header -->
         <div
             :class="[
-                'fixed top-0 right-0 z-10 surface-layout transition-header',
+                'surface-layout transition-header fixed right-0 top-0 z-10',
                 sideBarVisible ? 'w-header' : 'w-full',
             ]"
         >
-            <div class="h-header p-4 pr-8 flex justify-between items-center text-[--p-drawer-color]">
+            <div class="h-header flex items-center justify-between p-4 pr-8 text-[--p-drawer-color]">
                 <HeaderContent @toggleSideBar="toggleSideBar" @toggleRightBar="toggleRightBar" />
             </div>
         </div>
@@ -21,7 +22,7 @@
             <Transition>
                 <div
                     v-show="sideBarVisible"
-                    class="fixed h-full w-sidebar surface-layout border-r border-[--p-drawer-border-color] overflow-y-auto"
+                    class="w-sidebar surface-layout fixed h-full overflow-y-auto border-r border-[--p-drawer-border-color]"
                 >
                     <LeftBarContent />
                 </div>
@@ -46,11 +47,10 @@
             </p>
         </Drawer>
 
-        <DynamicDialog />
         <Toast />
 
         <!-- Main -->
-        <main class="w-full flex-1 main-content p-4">
+        <main class="main-content w-full flex-1 p-4">
             <slot />
         </main>
     </div>
@@ -59,6 +59,7 @@
 <script setup>
 import HeaderContent from "./DefaultLayoutComponents/HeaderContent.vue";
 import LeftBarContent from "./DefaultLayoutComponents/LeftBarContent.vue";
+import RouterEvents from "./DefaultLayoutComponents/RouterEvents.vue";
 
 const props = defineProps([]);
 
