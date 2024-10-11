@@ -16,19 +16,24 @@ import { useToast } from "primevue/usetoast";
 
 const toast = useToast();
 
-var toastReference = null;
+var timeout = null;
 
 router.on("start", () => {
-    toast.removeGroup("router-loading");
-    toast.add({
-        severity: "secondary",
-        // summary: "Success Message",
-        detail: "Carregando, aguarde...",
-        group: "router-loading",
-    });
+    timeout = setTimeout(() => createToast(), 400);
 });
 
 router.on("finish", () => {
+    clearTimeout(timeout);
     toast.removeGroup("router-loading");
 });
+
+function createToast() {
+    toast.removeGroup("router-loading");
+
+    toast.add({
+        severity: "secondary",
+        detail: "Carregando, aguarde...",
+        group: "router-loading",
+    });
+}
 </script>
