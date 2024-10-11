@@ -94,7 +94,8 @@
 import WrapDataTable from "@/Components/DataTable/WrapDataTable.vue";
 import TituloCard from "@/Components/TituloCard.vue";
 import { useTableMenu } from "@/Composables/useTableMenu";
-import { dateLocale, formataCpfCnpj, iniciaisNome } from "@/Utils/stringUtils";
+import { dateLocale } from "@/Utils/dateUtils";
+import { formataCpfCnpj, iniciaisNome } from "@/Utils/stringUtils";
 import { Head, router } from "@inertiajs/vue3";
 import { visitModal } from "@inertiaui/modal-vue";
 
