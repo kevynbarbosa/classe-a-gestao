@@ -23,7 +23,7 @@ router.on("start", () => {
     toast.add({
         severity: "secondary",
         // summary: "Success Message",
-        detail: "Carregando conteúdo",
+        detail: "Carregando, aguarde...",
         group: "router-loading",
     });
 });

@@ -1,6 +1,6 @@
 <template>
     <div class="surface-base flex min-h-screen">
-        <RouterEvents />
+        <RouterToastEvents />
         <!-- Header -->
         <div
             :class="[
@@ -59,7 +59,7 @@
 <script setup>
 import HeaderContent from "./DefaultLayoutComponents/HeaderContent.vue";
 import LeftBarContent from "./DefaultLayoutComponents/LeftBarContent.vue";
-import RouterEvents from "./DefaultLayoutComponents/RouterEvents.vue";
+import RouterToastEvents from "./DefaultLayoutComponents/RouterToastEvents.vue";
 
 const props = defineProps([]);
 
