@@ -43,3 +43,9 @@ td.column-right {
 .column-right > div.p-datatable-column-header-content {
     justify-content: right !important;
 }
+
+/* InertiaJS Modal (Headless UI underneath) dark mode */
+
+.im-modal-content {
+    @apply dark:bg-surface-700;
+}
