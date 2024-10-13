@@ -31,7 +31,7 @@ function createToast() {
     toast.removeGroup("router-loading");
 
     toast.add({
-        severity: "secondary",
+        severity: "info",
         detail: "Carregando, aguarde...",
         group: "router-loading",
     });
