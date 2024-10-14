@@ -53,7 +53,7 @@ class ContratanteController extends Controller
 
     public function edit(Contratante $contratante)
     {
-        return Inertia::render('Contratante/Form', ['Contratante' => $contratante, 'updating' => true]);
+        return Inertia::render('Contratante/Form', ['contratante' => $contratante, 'updating' => true]);
     }
 
     public function update(Request $request, Contratante $contratante)
