@@ -30,9 +30,11 @@ class {{ class }} extends Controller
 
     public function store({{ storeRequest }} $request)
     {
-        {{ model }}::create($request->validate([
+        $validatedData = $request->validate([
             // 'field_1' => ['required'],
-        ]));
+        ]);
+
+        {{ model }}::create($validatedData);
 
         return redirect()->back();
     }
@@ -44,14 +46,16 @@ class {{ class }} extends Controller
 
     public function edit({{ model }} ${{ modelVariable }})
     {
-        return Inertia::render('{{ model }}/Form', ['{{ model }}' => ${{ model }}, 'updating' => true]);
+        return Inertia::render('{{ model }}/Form', ['{{ model }}' => ${{ modelVariable }}, 'updating' => true]);
     }
 
     public function update({{ updateRequest }} $request, {{ model }} ${{ modelVariable }})
     {
-        ${{ modelVariable }}->update($request->validate([
+        $validatedData = $request->validate([
             // 'field_1' => ['required'],
-        ]));
+        ]);
+
+        ${{ modelVariable }}->update($validatedData);
 
         return redirect()->back();
     }

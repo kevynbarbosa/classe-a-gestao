@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\CommonResource;
 use App\Models\Vendedor;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -29,14 +30,18 @@ class VendedorController extends Controller
 
     public function store(Request $request)
     {
-        Vendedor::create($request->validate([
+        $validated = $request->validate([
             'tipo_pessoa' => ['required'],
             'cpf_cnpj' => ['required'],
             'rg' => ['nullable'],
             'nome_completo' => ['required'],
-            'data_nascimento' => ['required'],
+            'data_nascimento' => ['required', 'date'],
             'foto_path' => ['nullable'],
-        ]));
+        ]);
+
+        $validated['data_nascimento'] = Carbon::parse($validated['data_nascimento'])->format('Y-m-d');
+
+        Vendedor::create($validated);
 
         return redirect()->back();
     }
@@ -53,14 +58,18 @@ class VendedorController extends Controller
 
     public function update(Request $request, Vendedor $vendedor)
     {
-        $vendedor->update($request->validate([
+        $validated = $request->validate([
             'tipo_pessoa' => ['required'],
             'cpf_cnpj' => ['required'],
             'rg' => ['nullable'],
             'nome_completo' => ['required'],
-            'data_nascimento' => ['required'],
+            'data_nascimento' => ['required', 'date'],
             'foto_path' => ['nullable'],
-        ]));
+        ]);
+
+        $validated['data_nascimento'] = Carbon::parse($validated['data_nascimento'])->format('Y-m-d');
+
+        $vendedor->update($validated);
 
         return redirect()->back();
     }
