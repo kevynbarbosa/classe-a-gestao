@@ -10,6 +10,13 @@ function parse2Date(date) {
     return dateObj;
 }
 
+function parseDateTime(dateTime, timezone = -3) {
+    const dateObj = new Date(dateTime);
+    dateObj.setHours(dateObj.getHours() + timezone);
+
+    return dateObj;
+}
+
 // Formata a data formato americano para brasileiro
 function dateLocale(date, fuso = "-3") {
     const [ano, mes, dia] = date.split("-").map(Number);
@@ -17,4 +24,10 @@ function dateLocale(date, fuso = "-3") {
     return dateObj.toLocaleDateString();
 }
 
-export { dateLocale, parse2Date };
+function dateTimeLocale(date, fuso = -3) {
+    const dateObj = parseDateTime(date, fuso);
+
+    return dateObj.toLocaleString();
+}
+
+export { dateLocale, dateTimeLocale, parse2Date, parseDateTime };

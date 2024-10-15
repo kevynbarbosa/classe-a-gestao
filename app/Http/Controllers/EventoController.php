@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\CommonResource;
+use App\Models\Artista;
+use App\Models\Contratante;
 use App\Models\Evento;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -14,24 +17,33 @@ class EventoController extends Controller
     {
         $perPage = $request->perPage ?? 10;
 
-        $evento = QueryBuilder::for(Evento::class)
+        $eventos = QueryBuilder::for(Evento::class)
             ->allowedFilters(['id', /*'other_fields...'*/])
-            ->allowedSorts(['id', /*'other_fields...'*/])
+            ->allowedSorts(['id', 'artista.nome'])
+            ->with(['artista', 'contratante'])
             ->paginate($perPage);
 
-        return Inertia::render('Evento/Index', ['evento' => CommonResource::collection($evento)]);
+        return Inertia::render('Evento/Index', ['eventos' => CommonResource::collection($eventos)]);
     }
 
     public function create()
     {
-        return Inertia::render('Evento/Form');
+        return Inertia::render('Evento/Form', ['artistas' => Artista::all(), 'contratantes' => Contratante::all()]);
     }
 
     public function store(Request $request)
     {
-        Evento::create($request->validate([
-            // 'field_1' => ['required'],
-        ]));
+        $validatedData = $request->validate([
+            'artista_id' => ['required'],
+            'contratante_id' => ['required'],
+            'data_hora' => ['required', 'date'],
+            'cidade' => ['required'],
+            'recinto' => ['required'],
+        ]);
+
+        $validatedData['data_hora'] = Carbon::parse($validatedData['data_hora']);
+
+        Evento::create($validatedData);
 
         return redirect()->back();
     }
@@ -43,14 +55,22 @@ class EventoController extends Controller
 
     public function edit(Evento $evento)
     {
-        return Inertia::render('Evento/Form');
+        return Inertia::render('Evento/Form', ['evento' => $evento, 'updating' => true, 'artistas' => Artista::all(), 'contratantes' => Contratante::all()]);
     }
 
     public function update(Request $request, Evento $evento)
     {
-        $evento->update($request->validate([
-            // 'field_1' => ['required'],
-        ]));
+        $validatedData = $request->validate([
+            'artista_id' => ['required'],
+            'contratante_id' => ['required'],
+            'data_hora' => ['required', 'date'],
+            'cidade' => ['required'],
+            'recinto' => ['required'],
+        ]);
+
+        $validatedData['data_hora'] = Carbon::parse($validatedData['data_hora']);
+
+        $evento->update($validatedData);
 
         return redirect()->back();
     }

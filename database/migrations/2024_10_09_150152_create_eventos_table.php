@@ -17,8 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Artista::class);
             $table->foreignIdFor(Contratante::class);
-            $table->date('data');
-            $table->time('hora');
+            $table->timestampTz('data_hora');
             $table->string('cidade');
             $table->string('recinto');
             $table->timestamps();
