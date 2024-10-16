@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\CommonResource;
+use App\Models\Evento;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -10,6 +11,13 @@ class CalendarioController extends Controller
 {
     public function index(Request $request)
     {
-        return Inertia::render('Calendario/Index',);
+        $eventos = Evento::with('artista', 'contratante')->get();
+
+        return Inertia::render('Calendario/Index', ['eventos' => $eventos]);
+    }
+
+    public function eventoDetalhes(Evento $evento)
+    {
+        return Inertia::render('Calendario/EventoDetalhes', ['evento' => $evento]);
     }
 }
