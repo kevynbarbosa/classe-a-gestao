@@ -10,15 +10,14 @@
             <FullCalendarComponent ref="fullCalendar" :options="calendarOptions">
                 <template v-slot:eventContent="arg">
                     <div class="fc-daygrid-event-dot"></div>
-                    <!-- <div class="fc-event-time">{{ arg.timeText }}h:</div> -->
-                    <div v-if="loadingModalId != arg.event.id" class="fc-event-title font-normal">
+                    <div v-if="loadingModalId != arg.event.id" class="fc-event-title cursor-pointer font-normal">
                         <span class="font-normal">{{ arg.timeText }}h: {{ arg.event.extendedProps.cidade }} (DF)</span>
                         <br />
                         {{ arg.event.title }}
                     </div>
                     <div v-else>
-                        <div>Carregando...</div>
-                        <div>Aguarde</div>
+                        <div>Carregando informações</div>
+                        <div>Aguarde.</div>
                     </div>
                 </template>
             </FullCalendarComponent>
@@ -48,8 +47,8 @@ const handleEventClick = async (eventClickInfo) => {
     loadingModalId.value = eventClickInfo.event.id;
     await visitModal(`/calendario/evento-detalhes/${eventClickInfo.event.id}`, {
         config: {
-            slideover: true,
-            position: "right",
+            // slideover: true,
+            // position: "right",
         },
     });
     loadingModalId.value = null;
@@ -59,6 +58,7 @@ const calendarOptions = ref({
     locale: brLocale,
     plugins: [dayGridPlugin, interactionPlugin],
     initialView: "dayGridMonth",
+    dayMaxEventRows: true,
     headerToolbar: {
         left: "title",
         center: "dayGridMonth,dayGridWeek",
