@@ -10,10 +10,15 @@
             <FullCalendarComponent ref="fullCalendar" :options="calendarOptions">
                 <template v-slot:eventContent="arg">
                     <div class="fc-daygrid-event-dot"></div>
-                    <div v-if="loadingModalId != arg.event.id" class="fc-event-title cursor-pointer font-normal">
+                    <div
+                        v-if="loadingModalId != arg.event.id"
+                        :class="`fc-event-title cursor-pointer font-normal ${arg.event.backgroundColor}`"
+                    >
                         <span class="font-normal">{{ arg.timeText }}h: {{ arg.event.extendedProps.cidade }} (DF)</span>
                         <br />
                         {{ arg.event.title }}
+                        <br />
+                        <div>Proposta enviada</div>
                     </div>
                     <div v-else>
                         <div>Carregando informações</div>
@@ -44,6 +49,7 @@ const handleDateClick = (arg) => {
 
 const loadingModalId = ref(null);
 const handleEventClick = async (eventClickInfo) => {
+    console.log(eventClickInfo.event);
     loadingModalId.value = eventClickInfo.event.id;
     await visitModal(`/calendario/evento-detalhes/${eventClickInfo.event.id}`, {
         config: {
@@ -64,6 +70,7 @@ const calendarOptions = ref({
         center: "dayGridMonth,dayGridWeek",
         right: "prevYear,prev,next,nextYear today",
     },
+    eventColor: "#d11777",
     dateClick: handleDateClick,
     eventClick: handleEventClick,
 });
@@ -77,8 +84,9 @@ function calendarUpdateSize() {
 
 function mapEvents() {
     const eventos = props.eventos.map((x) => {
-        x.title = x.artista.nome + " LONG TEXT TO BREAK 123 123 123";
+        x.title = x.artista.nome;
         x.date = parseDateTime(x.data_hora);
+        x.backgroundColor = "bg-blue-100";
         return x;
     });
 
@@ -101,3 +109,9 @@ onBeforeUnmount(() => {
     resizeObserver.disconnect();
 });
 </script>
+
+<style>
+.fc .fc-popover {
+    z-index: 20 !important;
+}
+</style>

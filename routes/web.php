@@ -9,6 +9,7 @@ use App\Http\Controllers\VendedorController;
 use App\Http\Middleware\SimulateRealNetwork;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 Route::get('/', function () {
@@ -21,6 +22,10 @@ Route::get('/', function () {
 });
 
 Route::get('/teste', function () {
+    $contents = Storage::get("/seeders/municipios.csv");
+
+    dd($contents);
+
     return Inertia::render('Teste', [
         // 'canLogin' => Route::has('login'),
         // 'canRegister' => Route::has('register'),
