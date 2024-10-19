@@ -34,10 +34,10 @@ class CidadeSeeder extends Seeder
             Cidade::create([
                 'municipio' => $data[0],
                 'uf' => $data[1],
-                'uf_code' => $data[2],
-                'name' => $data[3],
-                'mesoregion' => $data[4],
-                'microregion' => $data[5],
+                'uf_codigo' => $data[2],
+                'nome' => $data[3],
+                'meso_regiao' => $data[4],
+                'micro_regiao' => $data[5],
                 'rgint' => $data[6],
                 'rgi' => $data[7],
                 'osm_relation_id' => $data[8],
@@ -46,9 +46,9 @@ class CidadeSeeder extends Seeder
                 'wikipedia_pt' => $data[11],
                 'lon' => $data[12],
                 'lat' => $data[13],
-                'no_accents' => $data[14],
+                'sem_acentos' => $data[14],
                 'slug_name' => $data[15],
-                'alternative_names' => $data[16],
+                'nomes_alternativos' => $data[16],
                 'pop_21' => $data[17],
             ]);
         }

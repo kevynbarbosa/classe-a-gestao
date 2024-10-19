@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('municipio')->nullable();
             $table->string('uf')->nullable();
-            $table->string('uf_code')->nullable();
-            $table->string('name')->nullable();
-            $table->string('mesoregion')->nullable();
-            $table->string('microregion')->nullable();
+            $table->string('uf_codigo')->nullable();
+            $table->string('nome')->nullable();
+            $table->string('meso_regiao')->nullable();
+            $table->string('micro_regiao')->nullable();
             $table->string('rgint')->nullable();
             $table->string('rgi')->nullable();
             $table->string('osm_relation_id')->nullable();
@@ -27,9 +27,9 @@ return new class extends Migration
             $table->string('wikipedia_pt')->nullable();
             $table->string('lon')->nullable();
             $table->string('lat')->nullable();
-            $table->string('no_accents')->nullable();
+            $table->string('sem_acentos')->nullable();
             $table->string('slug_name')->nullable();
-            $table->string('alternative_names')->nullable();
+            $table->string('nomes_alternativos')->nullable();
             $table->string('pop_21')->nullable();
             $table->timestamps();
         });

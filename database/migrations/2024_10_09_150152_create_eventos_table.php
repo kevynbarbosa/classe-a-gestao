@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Artista;
+use App\Models\Cidade;
 use App\Models\Contratante;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -17,9 +18,11 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Artista::class);
             $table->foreignIdFor(Contratante::class);
+            $table->foreignIdFor(Cidade::class);
             $table->timestampTz('data_hora');
-            $table->string('cidade');
-            $table->string('recinto');
+            $table->string('cidade_exterior')->nullable();
+            $table->string('pais_exterior')->nullable();
+            $table->string('recinto')->nullable();
             $table->timestamps();
         });
     }
