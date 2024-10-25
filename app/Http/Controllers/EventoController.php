@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\CommonResource;
 use App\Models\Artista;
+use App\Models\Cidade;
 use App\Models\Contratante;
 use App\Models\Evento;
 use Carbon\Carbon;
@@ -23,12 +24,19 @@ class EventoController extends Controller
             ->with(['artista', 'contratante'])
             ->paginate($perPage);
 
-        return Inertia::render('Evento/Index', ['eventos' => CommonResource::collection($eventos)]);
+        return Inertia::render(
+            'Evento/Index',
+            ['eventos' => CommonResource::collection($eventos)]
+        );
     }
 
     public function create()
     {
-        return Inertia::render('Evento/Form', ['artistas' => Artista::all(), 'contratantes' => Contratante::all()]);
+        return Inertia::render('Evento/Form', [
+            'cidades' => Cidade::all(),
+            'artistas' => Artista::all(),
+            'contratantes' => Contratante::all()
+        ]);
     }
 
     public function store(Request $request)
@@ -55,7 +63,13 @@ class EventoController extends Controller
 
     public function edit(Evento $evento)
     {
-        return Inertia::render('Evento/Form', ['evento' => $evento, 'updating' => true, 'artistas' => Artista::all(), 'contratantes' => Contratante::all()]);
+        return Inertia::render('Evento/Form', [
+            'evento' => $evento,
+            'updating' => true,
+            'cidades' => Cidade::all(),
+            'artistas' => Artista::all(),
+            'contratantes' => Contratante::all()
+        ]);
     }
 
     public function update(Request $request, Evento $evento)

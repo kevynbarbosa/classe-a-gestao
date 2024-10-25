@@ -40,6 +40,60 @@
                     <div class="text-red-500" v-if="form.errors.contratante_id">{{ form.errors.contratante_id }}</div>
                 </div>
 
+                <div class="flex flex-wrap gap-4">
+                    <div class="flex items-center">
+                        <RadioButton
+                            v-model="form.evento_internacional"
+                            inputId="nacional"
+                            name="evento_internacional"
+                            :value="0"
+                        />
+                        <label for="nacional" class="ml-2">Nacional</label>
+                    </div>
+                    <div class="flex items-center">
+                        <RadioButton
+                            v-model="form.evento_internacional"
+                            inputId="internacional"
+                            name="evento_internacional"
+                            :value="1"
+                        />
+                        <label for="internacional" class="ml-2">Internacional</label>
+                    </div>
+                </div>
+
+                <div v-if="form.evento_internacional == 0">
+                    <FloatLabel variant="in">
+                        <AutoComplete
+                            id="cidade"
+                            class="w-full"
+                            size="small"
+                            v-model="form.cidade"
+                            :suggestions="cidadesFiltradas"
+                            option-label="nome"
+                            option-value="id"
+                            variant="filled"
+                            @complete="pesquisarCidades"
+                            fluid
+                        />
+                        <label for="cidade">Cidade</label>
+                    </FloatLabel>
+                    <div class="text-red-500" v-if="form.errors.cidade">{{ form.errors.cidade }}</div>
+                </div>
+
+                <div v-if="form.evento_internacional == 1">
+                    <FloatLabel variant="in">
+                        <InputText
+                            id="cidade_exterior"
+                            class="w-full"
+                            size="small"
+                            v-model="form.cidade_exterior"
+                            variant="filled"
+                        />
+                        <label for="cidade_exterior">Digite a cidade e país</label>
+                    </FloatLabel>
+                    <div class="text-red-500" v-if="form.errors.cidade_exterior">{{ form.errors.cidade_exterior }}</div>
+                </div>
+
                 <div>
                     <FloatLabel variant="in">
                         <DatePicker
@@ -55,14 +109,6 @@
                         <label for="data_hora">Data e hora</label>
                     </FloatLabel>
                     <div class="text-red-500" v-if="form.errors.data_hora">{{ form.errors.data_hora }}</div>
-                </div>
-
-                <div>
-                    <FloatLabel variant="in">
-                        <InputText id="cidade" class="w-full" size="small" v-model="form.cidade" variant="filled" />
-                        <label for="cidade">Cidade</label>
-                    </FloatLabel>
-                    <div class="text-red-500" v-if="form.errors.cidade">{{ form.errors.cidade }}</div>
                 </div>
 
                 <div>
@@ -96,7 +142,14 @@ import { parseDateTime } from "@/Utils/dateUtils";
 import { Head, useForm } from "@inertiajs/vue3";
 import { Modal } from "@inertiaui/modal-vue";
 
-const props = defineProps({ evento: Object, artistas: Array, contratantes: Array, updating: Boolean, errors: Object });
+const props = defineProps({
+    evento: Object,
+    cidades: Array,
+    artistas: Array,
+    contratantes: Array,
+    updating: Boolean,
+    errors: Object,
+});
 
 const titulo = props.updating ? "Editar evento" : "Novo evento";
 
@@ -109,6 +162,8 @@ const form = useForm({
     data_hora: props.updating ? parseDateTime(props.evento?.data_hora) : "",
     cidade: props.evento?.cidade ?? "",
     recinto: props.evento?.recinto ?? "",
+    evento_internacional: props.evento?.evento_internacional ?? 0,
+    cidate_exterior: props.evento?.cidade_exterior ?? "",
 });
 
 const back = () => window.history.back();
@@ -136,5 +191,18 @@ const updateRecord = () => {
             salvando.value = false;
         },
     });
+};
+
+const cidadesFiltradas = ref();
+const pesquisarCidades = (event) => {
+    setTimeout(() => {
+        if (!event.query.trim().length) {
+            cidadesFiltradas.value = [...props.cidades];
+        } else {
+            cidadesFiltradas.value = props.cidades.filter((cidade) => {
+                return cidade.sem_acentos.toLowerCase().includes(event.query.toLowerCase());
+            });
+        }
+    }, 250);
 };
 </script>
