@@ -6,6 +6,8 @@
         v-bind="$attrs"
         @option-select="valorAlterado"
     />
+
+    <div>model: {{ model }}</div>
 </template>
 
 <script setup>
@@ -35,4 +37,14 @@ const pesquisar = (event) => {
 const valorAlterado = (event) => {
     model.value = event.value[props.emitField];
 };
+
+watch(
+    () => model.value,
+    () => {
+        inputModel.value = props.lista.find((item) => {
+            return item[props.emitField] === model.value;
+        });
+    },
+    { immediate: true },
+);
 </script>

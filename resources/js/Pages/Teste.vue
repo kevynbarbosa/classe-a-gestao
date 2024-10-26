@@ -19,6 +19,8 @@
         </FloatLabel>
 
         <div>cidadeSelecionada: {{ cidadeSelecionada }}</div>
+
+        <Button label="Alterar cidade" @click="alterarCidade" />
     </div>
 </template>
 
@@ -30,9 +32,14 @@ const toast = useToast();
 
 defineOptions({ layout: GuestLayout });
 
-defineProps({
+const props = defineProps({
     cidades: Array,
 });
 
-const cidadeSelecionada = ref(null);
+const cidadeSelecionada = ref(10);
+
+function alterarCidade() {
+    const random = Math.floor(Math.random() * 5500);
+    cidadeSelecionada.value = props.cidades[random].id;
+}
 </script>
