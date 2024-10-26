@@ -23,20 +23,17 @@ Route::get('/', function () {
 });
 
 Route::get('/teste', function () {
-    $contents = Storage::get("/seeders/municipios.csv");
-
-    dd($contents);
-
     return Inertia::render('Teste', [
         // 'canLogin' => Route::has('login'),
         // 'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
+        'cidades' => Cidade::all()
     ]);
 });
 
 Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard', ['cidades' => Cidade::all()]);
+    return Inertia::render('Dashboard',);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['auth', /* SimulateRealNetwork::class */])->group(function () {
