@@ -7,6 +7,7 @@ use App\Models\Artista;
 use App\Models\Cidade;
 use App\Models\Contratante;
 use App\Models\Evento;
+use App\Models\Vendedor;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -35,6 +36,7 @@ class EventoController extends Controller
         return Inertia::render('Evento/Form', [
             'cidades' => Cidade::all(),
             'artistas' => Artista::all(),
+            'vendedores' => Vendedor::all(),
             'contratantes' => Contratante::all()
         ]);
     }
@@ -44,6 +46,7 @@ class EventoController extends Controller
         $validatedData = $request->validate([
             'artista_id' => ['required'],
             'contratante_id' => ['required'],
+            'vendedor_id' => ['required'],
             'data_hora' => ['required', 'date'],
             'cidade' => ['required'],
             'recinto' => ['required'],
@@ -68,6 +71,7 @@ class EventoController extends Controller
             'updating' => true,
             'cidades' => Cidade::all(),
             'artistas' => Artista::all(),
+            'vendedores' => Vendedor::all(),
             'contratantes' => Contratante::all()
         ]);
     }
@@ -77,6 +81,7 @@ class EventoController extends Controller
         $validatedData = $request->validate([
             'artista_id' => ['required'],
             'contratante_id' => ['required'],
+            'vendedor_id' => ['required'],
             'data_hora' => ['required', 'date'],
             'cidade' => ['required'],
             'recinto' => ['required'],

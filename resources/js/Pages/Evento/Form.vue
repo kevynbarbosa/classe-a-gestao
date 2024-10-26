@@ -40,6 +40,23 @@
                     <div class="text-red-500" v-if="form.errors.contratante_id">{{ form.errors.contratante_id }}</div>
                 </div>
 
+                <div>
+                    <FloatLabel variant="in">
+                        <Select
+                            id="vendedor_id"
+                            class="w-full"
+                            size="small"
+                            v-model="form.vendedor_id"
+                            :options="vendedores"
+                            option-label="nome_completo"
+                            option-value="id"
+                            variant="filled"
+                        />
+                        <label for="vendedor_id">Vendedor</label>
+                    </FloatLabel>
+                    <div class="text-red-500" v-if="form.errors.vendedor_id">{{ form.errors.vendedor_id }}</div>
+                </div>
+
                 <div class="flex flex-wrap gap-4">
                     <div class="flex items-center">
                         <RadioButton
@@ -146,6 +163,7 @@ const props = defineProps({
     evento: Object,
     cidades: Array,
     artistas: Array,
+    vendedores: Array,
     contratantes: Array,
     updating: Boolean,
     errors: Object,
@@ -159,6 +177,7 @@ const salvando = ref(false);
 const form = useForm({
     artista_id: props.evento?.artista_id ?? "",
     contratante_id: props.evento?.contratante_id ?? "",
+    vendedor_id: props.evento?.vendedor_id ?? "",
     data_hora: props.updating ? parseDateTime(props.evento?.data_hora) : "",
     cidade: props.evento?.cidade ?? "",
     recinto: props.evento?.recinto ?? "",
