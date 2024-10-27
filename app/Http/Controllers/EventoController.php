@@ -48,7 +48,9 @@ class EventoController extends Controller
             'contratante_id' => ['required'],
             'vendedor_id' => ['required'],
             'data_hora' => ['required', 'date'],
-            'cidade' => ['required'],
+            'evento_internacional' => ['required', 'boolean'],
+            'cidade_id' => ['required_if:evento_internacional,0'],
+            'cidade_exterior' => ['required_if:evento_internacional,1'],
             'recinto' => ['required'],
         ]);
 
@@ -83,7 +85,9 @@ class EventoController extends Controller
             'contratante_id' => ['required'],
             'vendedor_id' => ['required'],
             'data_hora' => ['required', 'date'],
-            'cidade' => ['required'],
+            'evento_internacional' => ['required', 'boolean'],
+            'cidade_id' => ['required_if:evento_internacional,0'],
+            'cidade_exterior' => ['required_if:evento_internacional,1'],
             'recinto' => ['required'],
         ]);
 

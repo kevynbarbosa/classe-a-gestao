@@ -6,8 +6,6 @@
         v-bind="$attrs"
         @option-select="valorAlterado"
     />
-
-    <div>model: {{ model }}</div>
 </template>
 
 <script setup>

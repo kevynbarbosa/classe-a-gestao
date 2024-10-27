@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreignIdFor(Artista::class)->constrained();
             $table->foreignIdFor(Contratante::class)->constrained();
             $table->foreignIdFor(Vendedor::class)->nullable()->constrained('vendedores');
-            $table->foreignIdFor(Cidade::class)->constrained();
+            $table->foreignIdFor(Cidade::class)->nullable()->constrained();
             $table->timestampTz('data_hora');
             $table->boolean('evento_internacional')->nullable();
             $table->string('cidade_exterior')->nullable();

@@ -80,21 +80,20 @@
 
                 <div v-if="form.evento_internacional == 0">
                     <FloatLabel variant="in">
-                        <AutoComplete
-                            id="cidade"
+                        <CustomAutoComplete
+                            id="cidade_id"
                             class="w-full"
                             size="small"
-                            v-model="form.cidade"
-                            :suggestions="cidadesFiltradas"
+                            v-model="form.cidade_id"
+                            :lista="cidades"
+                            campo-pesquisa="sem_acentos"
                             option-label="nome"
-                            option-value="id"
                             variant="filled"
-                            @complete="pesquisarCidades"
                             fluid
                         />
-                        <label for="cidade">Cidade</label>
+                        <label for="cidade_id">Cidade</label>
                     </FloatLabel>
-                    <div class="text-red-500" v-if="form.errors.cidade">{{ form.errors.cidade }}</div>
+                    <div class="text-red-500" v-if="form.errors.cidade_id">{{ form.errors.cidade_id }}</div>
                 </div>
 
                 <div v-if="form.evento_internacional == 1">
@@ -154,6 +153,7 @@
 </template>
 
 <script setup>
+import CustomAutoComplete from "@/Components/Form/CustomAutoComplete.vue";
 import TituloCard from "@/Components/TituloCard.vue";
 import { parseDateTime } from "@/Utils/dateUtils";
 import { Head, useForm } from "@inertiajs/vue3";
@@ -179,10 +179,10 @@ const form = useForm({
     contratante_id: props.evento?.contratante_id ?? "",
     vendedor_id: props.evento?.vendedor_id ?? "",
     data_hora: props.updating ? parseDateTime(props.evento?.data_hora) : "",
-    cidade: props.evento?.cidade ?? "",
+    cidade_id: props.evento?.cidade_id ?? "",
     recinto: props.evento?.recinto ?? "",
     evento_internacional: props.evento?.evento_internacional ?? 0,
-    cidate_exterior: props.evento?.cidade_exterior ?? "",
+    cidade_exterior: props.evento?.cidade_exterior ?? "",
 });
 
 const back = () => window.history.back();
