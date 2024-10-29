@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- Logo -->
-        <img class="my-4 h-12 w-auto m-auto" src="/assets/logo-with-text.png" alt="Logo" />
+        <img class="m-auto my-4 h-12 w-auto" src="/assets/logo-with-text.png" alt="Logo" />
 
         <!-- Menu -->
         <NavTitle label="Menu">
@@ -27,13 +27,6 @@
             />
 
             <NavLink
-                icon="mdi mdi-file-document-multiple"
-                label="Documentação"
-                :href="route('artistas.index')"
-                :active="route().current('artistas')"
-            />
-
-            <NavLink
                 icon="mdi mdi-account-music"
                 label="Artistas"
                 :href="route('artistas.index')"
@@ -52,6 +45,13 @@
                 label="Vendedores"
                 :href="route('vendedores.index')"
                 :active="route().current('vendedores')"
+            />
+
+            <NavLink
+                icon="mdi mdi-file-document-multiple"
+                label="Documentação"
+                :href="route('artistas.index')"
+                :active="route().current('artistas')"
             />
 
             <!-- <NavSubmenu label="Submenu 1" icon="mdi mdi-view-list">

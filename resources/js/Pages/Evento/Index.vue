@@ -38,17 +38,34 @@
                 <Column field="cidade" header="Cidade" sortable :showFilterMenu="false"></Column>
                 <Column field="recinto" header="Recinto" sortable :showFilterMenu="false"></Column>
 
+                <Column field="status" header="Status" sortable :showFilterMenu="false">
+                    <template #body="{ data }">
+                        <!-- <Tag :value="data.status" :severity="getSeverity(slotProps.data)" /> -->
+                        <Tag value="teste" severity="success" />
+                    </template>
+                </Column>
+
                 <Column field="actions" header="Ações" class="column-right">
                     <template #body="{ data }">
-                        <Button
-                            icon="mdi mdi-dots-vertical"
-                            size="small"
-                            severity="secondary"
-                            aria-haspopup="true"
-                            aria-controls="overlay_menu"
-                            @click="abrirMenu($event, data)"
-                            :loading="loadingMenu"
-                        />
+                        <div class="flex justify-end gap-2">
+                            <Button
+                                icon="mdi mdi-shuffle-variant"
+                                severity="primary"
+                                size="small"
+                                v-tooltip.left="'Detalhes do workflow'"
+                                @click="router.visit(`/evento-workflow/${data.id}`)"
+                            />
+
+                            <Button
+                                icon="mdi mdi-dots-vertical"
+                                size="small"
+                                severity="secondary"
+                                aria-haspopup="true"
+                                aria-controls="overlay_menu"
+                                @click="abrirMenu($event, data)"
+                                :loading="loadingMenu"
+                            />
+                        </div>
                     </template>
                 </Column>
             </WrapDataTable>
