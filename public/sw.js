@@ -9,10 +9,7 @@ self.addEventListener("install", function (event) {
     event.waitUntil(preLoad());
 });
 
-const filesToCache = [
-    '/',
-    '/offline.html'
-];
+const filesToCache = ["/", "/offline.html"];
 
 const checkResponse = function (request) {
     return new Promise(function (fulfill, reject) {
@@ -26,10 +23,22 @@ const checkResponse = function (request) {
     });
 };
 
+// const addToCache = function (request) {
+//     return caches.open("offline").then(function (cache) {
+//         return fetch(request).then(function (response) {
+//             return cache.put(request, response);
+//         });
+//     });
+// };
+
 const addToCache = function (request) {
     return caches.open("offline").then(function (cache) {
         return fetch(request).then(function (response) {
-            return cache.put(request, response);
+            if (response.ok && response.headers.get("Cache-Control").includes("public")) {
+                return cache.put(request, response.clone());
+            } else {
+                return Promise.resolve(); // não cachea a resposta se não for válida
+            }
         });
     });
 };
@@ -47,10 +56,12 @@ const returnFromCache = function (request) {
 };
 
 self.addEventListener("fetch", function (event) {
-    event.respondWith(checkResponse(event.request).catch(function () {
-        return returnFromCache(event.request);
-    }));
-    if(!event.request.url.startsWith('http')){
+    event.respondWith(
+        checkResponse(event.request).catch(function () {
+            return returnFromCache(event.request);
+        }),
+    );
+    if (!event.request.url.startsWith("http")) {
         event.waitUntil(addToCache(event.request));
     }
 });
