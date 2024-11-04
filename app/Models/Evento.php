@@ -20,4 +20,9 @@ class Evento extends Model
     {
         return $this->belongsTo(Contratante::class);
     }
+
+    public function vendedor()
+    {
+        return $this->belongsTo(Vendedor::class);
+    }
 }
