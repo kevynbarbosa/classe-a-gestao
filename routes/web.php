@@ -15,12 +15,13 @@ use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+    return redirect('/dashboard');
+    // return Inertia::render('Welcome', [
+    //     'canLogin' => Route::has('login'),
+    //     'canRegister' => Route::has('register'),
+    //     'laravelVersion' => Application::VERSION,
+    //     'phpVersion' => PHP_VERSION,
+    // ]);
 });
 
 Route::get('/teste', function () {
@@ -53,5 +54,7 @@ Route::middleware(['auth', /* SimulateRealNetwork::class */])->group(function ()
 
     Route::get('evento-workflow/{evento}', [EventoWorkflowController::class, 'show'])->name('evento-workflow.show');
 });
+
+Route::get('contratante-formulario/{token}', [ContratanteController::class, 'formulario'])->name('contratante-formulario');
 
 require __DIR__ . '/auth.php';
