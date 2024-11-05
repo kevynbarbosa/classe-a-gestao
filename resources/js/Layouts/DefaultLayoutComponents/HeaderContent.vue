@@ -20,6 +20,15 @@
 
     <div class="flex gap-2">
         <Button
+            icon="mdi mdi-account-circle"
+            @click="router.visit('profile')"
+            v-tooltip.left="'Informações de perfil'"
+            rounded
+            text
+            outlined
+        />
+
+        <Button
             :icon="isDarkMode ? 'mdi mdi-white-balance-sunny' : 'mdi mdi-weather-night'"
             @click="toggleDarkMode"
             v-tooltip.left="'Alternar entre modo claro e escuro'"
@@ -79,7 +88,6 @@ function checkDarkMode() {
 }
 
 function loadTheme() {
-    // debugger;
     const savedTheme = localStorage.getItem("theme");
 
     if (savedTheme == "dark") {
