@@ -1,5 +1,5 @@
 <template>
-    <Head title="Log in" />
+    <Head title="Iniciar sessão" />
 
     <div v-if="status" class="mb-4 text-sm font-medium text-green-600">
         {{ status }}
@@ -35,7 +35,7 @@
                 :href="route('password.request')"
                 class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
             >
-                Forgot your password?
+                Esqueceu sua senha?
             </Link>
 
             <Button class="ms-4" label="Entrar" :loading="form.processing" type="submit"></Button>

@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- Logo -->
-        <img class="m-auto my-4 h-12 w-auto" src="/assets/logo-with-text.png" alt="Logo" />
+        <ApplicationLogo class="h-12" />
 
         <!-- Menu -->
         <NavTitle label="Menu">
@@ -75,6 +75,7 @@
 </template>
 
 <script setup>
+import ApplicationLogo from "@/Components/ApplicationLogo.vue";
 import NavLink from "@/Components/LeftMenu/NavLink.vue";
 import NavTitle from "@/Components/LeftMenu/NavTitle.vue";
 import { onMounted } from "vue";
