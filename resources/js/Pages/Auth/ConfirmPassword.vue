@@ -1,8 +1,26 @@
+<template>
+    <Head title="Confirm Password" />
+
+    <div class="mb-4 text-sm text-gray-600">
+        Esta é uma área restrita. Por favor, confirme sua senha antes de continuar.
+    </div>
+
+    <form @submit.prevent="submit">
+        <div>
+            <FloatLabel variant="in">
+                <InputText id="password" class="w-full" size="small" v-model="form.password" variant="filled" />
+                <label for="password">Senha</label>
+            </FloatLabel>
+            <div class="text-red-500" v-if="form.errors.password">{{ form.errors.password }}</div>
+        </div>
+
+        <div class="mt-4 flex justify-end">
+            <Button label="Confirmar" type="submit" :loading="form.processing" class="ms-4" />
+        </div>
+    </form>
+</template>
+
 <script setup>
-import InputError from "@/Components/InputError.vue";
-import InputLabel from "@/Components/InputLabel.vue";
-import PrimaryButton from "@/Components/PrimaryButton.vue";
-import TextInput from "@/Components/TextInput.vue";
 import GuestLayout from "@/Layouts/GuestLayout.vue";
 import { Head, useForm } from "@inertiajs/vue3";
 
@@ -18,33 +36,3 @@ const submit = () => {
     });
 };
 </script>
-
-<template>
-    <Head title="Confirm Password" />
-
-    <div class="mb-4 text-sm text-gray-600">
-        This is a secure area of the application. Please confirm your password before continuing.
-    </div>
-
-    <form @submit.prevent="submit">
-        <div>
-            <InputLabel for="password" value="Password" />
-            <TextInput
-                id="password"
-                type="password"
-                class="mt-1 block w-full"
-                v-model="form.password"
-                required
-                autocomplete="current-password"
-                autofocus
-            />
-            <InputError class="mt-2" :message="form.errors.password" />
-        </div>
-
-        <div class="flex justify-end mt-4">
-            <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                Confirm
-            </PrimaryButton>
-        </div>
-    </form>
-</template>

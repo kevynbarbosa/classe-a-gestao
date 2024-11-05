@@ -1,8 +1,46 @@
+<template>
+    <Head title="Reset Password" />
+
+    <form @submit.prevent="submit">
+        <div>
+            <FloatLabel variant="in">
+                <InputText id="email" class="w-full" size="small" v-model="form.email" variant="filled" />
+                <label for="email">Email</label>
+            </FloatLabel>
+            <div class="text-red-500" v-if="form.errors.email">{{ form.errors.email }}</div>
+        </div>
+
+        <div class="mt-4">
+            <FloatLabel variant="in">
+                <InputText id="password" class="w-full" size="small" v-model="form.password" variant="filled" />
+                <label for="password">Senha</label>
+            </FloatLabel>
+            <div class="text-red-500" v-if="form.errors.password">{{ form.errors.password }}</div>
+        </div>
+
+        <div class="mt-4">
+            <FloatLabel variant="in">
+                <InputText
+                    id="password_confirmation"
+                    class="w-full"
+                    size="small"
+                    v-model="form.password_confirmation"
+                    variant="filled"
+                />
+                <label for="password_confirmation">Confirme a senha</label>
+            </FloatLabel>
+            <div class="text-red-500" v-if="form.errors.password_confirmation">
+                {{ form.errors.password_confirmation }}
+            </div>
+        </div>
+
+        <div class="mt-4 flex items-center justify-end">
+            <Button label="Redefinir senha" type="submit" :loading="form.processing" />
+        </div>
+    </form>
+</template>
+
 <script setup>
-import InputError from "@/Components/InputError.vue";
-import InputLabel from "@/Components/InputLabel.vue";
-import PrimaryButton from "@/Components/PrimaryButton.vue";
-import TextInput from "@/Components/TextInput.vue";
 import GuestLayout from "@/Layouts/GuestLayout.vue";
 import { Head, useForm } from "@inertiajs/vue3";
 
@@ -32,61 +70,3 @@ const submit = () => {
     });
 };
 </script>
-
-<template>
-    <Head title="Reset Password" />
-
-    <form @submit.prevent="submit">
-        <div>
-            <InputLabel for="email" value="Email" />
-
-            <TextInput
-                id="email"
-                type="email"
-                class="mt-1 block w-full"
-                v-model="form.email"
-                required
-                autofocus
-                autocomplete="username"
-            />
-
-            <InputError class="mt-2" :message="form.errors.email" />
-        </div>
-
-        <div class="mt-4">
-            <InputLabel for="password" value="Password" />
-
-            <TextInput
-                id="password"
-                type="password"
-                class="mt-1 block w-full"
-                v-model="form.password"
-                required
-                autocomplete="new-password"
-            />
-
-            <InputError class="mt-2" :message="form.errors.password" />
-        </div>
-
-        <div class="mt-4">
-            <InputLabel for="password_confirmation" value="Confirm Password" />
-
-            <TextInput
-                id="password_confirmation"
-                type="password"
-                class="mt-1 block w-full"
-                v-model="form.password_confirmation"
-                required
-                autocomplete="new-password"
-            />
-
-            <InputError class="mt-2" :message="form.errors.password_confirmation" />
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                Reset Password
-            </PrimaryButton>
-        </div>
-    </form>
-</template>
