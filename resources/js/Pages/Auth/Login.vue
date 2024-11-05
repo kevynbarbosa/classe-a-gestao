@@ -16,7 +16,14 @@
 
         <div class="mt-4">
             <FloatLabel variant="in">
-                <InputText id="password" class="w-full" size="small" v-model="form.password" variant="filled" />
+                <InputText
+                    id="password"
+                    class="w-full"
+                    size="small"
+                    v-model="form.password"
+                    variant="filled"
+                    type="password"
+                />
                 <label for="password">Senha</label>
             </FloatLabel>
             <div class="text-red-500" v-if="form.errors.password">{{ form.errors.password }}</div>
