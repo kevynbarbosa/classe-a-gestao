@@ -21,7 +21,7 @@
     <div class="flex gap-2">
         <Button
             icon="mdi mdi-account-circle"
-            @click="router.visit('profile')"
+            @click="router.visit('/profile')"
             v-tooltip.left="'Informações de perfil'"
             rounded
             text
