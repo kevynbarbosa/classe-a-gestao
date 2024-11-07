@@ -31,7 +31,7 @@
 
         <div class="mt-4 block">
             <label class="flex items-center">
-                <Checkbox name="remember" v-model="form.remember" :value="true" />
+                <Checkbox name="remember" v-model="form.remember" binary />
                 <span class="ms-2 text-sm text-gray-600">Manter conectado</span>
             </label>
         </div>

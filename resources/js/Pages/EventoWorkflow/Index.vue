@@ -17,7 +17,7 @@
 
             <div>
                 <b>Data e hora:</b>
-                {{ evento.data_hora }}
+                {{ dateTimeLocale(evento.data_hora) }}
             </div>
 
             <div>
@@ -42,20 +42,38 @@
             </div>
         </div>
 
-        <Tabs value="0">
+        <FluxoEtapaControlador :evento="evento" />
+
+        <Tabs value="timeline" class="mt-14">
             <TabList>
-                <Tab value="0">Artista</Tab>
-                <Tab value="4">Contratante</Tab>
-                <Tab value="1">Documentação</Tab>
-                <Tab value="2">Timeline</Tab>
+                <Tab value="contratante">Contratante</Tab>
+                <Tab value="documentacao">Documentação</Tab>
+                <Tab value="timeline">Timeline</Tab>
             </TabList>
+
+            <TabPanel value="contratante">
+                <EventoWorkflowContratante />
+            </TabPanel>
+
+            <TabPanel value="documentacao">
+                <EventoWorkflowDocumentacao />
+            </TabPanel>
+
+            <TabPanel value="timeline">
+                <EventoWorkflowTimeline />
+            </TabPanel>
         </Tabs>
     </div>
 </template>
 
 <script setup>
 import TituloCard from "@/Components/TituloCard.vue";
+import { dateTimeLocale } from "@/Utils/dateUtils";
 import { Head } from "@inertiajs/vue3";
+import EventoWorkflowContratante from "./Partials/EventoWorkflowContratante.vue";
+import EventoWorkflowDocumentacao from "./Partials/EventoWorkflowDocumentacao.vue";
+import EventoWorkflowTimeline from "./Partials/EventoWorkflowTimeline.vue";
+import FluxoEtapaControlador from "./Partials/FluxoEtapaControlador.vue";
 
 const variable = ref(null);
 
