@@ -49,6 +49,7 @@
                 <Tab value="contratante">Contratante</Tab>
                 <Tab value="documentacao">Documentação</Tab>
                 <Tab value="timeline">Timeline</Tab>
+                <Tab value="observacoes">Observações</Tab>
             </TabList>
 
             <TabPanel value="contratante">
@@ -60,6 +61,10 @@
             </TabPanel>
 
             <TabPanel value="timeline">
+                <EventoWorkflowTimeline />
+            </TabPanel>
+
+            <TabPanel value="observacoes">
                 <EventoWorkflowTimeline />
             </TabPanel>
         </Tabs>
