@@ -13,13 +13,16 @@ class VendedorSeeder extends Seeder
      */
     public function run(): void
     {
-        Vendedor::firstOrCreate([
-            'cpf_cnpj' => '98736353803'
-        ], [
-            'tipo_pessoa' => 'pf',
-            'rg' => '999999',
-            'nome_completo' => 'Vendedor teste',
-            'data_nascimento ' => '2024-01-01',
-        ]);
+        Vendedor::firstOrCreate(
+            [
+                'cpf_cnpj' => '98736353803'
+            ],
+            [
+                'tipo_pessoa' => 'pf',
+                'rg' => '999999',
+                'nome_completo' => 'Vendedor teste',
+                'data_nascimento' => '2024-01-01',
+            ]
+        );
     }
 }

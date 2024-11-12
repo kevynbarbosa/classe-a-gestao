@@ -13,13 +13,16 @@ class ContratanteSeeder extends Seeder
      */
     public function run(): void
     {
-        Contratante::firstOrCreate([
-            'cpf_cnpj' => '98736353803'
-        ], [
-            'tipo_pessoa' => 'pf',
-            'rg' => '999999',
-            'nome_completo' => 'Contratante teste',
-            'data_nascimento ' => '2024-01-01',
-        ]);
+        Contratante::firstOrCreate(
+            [
+                'cpf_cnpj' => '98736353803'
+            ],
+            [
+                'tipo_pessoa' => 'pf',
+                'rg' => '999999',
+                'nome_completo' => 'Contratante teste',
+                'data_nascimento' => '2024-01-01',
+            ]
+        );
     }
 }
