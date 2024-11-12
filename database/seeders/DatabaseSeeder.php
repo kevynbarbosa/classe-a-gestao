@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Artista;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -24,6 +25,9 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             CidadeSeeder::class,
+            ArtistaSeeder::class,
+            ContratanteSeeder::class,
+            VendedorSeeder::class,
         ]);
     }
 }

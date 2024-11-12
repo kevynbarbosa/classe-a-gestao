@@ -25,6 +25,7 @@ return new class extends Migration
             $table->boolean('evento_internacional')->nullable();
             $table->string('cidade_exterior')->nullable();
             $table->string('recinto')->nullable();
+            $table->string('status')->default('formulario_aberto');
             $table->timestamps();
         });
     }
