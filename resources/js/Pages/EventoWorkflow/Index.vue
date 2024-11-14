@@ -38,7 +38,7 @@
             <div class="col-span-2 rounded border-x-4 border-green-700 bg-green-200 p-2 text-center">
                 <b>Status do fluxo:</b>
                 <br />
-                {{ evento.status }}
+                {{ evento_statuses.find((status) => status.value === evento.status)?.description || evento.status }}
             </div>
         </div>
 
@@ -82,5 +82,5 @@ import FluxoEtapaControlador from "./Partials/FluxoEtapaControlador.vue";
 
 const variable = ref(null);
 
-const props = defineProps({ evento: Object });
+const props = defineProps({ evento: Object, evento_statuses: Array });
 </script>

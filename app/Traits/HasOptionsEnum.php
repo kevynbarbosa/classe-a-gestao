@@ -13,12 +13,19 @@ trait HasOptionsEnum
 
         $options = [];
         foreach ($cases as $case) {
-            $atributos = collect($case->getAttributes())
-                ->mapWithKeys(fn($attr) => [$attr->getName() => $attr->getArguments()[0]])
+            $attributes = collect($case->getAttributes())
+                ->mapWithKeys(function ($attribute) {
+                    $name = strtolower(
+                        basename(str_replace(['\\', 'Enum'], ['/', ''], $attribute->getName()))
+                    );
+                    $argument = $attribute->getArguments()[0] ?? null;
+
+                    return [$name => $argument];
+                })
                 ->toArray();
 
             $options[] = [
-                ...$atributos,
+                ...$attributes,
                 'name' => $case->getName(),
                 'value' => $case->getValue()->value,
             ];
