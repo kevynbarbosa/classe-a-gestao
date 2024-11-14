@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\EventoStatusEnum;
 use App\Http\Controllers\ArtistaController;
 use App\Http\Controllers\CalendarioController;
 use App\Http\Controllers\ContratanteController;
@@ -25,6 +26,9 @@ Route::get('/', function () {
 });
 
 Route::get('/teste', function () {
+
+    dd(EventoStatusEnum::options());
+
     return Inertia::render('Teste', [
         // 'canLogin' => Route::has('login'),
         // 'canRegister' => Route::has('register'),
