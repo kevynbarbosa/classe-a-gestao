@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-use App\Attributes\Description;
+use App\Attributes\EnumDescription;
 use App\Traits\AttributableEnum;
 use App\Traits\HasOptionsEnum;
 
@@ -10,24 +10,24 @@ enum EventoStatusEnum: string
 {
     use AttributableEnum, HasOptionsEnum;
 
-    #[Description('Formulário pendente de envio')]
+    #[EnumDescription('Formulário pendente de envio')]
     case FORMULARIO_PENDENTE = 'formulario_pendente';
 
-    #[Description('Formulário enviado, aguardando preenchimento')]
+    #[EnumDescription('Formulário enviado, aguardando preenchimento')]
     case FORMULARIO_ENVIADO = 'formulario_enviado';
 
-    #[Description('Pendente de proposta')]
+    #[EnumDescription('Pendente de proposta')]
     case PENDENTE_PROPOSTA = 'pendente_proposta';
 
-    #[Description('Proposta enviada')]
+    #[EnumDescription('Proposta enviada')]
     case PROPOSTA_ENVIADA = 'proposta_enviada';
 
-    #[Description('Pendente de NF')]
+    #[EnumDescription('Pendente de NF')]
     case PENDENTE_NF = 'pendente_nf';
 
-    #[Description('Concluído')]
+    #[EnumDescription('Concluído')]
     case CONCLUIDO = 'concluido';
 
-    #[Description('Cancelado')]
+    #[EnumDescription('Cancelado')]
     case CANCELADO = 'cancelado';
 }
