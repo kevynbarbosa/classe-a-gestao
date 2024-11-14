@@ -38,7 +38,7 @@
             <div class="col-span-2 rounded border-x-4 border-green-700 bg-green-200 p-2 text-center">
                 <b>Status do fluxo:</b>
                 <br />
-                {{ evento_statuses.find((status) => status.value === evento.status)?.description || evento.status }}
+                {{ findEnumValue(evento_status_enum, evento.status) }}
             </div>
         </div>
 
@@ -74,6 +74,7 @@
 <script setup>
 import TituloCard from "@/Components/TituloCard.vue";
 import { dateTimeLocale } from "@/Utils/dateUtils";
+import { findEnumValue } from "@/Utils/enumUtils";
 import { Head } from "@inertiajs/vue3";
 import EventoWorkflowContratante from "./Partials/EventoWorkflowContratante.vue";
 import EventoWorkflowDocumentacao from "./Partials/EventoWorkflowDocumentacao.vue";
@@ -82,5 +83,5 @@ import FluxoEtapaControlador from "./Partials/FluxoEtapaControlador.vue";
 
 const variable = ref(null);
 
-const props = defineProps({ evento: Object, evento_statuses: Array });
+const props = defineProps({ evento: Object, evento_status_enum: Array });
 </script>

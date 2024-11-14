@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\EventoStatusEnum;
 use App\Http\Resources\CommonResource;
 use App\Models\Artista;
 use App\Models\Cidade;
@@ -27,7 +28,10 @@ class EventoController extends Controller
 
         return Inertia::render(
             'Evento/Index',
-            ['eventos' => CommonResource::collection($eventos)]
+            [
+                'eventos' => CommonResource::collection($eventos),
+                'evento_status_enum' => EventoStatusEnum::options()
+            ]
         );
     }
 

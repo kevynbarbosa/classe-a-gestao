@@ -41,7 +41,7 @@
                 <Column field="status" header="Status" sortable :showFilterMenu="false">
                     <template #body="{ data }">
                         <!-- <Tag :value="data.status" :severity="getSeverity(slotProps.data)" /> -->
-                        <Tag value="teste" severity="success" />
+                        <Tag :value="findEnumValue(evento_status_enum, data.status)" severity="success" />
                     </template>
                 </Column>
 
@@ -78,10 +78,11 @@ import WrapDataTable from "@/Components/DataTable/WrapDataTable.vue";
 import TituloCard from "@/Components/TituloCard.vue";
 import { useTableMenu } from "@/Composables/useTableMenu";
 import { dateTimeLocale } from "@/Utils/dateUtils";
+import { findEnumValue } from "@/Utils/enumUtils";
 import { Head, router } from "@inertiajs/vue3";
 import { visitModal } from "@inertiaui/modal-vue";
 
-defineProps({ eventos: Object });
+defineProps({ eventos: Object, evento_status_enum: Array });
 
 const filters = ref({
     id: { value: route().queryParams.filter?.id ?? null },

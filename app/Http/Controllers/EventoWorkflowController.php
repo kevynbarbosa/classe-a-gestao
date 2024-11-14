@@ -15,7 +15,7 @@ class EventoWorkflowController extends Controller
 
         return Inertia::render('EventoWorkflow/Index', [
             'evento' => $evento,
-            'evento_statuses' => EventoStatusEnum::options()
+            'evento_status_enum' => EventoStatusEnum::options()
         ]);
     }
 }
