@@ -41,7 +41,11 @@
                 <Column field="status" header="Status" sortable :showFilterMenu="false">
                     <template #body="{ data }">
                         <!-- <Tag :value="data.status" :severity="getSeverity(slotProps.data)" /> -->
-                        <Tag :value="findEnumValue(evento_status_enum, data.status)" severity="success" />
+                        <Tag
+                            class="text-center"
+                            :value="findEnumValue(evento_status_enum, data.status)"
+                            severity="success"
+                        />
                     </template>
                 </Column>
 

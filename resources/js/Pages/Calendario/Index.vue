@@ -18,7 +18,7 @@
                         <br />
                         {{ arg.event.title }}
                         <br />
-                        <div>Proposta enviada</div>
+                        <div>{{ findEnumValue(evento_status_enum, arg.event.extendedProps.status) }}</div>
                     </div>
                     <div v-else>
                         <div>Carregando informações</div>
@@ -32,6 +32,7 @@
 
 <script setup>
 import { parseDateTime } from "@/Utils/dateUtils";
+import { findEnumValue } from "@/Utils/enumUtils";
 import brLocale from "@fullcalendar/core/locales/pt-br";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
@@ -39,7 +40,7 @@ import FullCalendarComponent from "@fullcalendar/vue3";
 import { Head } from "@inertiajs/vue3";
 import { visitModal } from "@inertiaui/modal-vue";
 
-const props = defineProps({ eventos: Array });
+const props = defineProps({ eventos: Array, evento_status_enum: Array });
 
 const fullCalendar = ref(null);
 
