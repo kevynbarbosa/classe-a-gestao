@@ -60,9 +60,9 @@ class EventoController extends Controller
 
         $validatedData['data_hora'] = Carbon::parse($validatedData['data_hora']);
 
-        Evento::create($validatedData);
+        $evento = Evento::create($validatedData);
 
-        return redirect()->back();
+        return to_route('evento-workflow.show', ['evento' => $evento->id]);
     }
 
     public function show(Evento $evento)

@@ -27,6 +27,8 @@ return new class extends Migration
             $table->string('cidade_exterior')->nullable();
             $table->string('recinto')->nullable();
             $table->string('status')->default(EventoStatusEnum::FORMULARIO_PENDENTE->value);
+            $table->string('token_formulario')->nullable();
+            $table->timestampTz('token_validade')->nullable();
             $table->timestamps();
         });
     }

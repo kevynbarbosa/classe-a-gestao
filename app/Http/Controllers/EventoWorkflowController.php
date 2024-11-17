@@ -18,4 +18,13 @@ class EventoWorkflowController extends Controller
             'evento_status_enum' => EventoStatusEnum::options()
         ]);
     }
+
+    public function enviarFormulario(Request $request, Evento $evento)
+    {
+        $validatedData = $request->validate([
+            'token' => ['required', 'string'],
+        ]);
+
+        return redirect()->back();
+    }
 }
