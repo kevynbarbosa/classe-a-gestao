@@ -63,6 +63,7 @@ Route::controller(EventoWorkflowController::class)->name('evento-workflow.')->gr
         Route::post('evento-workflow/{evento}/enviar-formulario', 'enviarFormulario')->name('enviar-formulario-contratante');
     });
     Route::get('contratante-formulario/{token}', 'showFormulario')->name('contratante-formulario');
+    Route::post('contratante-formulario/{token}/salvar-formulario', 'salvarFormulario')->name('salvar-contratante-formulario');
 });
 
 

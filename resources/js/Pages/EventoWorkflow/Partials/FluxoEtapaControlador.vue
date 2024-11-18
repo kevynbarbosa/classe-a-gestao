@@ -4,6 +4,8 @@
 
         <EnviarFormularioContratante v-if="evento.status == 'formulario_pendente'" :evento="evento" />
 
+        <EventoFormularioReenviar v-if="evento.status == 'formulario_enviado'" :evento="evento" />
+
         <GerarPropostaContratante v-if="evento.status == 'pendente_proposta'" :evento="evento" />
 
         <UploadNotaFiscal v-if="evento.status == 'pendente_nf'" :evento="evento" />
@@ -13,6 +15,7 @@
 <script setup>
 import TituloCard from "@/Components/TituloCard.vue";
 import EnviarFormularioContratante from "./EnviarFormularioContratante.vue";
+import EventoFormularioReenviar from "./EventoFormularioReenviar.vue";
 import GerarPropostaContratante from "./GerarPropostaContratante.vue";
 import UploadNotaFiscal from "./UploadNotaFiscal.vue";
 

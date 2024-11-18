@@ -31,11 +31,29 @@ class EventoWorkflowController extends Controller
         return back();
     }
 
-    public function showFormulario(Evento $evento)
+    public function showFormulario($token)
     {
-        return Inertia::render('EventoWorkflow/Formulario', [
-            'evento' => $evento,
-            // 'evento_status_enum' => EventoStatusEnum::options()
+        // $evento = Evento::where('token', $token)->first();
+        $evento = Evento::find(1);
+        if ($evento->status == EventoStatusEnum::FORMULARIO_ENVIADO) {
+            return Inertia::render('EventoWorkflow/Formulario', [
+                'evento' => $evento,
+            ]);
+        }
+
+        return Inertia::render('EventoWorkflow/FormularioConcluido',);
+    }
+
+    public function salvarFormulario(Request $request, $token)
+    {
+        $validatedData = $request->validate([
+            // 'email_contratante' => ['required', 'email'],
         ]);
+        $evento = Evento::find(1);
+        // $evento = Evento::where('token', $token)->first();
+        $evento->status = EventoStatusEnum::PENDENTE_PROPOSTA;
+        $evento->save();
+
+        return back();
     }
 }

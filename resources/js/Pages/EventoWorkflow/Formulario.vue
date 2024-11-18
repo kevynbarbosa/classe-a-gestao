@@ -14,7 +14,7 @@
     <div class="card mx-auto mt-4 max-w-2xl">
         <TituloCard titulo="Preencha as informações para prosseguir com o fluxo de contratação"></TituloCard>
 
-        <form @submit="submit">
+        <form @submit.prevent="submit">
             <div>
                 <FloatLabel variant="in">
                     <InputText id="field" class="w-full" size="small" v-model="form.field" variant="filled" />
@@ -51,13 +51,15 @@ import { Head, useForm } from "@inertiajs/vue3";
 
 defineOptions({ layout: EFormLayout });
 
-const variable = ref(null);
+const props = defineProps({ evento: Object });
+
+const variable = ref("123");
 
 const form = useForm({
     field: null,
 });
 
 function submit() {
-    // form.post(route("evento-workflow.store"));
+    form.post(route("evento-workflow.salvar-contratante-formulario", { token: variable.value }));
 }
 </script>
