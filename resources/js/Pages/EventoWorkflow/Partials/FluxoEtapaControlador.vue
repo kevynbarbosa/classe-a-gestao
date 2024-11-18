@@ -2,11 +2,11 @@
     <div class="my-2 rounded bg-slate-100 p-2">
         <TituloCard titulo="Ação pendente do workflow do evento" />
 
-        <EnviarFormularioContratante v-if="evento.status == 'formulario_pendente'" />
+        <EnviarFormularioContratante v-if="evento.status == 'formulario_pendente'" :evento="evento" />
 
-        <GerarPropostaContratante v-if="evento.status == 'pendente_proposta'" />
+        <GerarPropostaContratante v-if="evento.status == 'pendente_proposta'" :evento="evento" />
 
-        <UploadNotaFiscal v-if="evento.status == 'pendente_nf'" />
+        <UploadNotaFiscal v-if="evento.status == 'pendente_nf'" :evento="evento" />
     </div>
 </template>
 

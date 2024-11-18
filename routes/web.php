@@ -55,10 +55,15 @@ Route::middleware(['auth', /* SimulateRealNetwork::class */])->group(function ()
         'vendedores' => 'vendedor'
     ]);
     Route::resource('contratantes', ContratanteController::class);
-
-    Route::get('evento-workflow/{evento}', [EventoWorkflowController::class, 'show'])->name('evento-workflow.show');
 });
 
-Route::get('contratante-formulario/{token}', [EventoWorkflowController::class, 'showFormulario'])->name('contratante-formulario');
+Route::controller(EventoWorkflowController::class)->name('evento-workflow.')->group(function () {
+    Route::middleware(['auth'])->group(function () {
+        Route::post('evento-workflow/{evento}/enviar-formulario', 'show')->name('enviar-formulario-contratante');
+        Route::get('evento-workflow/{evento}', 'show')->name('show');
+    });
+    Route::get('contratante-formulario/{token}', 'showFormulario')->name('contratante-formulario');
+});
+
 
 require __DIR__ . '/auth.php';

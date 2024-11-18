@@ -23,6 +23,14 @@
                 <div class="text-red-500" v-if="form.errors.field">{{ form.errors.field }}</div>
             </div>
 
+            <div class="mt-2">
+                <FloatLabel variant="in">
+                    <InputText id="field" class="w-full" size="small" v-model="form.field" variant="filled" />
+                    <label for="field">Label</label>
+                </FloatLabel>
+                <div class="text-red-500" v-if="form.errors.field">{{ form.errors.field }}</div>
+            </div>
+
             <div class="mt-4 text-center">
                 <Button
                     icon="mdi mdi-check"
