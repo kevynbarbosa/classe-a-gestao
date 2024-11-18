@@ -22,7 +22,7 @@
     </form>
 
     <!-- Modal de confirmação -->
-    <Modal name="confirmar-envio" max-width="sm">
+    <Modal ref="modalRef" name="confirmar-envio" max-width="sm">
         <TituloCard titulo="Enviar link para o contratante"></TituloCard>
 
         <div>
@@ -47,12 +47,16 @@
 import TituloCard from "@/Components/TituloCard.vue";
 import { useForm } from "@inertiajs/vue3";
 import { Modal, visitModal } from "@inertiaui/modal-vue";
+import { useToast } from "primevue/usetoast";
 
 const props = defineProps({ evento: Object });
+const toast = useToast();
 
 const form = useForm({
     email_contratante: "",
 });
+
+const modalRef = ref(null);
 
 function confirmarEnvio() {
     form.errors.email_contratante = null;
@@ -66,6 +70,12 @@ function confirmarEnvio() {
 }
 
 function enviarLinkContratante() {
-    form.post(route("evento-workflow.enviar-formulario-contratante", { evento: props.evento.id }));
+    form.post(route("evento-workflow.enviar-formulario-contratante", { evento: props.evento.id }), {
+        onSuccess: () => {
+            toast.add({ severity: "success", summary: "Sucesso", detail: "Link enviado", life: 3000 });
+        },
+        onError: () =>
+            toast.add({ severity: "error", summary: "Erro", detail: "Ocorreu um erro ao enviar o link", life: 3000 }),
+    });
 }
 </script>

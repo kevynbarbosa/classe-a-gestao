@@ -21,15 +21,14 @@ class EventoWorkflowController extends Controller
 
     public function enviarFormulario(Request $request, Evento $evento)
     {
-        sleep(4);
         $validatedData = $request->validate([
-            'token' => ['required', 'string'],
+            'email_contratante' => ['required', 'email'],
         ]);
 
         $evento->status = EventoStatusEnum::FORMULARIO_ENVIADO;
         $evento->save();
 
-        return to_route('evento-workflow.show', ['evento' => $evento->id]);
+        return back();
     }
 
     public function showFormulario(Evento $evento)
