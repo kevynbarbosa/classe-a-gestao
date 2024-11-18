@@ -59,6 +59,6 @@ Route::middleware(['auth', /* SimulateRealNetwork::class */])->group(function ()
     Route::get('evento-workflow/{evento}', [EventoWorkflowController::class, 'show'])->name('evento-workflow.show');
 });
 
-Route::get('contratante-formulario/{token}', [ContratanteController::class, 'formulario'])->name('contratante-formulario');
+Route::get('contratante-formulario/{token}', [EventoWorkflowController::class, 'showFormulario'])->name('contratante-formulario');
 
 require __DIR__ . '/auth.php';

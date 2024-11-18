@@ -27,4 +27,12 @@ class EventoWorkflowController extends Controller
 
         return redirect()->back();
     }
+
+    public function showFormulario(Evento $evento)
+    {
+        return Inertia::render('EventoWorkflow/Formulario', [
+            'evento' => $evento,
+            // 'evento_status_enum' => EventoStatusEnum::options()
+        ]);
+    }
 }
