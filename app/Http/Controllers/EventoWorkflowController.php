@@ -49,9 +49,26 @@ class EventoWorkflowController extends Controller
         $validatedData = $request->validate([
             // 'email_contratante' => ['required', 'email'],
         ]);
-        $evento = Evento::find(1);
+
         // $evento = Evento::where('token', $token)->first();
+        $evento = Evento::find(1);
+        if (!$evento->status == EventoStatusEnum::FORMULARIO_ENVIADO) {
+            return 'expirado';
+        };
+
         $evento->status = EventoStatusEnum::PENDENTE_PROPOSTA;
+        $evento->save();
+
+        return back();
+    }
+
+    public function gerarProposta(Request $request, Evento $evento)
+    {
+        $validatedData = $request->validate([
+            // 'email_contratante' => ['required', 'email'],
+        ]);
+
+        $evento->status = EventoStatusEnum::PROPOSTA_ENVIADA;
         $evento->save();
 
         return back();

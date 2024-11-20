@@ -32,7 +32,13 @@
         </div>
 
         <div class="w-full text-center">
-            <Button class="mt-2" label="Gerar proposta" icon="mdi mdi-send" @click="gerarPropostaContratante" />
+            <Button
+                class="mt-2"
+                label="Gerar proposta"
+                icon="mdi mdi-send"
+                @click="gerarPropostaContratante"
+                :loading="form.processing"
+            />
         </div>
     </form>
 </template>
@@ -40,11 +46,15 @@
 <script setup>
 import { useForm } from "@inertiajs/vue3";
 
+const props = defineProps({ evento: Object });
+
 const variable = ref(null);
 
 const form = useForm({
     nome_completo: null,
 });
 
-function gerarPropostaContratante() {}
+function gerarPropostaContratante() {
+    form.post(route("evento-workflow.gerar-proposta", { evento: props.evento.id }));
+}
 </script>
