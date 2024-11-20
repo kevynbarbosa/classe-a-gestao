@@ -35,4 +35,9 @@ class Evento extends Model
     {
         return $this->belongsTo(Cidade::class);
     }
+
+    public function historico()
+    {
+        return $this->hasMany(EventoHistorico::class);
+    }
 }

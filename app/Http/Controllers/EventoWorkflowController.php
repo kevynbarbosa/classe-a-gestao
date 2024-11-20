@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\EventoStatusEnum;
 use App\Models\Evento;
+use App\Services\EventoHistoricoService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -11,7 +12,7 @@ class EventoWorkflowController extends Controller
 {
     public function show(Evento $evento)
     {
-        $evento->load(['artista', 'contratante', 'vendedor', 'cidade']);
+        $evento->load(['artista', 'contratante', 'vendedor', 'cidade', 'historico']);
 
         return Inertia::render('EventoWorkflow/Index', [
             'evento' => $evento,
@@ -25,8 +26,7 @@ class EventoWorkflowController extends Controller
             'email_contratante' => ['required', 'email'],
         ]);
 
-        $evento->status = EventoStatusEnum::FORMULARIO_ENVIADO;
-        $evento->save();
+        EventoHistoricoService::gerarHistorico($evento, EventoStatusEnum::FORMULARIO_ENVIADO);
 
         return back();
     }
@@ -56,8 +56,7 @@ class EventoWorkflowController extends Controller
             return 'expirado';
         };
 
-        $evento->status = EventoStatusEnum::PENDENTE_PROPOSTA;
-        $evento->save();
+        EventoHistoricoService::gerarHistorico($evento, EventoStatusEnum::PENDENTE_PROPOSTA);
 
         return back();
     }
@@ -68,8 +67,7 @@ class EventoWorkflowController extends Controller
             // 'email_contratante' => ['required', 'email'],
         ]);
 
-        $evento->status = EventoStatusEnum::PROPOSTA_ENVIADA;
-        $evento->save();
+        EventoHistoricoService::gerarHistorico($evento, EventoStatusEnum::PROPOSTA_ENVIADA);
 
         return back();
     }
