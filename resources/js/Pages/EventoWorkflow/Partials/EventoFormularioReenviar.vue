@@ -1,8 +1,8 @@
 <template>
     <div class="text-center">
         Formulário enviado para o e-mail:
-        <b>q4m0e@example.com</b>
-        às 12:00
+        <b>{{ props.evento.email_formulario }}</b>
+        às {{ dateTimeLocale(props.evento.formulario_enviado_em) }}
     </div>
 
     <div class="flex justify-center gap-2">
@@ -24,7 +24,10 @@
     <Modal name="link-formulario" max-width="sm">
         <TituloCard titulo="Link do formulário"></TituloCard>
 
-        <div>https://example.com</div>
+        <div v-if="props.evento.token_formulario">
+            {{ route("evento-workflow.contratante-formulario", { token: props.evento.token_formulario }) }}
+        </div>
+        <div v-else>Não há link gerado para o formulário</div>
 
         <div class="w-full text-center">
             <Button class="mt-2" label="Copiar link do formulário" icon="mdi mdi-content-copy" @click="copiarLink" />
@@ -34,6 +37,7 @@
 
 <script setup>
 import TituloCard from "@/Components/TituloCard.vue";
+import { dateTimeLocale } from "@/Utils/dateUtils";
 import { useForm } from "@inertiajs/vue3";
 import { Modal, ModalLink } from "@inertiaui/modal-vue";
 import { useToast } from "primevue/usetoast";
