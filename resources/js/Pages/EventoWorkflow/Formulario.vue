@@ -53,13 +53,11 @@ defineOptions({ layout: EFormLayout });
 
 const props = defineProps({ evento: Object });
 
-const variable = ref("123");
-
 const form = useForm({
     field: null,
 });
 
 function submit() {
-    form.post(route("evento-workflow.salvar-contratante-formulario", { token: variable.value }));
+    form.post(route("evento-workflow.salvar-contratante-formulario", { evento: props.evento.token_formulario }));
 }
 </script>

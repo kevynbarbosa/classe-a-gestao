@@ -31,6 +31,7 @@ return new class extends Migration
             $table->string('token_formulario')->nullable();
             $table->timestampTz('token_validade')->nullable();
             $table->timestampTz('formulario_enviado_em')->nullable();
+            $table->boolean('formulario_acessado')->default(false);
             $table->timestamps();
         });
     }

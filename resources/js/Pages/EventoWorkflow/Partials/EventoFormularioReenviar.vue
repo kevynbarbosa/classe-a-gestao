@@ -25,7 +25,7 @@
         <TituloCard titulo="Link do formulário"></TituloCard>
 
         <div v-if="props.evento.token_formulario">
-            {{ route("evento-workflow.contratante-formulario", { token: props.evento.token_formulario }) }}
+            {{ route("evento-workflow.contratante-formulario", { evento: props.evento.token_formulario }) }}
         </div>
         <div v-else>Não há link gerado para o formulário</div>
 

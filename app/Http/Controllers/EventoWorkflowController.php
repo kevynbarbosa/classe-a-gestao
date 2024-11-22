@@ -44,10 +44,11 @@ class EventoWorkflowController extends Controller
         return back();
     }
 
-    public function showFormulario($token)
+    public function showFormulario(Evento $evento)
     {
-        $evento = Evento::where('token_formulario', $token)->first();
         if ($evento->status == EventoStatusEnum::FORMULARIO_ENVIADO) {
+            $evento->formulario_acessado = true;
+            $evento->save();
             return Inertia::render('EventoWorkflow/Formulario', [
                 'evento' => $evento,
             ]);
@@ -56,13 +57,12 @@ class EventoWorkflowController extends Controller
         return Inertia::render('EventoWorkflow/FormularioConcluido',);
     }
 
-    public function salvarFormulario(Request $request, $token)
+    public function salvarFormulario(Request $request, Evento $evento)
     {
         $validatedData = $request->validate([
             // 'email_contratante' => ['required', 'email'],
         ]);
 
-        $evento = Evento::where('token_formulario', $token)->first();
         if (!$evento->status == EventoStatusEnum::FORMULARIO_ENVIADO) {
             return 'expirado';
         };
