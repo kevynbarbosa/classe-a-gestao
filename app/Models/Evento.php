@@ -14,6 +14,7 @@ class Evento extends Model
 
     protected $casts = [
         'status' => EventoStatusEnum::class,
+        'data_hora' => 'datetime:Y-m-d',
     ];
 
     public function artista()

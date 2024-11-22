@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\EventoStatusEnum;
-use App\Models\Evento;
-use App\Services\EventoHistoricoService;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
+use App\Models\Evento;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Enums\EventoStatusEnum;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\FormularioContratanteMail;
+use App\Services\EventoHistoricoService;
 
 class EventoWorkflowController extends Controller
 {
@@ -26,6 +29,16 @@ class EventoWorkflowController extends Controller
             'email_contratante' => ['required', 'email'],
         ]);
 
+        try {
+            if (!$evento->token_formulario) {
+                $evento->token_formulario = Str::uuid();
+                $evento->save();
+            }
+            Mail::to($validatedData['email_contratante'])->send(new FormularioContratanteMail($evento));
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+
         EventoHistoricoService::gerarHistorico($evento, EventoStatusEnum::FORMULARIO_ENVIADO);
 
         return back();
@@ -33,8 +46,7 @@ class EventoWorkflowController extends Controller
 
     public function showFormulario($token)
     {
-        // $evento = Evento::where('token', $token)->first();
-        $evento = Evento::find(1);
+        $evento = Evento::where('token_formulario', $token)->first();
         if ($evento->status == EventoStatusEnum::FORMULARIO_ENVIADO) {
             return Inertia::render('EventoWorkflow/Formulario', [
                 'evento' => $evento,
@@ -50,8 +62,7 @@ class EventoWorkflowController extends Controller
             // 'email_contratante' => ['required', 'email'],
         ]);
 
-        // $evento = Evento::where('token', $token)->first();
-        $evento = Evento::find(1);
+        $evento = Evento::where('token_formulario', $token)->first();
         if (!$evento->status == EventoStatusEnum::FORMULARIO_ENVIADO) {
             return 'expirado';
         };
