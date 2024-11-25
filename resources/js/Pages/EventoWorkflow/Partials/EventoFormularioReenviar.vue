@@ -24,9 +24,13 @@
     <Modal name="link-formulario" max-width="sm">
         <TituloCard titulo="Link do formulário"></TituloCard>
 
-        <div v-if="props.evento.token_formulario">
+        <a
+            v-if="props.evento.token_formulario"
+            :href="route('evento-workflow.contratante-formulario', { evento: props.evento.token_formulario })"
+            target="_blank"
+        >
             {{ route("evento-workflow.contratante-formulario", { evento: props.evento.token_formulario }) }}
-        </div>
+        </a>
         <div v-else>Não há link gerado para o formulário</div>
 
         <div class="w-full text-center">
@@ -49,11 +53,25 @@ const toast = useToast();
 const form = useForm({ email_contratante: "" });
 
 function copiarLink() {
-    toast.add({
-        severity: "success",
-        summary: "Link copiado",
-        detail: "Link copiada para a área de transferência",
-        life: 3000,
-    });
+    const link = route("evento-workflow.contratante-formulario", { evento: props.evento.token_formulario });
+    navigator.clipboard
+        .writeText(link)
+        .then(() => {
+            toast.add({
+                severity: "success",
+                summary: "Link copiado",
+                detail: "Link copiado para a área de transferência",
+                life: 3000,
+            });
+        })
+        .catch((err) => {
+            console.error("Erro ao copiar link: ", err);
+            toast.add({
+                severity: "error",
+                summary: "Erro",
+                detail: "Ocorreu um erro ao copiar o link",
+                life: 3000,
+            });
+        });
 }
 </script>

@@ -30,10 +30,10 @@ class EventoWorkflowController extends Controller
         ]);
 
         try {
-            if (!$evento->token_formulario) {
-                $evento->token_formulario = Str::uuid();
-                $evento->save();
-            }
+            $evento->email_formulario = $validatedData['email_contratante'];
+            $evento->token_formulario = Str::uuid();
+            $evento->save();
+
             Mail::to($validatedData['email_contratante'])->send(new FormularioContratanteMail($evento));
         } catch (\Throwable $th) {
             throw $th;
