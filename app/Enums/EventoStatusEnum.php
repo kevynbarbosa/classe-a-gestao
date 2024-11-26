@@ -19,6 +19,9 @@ enum EventoStatusEnum: string
     #[EnumDescription('Pendente de proposta')]
     case PENDENTE_PROPOSTA = 'pendente_proposta';
 
+    #[EnumDescription('Proposta gerada')]
+    case PROPOSTA_GERADA = 'proposta_gerada';
+
     #[EnumDescription('Proposta enviada')]
     case PROPOSTA_ENVIADA = 'proposta_enviada';
 

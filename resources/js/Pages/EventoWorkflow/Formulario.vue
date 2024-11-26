@@ -15,20 +15,36 @@
         <TituloCard titulo="Preencha as informações para prosseguir com o fluxo de contratação"></TituloCard>
 
         <form @submit.prevent="submit">
-            <div>
-                <FloatLabel variant="in">
-                    <InputText id="field" class="w-full" size="small" v-model="form.field" variant="filled" />
-                    <label for="field">Label</label>
-                </FloatLabel>
-                <div class="text-red-500" v-if="form.errors.field">{{ form.errors.field }}</div>
-            </div>
+            <div class="flex flex-col gap-3">
+                <div>
+                    <FloatLabel variant="in">
+                        <InputText
+                            id="nome_completo"
+                            class="w-full"
+                            size="small"
+                            v-model="form.nome_completo"
+                            variant="filled"
+                        />
+                        <label for="nome_completo">Nome</label>
+                    </FloatLabel>
+                    <div class="text-red-500" v-if="form.errors.nome_completo">{{ form.errors.nome_completo }}</div>
+                </div>
 
-            <div class="mt-2">
-                <FloatLabel variant="in">
-                    <InputText id="field" class="w-full" size="small" v-model="form.field" variant="filled" />
-                    <label for="field">Label</label>
-                </FloatLabel>
-                <div class="text-red-500" v-if="form.errors.field">{{ form.errors.field }}</div>
+                <div>
+                    <FloatLabel variant="in">
+                        <InputText id="cpf_cnpj" class="w-full" size="small" v-model="form.cpf_cnpj" variant="filled" />
+                        <label for="cpf_cnpj">CPF/CNPJ</label>
+                    </FloatLabel>
+                    <div class="text-red-500" v-if="form.errors.cpf_cnpj">{{ form.errors.cpf_cnpj }}</div>
+                </div>
+
+                <div>
+                    <FloatLabel variant="in">
+                        <InputText id="rg" class="w-full" size="small" v-model="form.rg" variant="filled" />
+                        <label for="rg">RG</label>
+                    </FloatLabel>
+                    <div class="text-red-500" v-if="form.errors.rg">{{ form.errors.rg }}</div>
+                </div>
             </div>
 
             <div class="mt-4 text-center">
@@ -51,10 +67,12 @@ import { Head, useForm } from "@inertiajs/vue3";
 
 defineOptions({ layout: EFormLayout });
 
-const props = defineProps({ evento: Object });
+const props = defineProps({ evento: Object, contratante: Object });
 
-const form = useForm({
-    field: null,
+const form = useForm("EventoWorkflowFormularioContratante", {
+    nome_completo: props.contratante?.nome_completo ?? null,
+    cpf_cnpj: props.contratante?.cpf_cnpj ?? null,
+    rg: props.contratante?.rg ?? null,
 });
 
 function submit() {
