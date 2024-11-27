@@ -26,6 +26,8 @@ return new class extends Migration
             $table->boolean('evento_internacional')->nullable();
             $table->string('cidade_exterior')->nullable();
             $table->string('recinto')->nullable();
+            $table->time('duracao')->nullable();
+            $table->decimal('valor', 12, 2)->nullable();
             $table->string('status')->default(EventoStatusEnum::FORMULARIO_PENDENTE->value);
             $table->string('email_formulario')->nullable();
             $table->string('token_formulario')->nullable();

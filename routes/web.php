@@ -30,10 +30,26 @@ Route::get('/teste', function () {
 
     $modeloDocx = storage_path('app/modelos_proposta/MODELO_PROPOSTA.docx');
     $dados = [
-        '{{nome_completo}}' => 'João da Silva',
-        '{{NOME}}' => 'João da Silva',
-        'DATA' => date('d/m/Y'),
-        'VALOR' => 'R$ 1.000,00',
+        '{{ARTISTA_NOME}}' => '{{TOKEN_SUBSTITUIDO}}',
+        '{{ARTISTA_RAZAO_SOCIAL}}' => '{{TOKEN_SUBSTITUIDO}}',
+        '{{ARTISTA_CNPJ}}' => '{{TOKEN_SUBSTITUIDO}}',
+        '{{ARTISTA_ENDERECO}}' => '{{TOKEN_SUBSTITUIDO}}',
+        '{{ARTISTA_NUMERO}}' => '{{TOKEN_SUBSTITUIDO}}',
+        '{{ARTISTA_COMPLEMENTO}}' => '{{TOKEN_SUBSTITUIDO}}',
+        '{{ARTISTA_BAIRRO}}' => '{{TOKEN_SUBSTITUIDO}}',
+        '{{ARTISTA_CIDADE}}' => '{{TOKEN_SUBSTITUIDO}}',
+        '{{ARTISTA_CEP}}' => '{{TOKEN_SUBSTITUIDO}}',
+        '{{ARTISTA_REPRESENTANTE_LEGAL_NOME}}' => '{{TOKEN_SUBSTITUIDO}}',
+        '{{ARTISTA_REPRESENTANTE_LEGAL_CPF}}' => '{{TOKEN_SUBSTITUIDO}}',
+        '{{ARTISTA_REPRESENTANTE_LEGAL_RG}}' => '{{TOKEN_SUBSTITUIDO}}',
+        '{{EVENTO_CIDADE}}' => '{{TOKEN_SUBSTITUIDO}}',
+        '{{EVENTO_DURACAO}}' => '{{TOKEN_SUBSTITUIDO}}',
+        '{{EVENTO_DATA}}' => '{{TOKEN_SUBSTITUIDO}}',
+        '{{EVENTO_RECINTO}}' => '{{TOKEN_SUBSTITUIDO}}',
+        '{{EVENTO_CIDADE}}' => '{{TOKEN_SUBSTITUIDO}}',
+        '{{EVENTO_VALOR}}' => '{{TOKEN_SUBSTITUIDO}}',
+        '{{EVENTO_VALOR_EXTENSO}}' => '{{TOKEN_SUBSTITUIDO}}',
+        '{{PROPOSTA_DATA_GERACAO}}' => '{{TOKEN_SUBSTITUIDO}}',
     ];
     $saidaDocx = storage_path('app/public/saida.docx');
     $saidaPdf = storage_path('app/public/saida.pdf');

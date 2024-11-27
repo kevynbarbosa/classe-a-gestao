@@ -1,11 +1,11 @@
 <template>
-    <Modal ref="modalRef" max-width="sm">
+    <Modal ref="modalRef" max-width="md">
         <Head :title="titulo" />
 
         <TituloCard :titulo="titulo"></TituloCard>
 
         <form @submit.prevent="submit" autocomplete="off">
-            <div class="flex flex-col gap-3">
+            <div class="grid grid-cols-1 gap-2">
                 <div>
                     <FloatLabel variant="in">
                         <Select
@@ -134,6 +134,22 @@
                     </FloatLabel>
                     <div class="text-red-500" v-if="form.errors.recinto">{{ form.errors.recinto }}</div>
                 </div>
+
+                <div>
+                    <FloatLabel variant="in">
+                        <InputText id="duracao" class="w-full" size="small" v-model="form.duracao" variant="filled" />
+                        <label for="duracao">Duração</label>
+                    </FloatLabel>
+                    <div class="text-red-500" v-if="form.errors.duracao">{{ form.errors.duracao }}</div>
+                </div>
+
+                <div>
+                    <FloatLabel variant="in">
+                        <InputText id="valor" class="w-full" size="small" v-model="form.valor" variant="filled" />
+                        <label for="valor">Valor</label>
+                    </FloatLabel>
+                    <div class="text-red-500" v-if="form.errors.valor">{{ form.errors.valor }}</div>
+                </div>
             </div>
 
             <div
@@ -183,6 +199,8 @@ const form = useForm({
     recinto: props.evento?.recinto ?? "",
     evento_internacional: props.evento?.evento_internacional ?? 0,
     cidade_exterior: props.evento?.cidade_exterior ?? "",
+    duracao: props.evento?.duracao ?? "",
+    valor: props.evento?.valor ?? "",
 });
 
 const back = () => window.history.back();
