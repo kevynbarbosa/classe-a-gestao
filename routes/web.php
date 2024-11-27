@@ -10,6 +10,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VendedorController;
 use App\Http\Middleware\SimulateRealNetwork;
 use App\Models\Cidade;
+use App\Services\GeracaoModeloService;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
@@ -27,15 +28,28 @@ Route::get('/', function () {
 
 Route::get('/teste', function () {
 
-    dd(EventoStatusEnum::options());
+    $modeloDocx = storage_path('app/modelos_proposta/MODELO_PROPOSTA.docx');
+    $dados = [
+        '{{nome_completo}}' => 'João da Silva',
+        '{{NOME}}' => 'João da Silva',
+        'DATA' => date('d/m/Y'),
+        'VALOR' => 'R$ 1.000,00',
+    ];
+    $saidaDocx = storage_path('app/public/saida.docx');
+    $saidaPdf = storage_path('app/public/saida.pdf');
 
-    return Inertia::render('Teste', [
-        // 'canLogin' => Route::has('login'),
-        // 'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-        'cidades' => Cidade::all()
-    ]);
+    $service = new GeracaoModeloService();
+    $service->substituirTokensNoDocxEConverterPdf($modeloDocx, $dados, $saidaDocx, $saidaPdf);
+
+    // dd(EventoStatusEnum::options());
+
+    // return Inertia::render('Teste', [
+    //     // 'canLogin' => Route::has('login'),
+    //     // 'canRegister' => Route::has('register'),
+    //     'laravelVersion' => Application::VERSION,
+    //     'phpVersion' => PHP_VERSION,
+    //     'cidades' => Cidade::all()
+    // ]);
 });
 
 Route::get('/dashboard', function () {
