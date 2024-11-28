@@ -15,6 +15,8 @@ import ToastService from "primevue/toastservice";
 import ptBrLocale from "./Config/pt-br-locale.json";
 import DefaultLayout from "./Layouts/DefaultLayout.vue";
 
+import VueTheMask from "vue-the-mask";
+
 const appName = import.meta.env.VITE_APP_NAME || "";
 
 const CustomTheme = definePreset(Aura, {
@@ -59,6 +61,7 @@ createInertiaApp({
             })
             .use(DialogService)
             .use(ToastService)
+            .use(VueTheMask)
             .mount(el);
     },
     progress: {

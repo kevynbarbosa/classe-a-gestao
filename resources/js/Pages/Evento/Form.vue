@@ -137,7 +137,14 @@
 
                 <div>
                     <FloatLabel variant="in">
-                        <InputText id="duracao" class="w-full" size="small" v-model="form.duracao" variant="filled" />
+                        <InputText
+                            id="duracao"
+                            class="w-full"
+                            size="small"
+                            v-model="form.duracao"
+                            variant="filled"
+                            v-mask="'##:##'"
+                        />
                         <label for="duracao">Duração</label>
                     </FloatLabel>
                     <div class="text-red-500" v-if="form.errors.duracao">{{ form.errors.duracao }}</div>
@@ -145,10 +152,11 @@
 
                 <div>
                     <FloatLabel variant="in">
-                        <InputText id="valor" class="w-full" size="small" v-model="form.valor" variant="filled" />
+                        <InputText id="valor" class="w-full" size="small" v-model.lazy="form.valor" variant="filled" />
                         <label for="valor">Valor</label>
                     </FloatLabel>
                     <div class="text-red-500" v-if="form.errors.valor">{{ form.errors.valor }}</div>
+                    {{ form.valor }}
                 </div>
             </div>
 

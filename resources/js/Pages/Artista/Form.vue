@@ -29,9 +29,16 @@
                     <div class="text-red-500" v-if="form.errors.razao_social">{{ form.errors.razao_social }}</div>
                 </div>
 
-                <div>
+                <div class="col-span-2">
                     <FloatLabel variant="in">
-                        <InputText id="cnpj" class="w-full" size="small" v-model="form.cnpj" variant="filled" />
+                        <InputText
+                            id="cnpj"
+                            class="w-full"
+                            size="small"
+                            v-model="form.cnpj"
+                            variant="filled"
+                            v-mask="'##.###.###/####-##'"
+                        />
                         <label for="cnpj">CNPJ</label>
                     </FloatLabel>
                     <div class="text-red-500" v-if="form.errors.cnpj">{{ form.errors.cnpj }}</div>
@@ -47,7 +54,14 @@
 
                 <div>
                     <FloatLabel variant="in">
-                        <InputText id="telefone" class="w-full" size="small" v-model="form.telefone" variant="filled" />
+                        <InputText
+                            id="telefone"
+                            class="w-full"
+                            size="small"
+                            v-model="form.telefone"
+                            variant="filled"
+                            v-mask="['(##) ####-####', '(##) #####-####']"
+                        />
                         <label for="telefone">Telefone</label>
                     </FloatLabel>
                     <div class="text-red-500" v-if="form.errors.telefone">{{ form.errors.telefone }}</div>
@@ -55,7 +69,14 @@
 
                 <div>
                     <FloatLabel variant="in">
-                        <InputText id="cep" class="w-full" size="small" v-model="form.cep" variant="filled" />
+                        <InputText
+                            id="cep"
+                            class="w-full"
+                            size="small"
+                            v-model="form.cep"
+                            variant="filled"
+                            v-mask="'#####-###'"
+                        />
                         <label for="cep">CEP</label>
                     </FloatLabel>
                     <div class="text-red-500" v-if="form.errors.cep">{{ form.errors.cep }}</div>
@@ -145,6 +166,7 @@
                             size="small"
                             v-model="form.representante_legal_cpf"
                             variant="filled"
+                            v-mask="'###.###.###-##'"
                         />
                         <label for="representante_legal_cpf">CPF</label>
                     </FloatLabel>
