@@ -152,11 +152,11 @@
 
                 <div>
                     <FloatLabel variant="in">
-                        <InputText id="valor" class="w-full" size="small" v-model.lazy="form.valor" variant="filled" />
+                        <CurrencyInput id="valor" class="w-full" size="small" v-model="form.valor" variant="filled" />
+                        <!-- <InputText id="valor" class="w-full" size="small" v-model="form.valor" variant="filled" /> -->
                         <label for="valor">Valor</label>
                     </FloatLabel>
                     <div class="text-red-500" v-if="form.errors.valor">{{ form.errors.valor }}</div>
-                    {{ form.valor }}
                 </div>
             </div>
 
@@ -177,6 +177,7 @@
 </template>
 
 <script setup>
+import CurrencyInput from "@/Components/Form/CurrencyInput.vue";
 import CustomAutoComplete from "@/Components/Form/CustomAutoComplete.vue";
 import TituloCard from "@/Components/TituloCard.vue";
 import { parseDateTime } from "@/Utils/dateUtils";
@@ -208,7 +209,7 @@ const form = useForm({
     evento_internacional: props.evento?.evento_internacional ?? 0,
     cidade_exterior: props.evento?.cidade_exterior ?? "",
     duracao: props.evento?.duracao ?? "",
-    valor: props.evento?.valor ?? "",
+    valor: props.evento?.valor ?? null,
 });
 
 const back = () => window.history.back();
