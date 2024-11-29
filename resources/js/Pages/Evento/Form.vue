@@ -153,7 +153,6 @@
                 <div>
                     <FloatLabel variant="in">
                         <CurrencyInput id="valor" class="w-full" size="small" v-model="form.valor" variant="filled" />
-                        <!-- <InputText id="valor" class="w-full" size="small" v-model="form.valor" variant="filled" /> -->
                         <label for="valor">Valor</label>
                     </FloatLabel>
                     <div class="text-red-500" v-if="form.errors.valor">{{ form.errors.valor }}</div>

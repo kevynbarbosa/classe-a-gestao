@@ -56,8 +56,8 @@ class EventoController extends Controller
             'cidade_id' => ['required_if:evento_internacional,0'],
             'cidade_exterior' => ['required_if:evento_internacional,1'],
             'recinto' => ['required'],
-            'duracao' => ['required'],
-            'valor' => ['required', 'numeric'],
+            'duracao' => ['required', 'date_format:H:i'],
+            'valor' => ['required', 'decimal'],
         ]);
 
         $validatedData['data_hora'] = Carbon::parse($validatedData['data_hora']);

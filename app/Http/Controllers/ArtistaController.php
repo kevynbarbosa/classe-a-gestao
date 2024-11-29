@@ -32,6 +32,20 @@ class ArtistaController extends Controller
     {
         Artista::create($request->validate([
             'nome' => ['required', 'max:50'],
+            'razao_social' => ['required'],
+            'cnpj' => ['required'],
+            'email' => ['required', 'email'],
+            'telefone' => ['required'],
+            'endereco' => ['required'],
+            'numero' => ['required'],
+            'complemento' => ['required'],
+            'bairro' => ['required'],
+            'cep' => ['required'],
+            'cidade_id' => ['required'],
+            'representante_legal_nome' => ['required'],
+            'representante_legal_cpf' => ['required'],
+            'representante_legal_rg' => ['required'],
+            'representante_legal_email' => ['required'],
         ]));
 
         return redirect()->back();
@@ -53,6 +67,20 @@ class ArtistaController extends Controller
     {
         $artista->update($request->validate([
             'nome' => ['required', 'max:50'],
+            'razao_social' => ['required'],
+            'cnpj' => ['required'],
+            'email' => ['required', 'email'],
+            'telefone' => ['required'],
+            'endereco' => ['required'],
+            'numero' => ['required'],
+            'complemento' => ['required'],
+            'bairro' => ['required'],
+            'cep' => ['required'],
+            'cidade_id' => ['required'],
+            'representante_legal_nome' => ['required'],
+            'representante_legal_cpf' => ['required'],
+            'representante_legal_rg' => ['required'],
+            'representante_legal_email' => ['required'],
         ]));
 
         return redirect()->back();
