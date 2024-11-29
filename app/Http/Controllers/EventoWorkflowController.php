@@ -30,15 +30,17 @@ class EventoWorkflowController extends Controller
         ]);
 
         try {
-            Mail::to($validatedData['email_contratante'])->send(new FormularioContratanteMail($evento));
 
             $evento->email_formulario = $validatedData['email_contratante'];
             $evento->token_formulario = Str::uuid();
-            if (!$evento->formulario_enviado_em) $evento->formulario_enviado_em = now();
+            Mail::to($validatedData['email_contratante'])->send(new FormularioContratanteMail($evento));
             $evento->save();
         } catch (\Throwable $th) {
             throw $th;
         }
+
+        if (!$evento->formulario_enviado_em) $evento->formulario_enviado_em = now();
+        $evento->save();
 
         EventoHistoricoService::gerarHistorico($evento, EventoStatusEnum::FORMULARIO_ENVIADO);
 
