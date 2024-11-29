@@ -143,7 +143,7 @@
                             size="small"
                             v-model="form.duracao"
                             variant="filled"
-                            v-mask="'##:##'"
+                            v-mask="['##:##']"
                         />
                         <label for="duracao">Duração</label>
                     </FloatLabel>
