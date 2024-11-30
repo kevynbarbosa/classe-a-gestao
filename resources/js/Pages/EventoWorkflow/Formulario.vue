@@ -41,7 +41,7 @@
                 <div>
                     <FloatLabel variant="in">
                         <InputText id="rg" class="w-full" size="small" v-model="form.rg" variant="filled" />
-                        <label for="rg">RG</label>
+                        <label for="rg">RG (incluir órgão emissor e pontuações)</label>
                     </FloatLabel>
                     <div class="text-red-500" v-if="form.errors.rg">{{ form.errors.rg }}</div>
                 </div>

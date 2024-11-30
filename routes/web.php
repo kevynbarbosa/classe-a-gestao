@@ -92,6 +92,7 @@ Route::controller(EventoWorkflowController::class)->name('evento-workflow.')->gr
         Route::get('evento-workflow/{evento}', 'show')->name('show');
         Route::post('evento-workflow/{evento}/enviar-formulario', 'enviarFormulario')->name('enviar-formulario-contratante');
         Route::post('evento-workflow/{evento}/gerar-proposta', 'gerarProposta')->name('gerar-proposta');
+        Route::post('evento-workflow/{evento}/editar-proposta', 'editarProposta')->name('editar-proposta');
     });
     Route::get('contratante-formulario/{evento:token_formulario}', 'showFormulario')->name('contratante-formulario');
     Route::post('contratante-formulario/{evento:token_formulario}/salvar-formulario', 'salvarFormulario')->name('salvar-contratante-formulario');

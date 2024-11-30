@@ -10,6 +10,7 @@ use App\Enums\EventoStatusEnum;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\FormularioContratanteMail;
 use App\Services\EventoHistoricoService;
+use App\Services\GeracaoModeloService;
 
 class EventoWorkflowController extends Controller
 {
@@ -96,7 +97,17 @@ class EventoWorkflowController extends Controller
             $contratante->update($validatedData);
         }
 
+        $geracaoModeloService = new GeracaoModeloService();
+        $geracaoModeloService->gerarProposta($evento);
+
         EventoHistoricoService::gerarHistorico($evento, EventoStatusEnum::PROPOSTA_GERADA);
+
+        return back();
+    }
+
+    public function editarProposta(Request $request, Evento $evento)
+    {
+        EventoHistoricoService::gerarHistorico($evento, EventoStatusEnum::PENDENTE_PROPOSTA);
 
         return back();
     }
