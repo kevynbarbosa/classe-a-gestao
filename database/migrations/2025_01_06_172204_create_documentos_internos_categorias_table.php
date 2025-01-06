@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('documentos_internos_categorias', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(DocumentoInternoCategoria::class, 'categoria_pai_id')->constrained('documentos_internos_categorias', 'id', 'categoria_pai_index');
+            $table->foreignIdFor(DocumentoInternoCategoria::class, 'categoria_pai_id')->nullable()->constrained('documentos_internos_categorias', 'id', 'categoria_pai_index');
             $table->string('nome');
             $table->timestamps();
         });

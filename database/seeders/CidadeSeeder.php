@@ -14,6 +14,8 @@ class CidadeSeeder extends Seeder
      */
     public function run(): void
     {
+        if (Cidade::count() > 10) return;
+
         // Caminho do arquivo CSV no storage
         $filePath = 'seeders/municipios.csv'; // Altere para o caminho correto do arquivo
 

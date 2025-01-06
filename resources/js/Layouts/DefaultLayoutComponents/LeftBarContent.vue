@@ -50,8 +50,8 @@
             <NavLink
                 icon="mdi mdi-file-document-multiple"
                 label="Documentação"
-                :href="route('artistas.index')"
-                :active="route().current('artistas')"
+                :href="route('documentos-internos.index')"
+                :active="route().current('documentos-internos')"
             />
 
             <!-- <NavSubmenu label="Submenu 1" icon="mdi mdi-view-list">

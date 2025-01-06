@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
             ArtistaSeeder::class,
             ContratanteSeeder::class,
             VendedorSeeder::class,
+            DocumentoInternoCategoriaSeeder::class
         ]);
     }
 }

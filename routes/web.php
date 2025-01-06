@@ -4,6 +4,8 @@ use App\Enums\EventoStatusEnum;
 use App\Http\Controllers\ArtistaController;
 use App\Http\Controllers\CalendarioController;
 use App\Http\Controllers\ContratanteController;
+use App\Http\Controllers\DocumentoInternoCategoriaController;
+use App\Http\Controllers\DocumentoInternoController;
 use App\Http\Controllers\EventoController;
 use App\Http\Controllers\EventoWorkflowController;
 use App\Http\Controllers\ProfileController;
@@ -85,6 +87,8 @@ Route::middleware(['auth', /* SimulateRealNetwork::class */])->group(function ()
         'vendedores' => 'vendedor'
     ]);
     Route::resource('contratantes', ContratanteController::class);
+    Route::resource('documentos-internos', DocumentoInternoController::class);
+    Route::resource('documentos-internos-categorias', DocumentoInternoCategoriaController::class);
 });
 
 Route::controller(EventoWorkflowController::class)->name('evento-workflow.')->group(function () {

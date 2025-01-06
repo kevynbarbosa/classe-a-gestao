@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Artista;
 use App\Models\DocumentoInternoCategoria;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -15,6 +16,7 @@ return new class extends Migration
         Schema::create('documentos_internos', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(DocumentoInternoCategoria::class)->constrained('documentos_internos_categorias');
+            $table->foreignIdFor(Artista::class)->constrained();
             $table->string('nome_original');
             $table->string('path');
             $table->timestamps();
