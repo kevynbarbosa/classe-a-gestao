@@ -41,7 +41,9 @@
             </label>
         </div>
 
-        <div class="w-full text-center">
+        <ServicosDetalhamento v-model="form.servicos" :evento="evento" />
+
+        <div class="mt-4 w-full text-center">
             <Button
                 class="mt-2"
                 label="Gerar proposta"
@@ -55,6 +57,7 @@
 
 <script setup>
 import { useForm } from "@inertiajs/vue3";
+import ServicosDetalhamento from "./ServicosDetalhamento.vue";
 
 const props = defineProps({ evento: Object });
 
@@ -65,6 +68,7 @@ const form = useForm({
     cpf_cnpj: props.evento.contratante?.cpf_cnpj ?? null,
     rg: props.evento.contratante?.rg ?? null,
     atualizar_cadastro: false,
+    servicos: props.evento.servicos ?? [],
 });
 
 function gerarPropostaContratante() {
