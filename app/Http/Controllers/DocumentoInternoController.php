@@ -27,6 +27,21 @@ class DocumentoInternoController extends Controller
 
     public function create()
     {
-        return Inertia::render('DocumentoInterno/UploadDocumento');
+        return Inertia::render('DocumentoInterno/UploadDocumento', [
+            'categorias' => DocumentoInternoCategoria::all()
+        ]);
+    }
+
+    public function store(Request $request)
+    {
+        $validatedData = $request->validate([
+            'artista_id' => ['nullable'],
+            'categoria_id' => ['required'],
+            'arquivo' => ['required', 'file'],
+        ]);
+
+        $documento = DocumentoInterno::create($validatedData);
+
+        return redirect()->back();
     }
 }

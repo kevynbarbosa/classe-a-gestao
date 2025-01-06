@@ -21,11 +21,11 @@
                 />
             </div>
 
-            <div class="border-b border-gray-300">
+            <!-- <div class="border-b border-gray-300">
                 {{ categorias }}
             </div>
 
-            {{ documentos }}
+            {{ documentos }} -->
 
             <Accordion :value="['0']" multiple>
                 <AccordionPanel v-for="tab in categorias" :key="tab.nome" :value="tab.id">

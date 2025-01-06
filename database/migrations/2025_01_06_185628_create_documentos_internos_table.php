@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('documentos_internos', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(DocumentoInternoCategoria::class)->constrained('documentos_internos_categorias');
+            $table->foreignIdFor(DocumentoInternoCategoria::class, 'categoria_id')->constrained('documentos_internos_categorias');
             $table->foreignIdFor(Artista::class)->constrained();
             $table->string('nome_original');
             $table->string('path');
