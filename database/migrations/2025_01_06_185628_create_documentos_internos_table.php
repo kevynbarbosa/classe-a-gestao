@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignIdFor(Artista::class)->constrained();
             $table->string('nome_original');
             $table->string('path');
+            $table->date('data_validade')->nullable();
             $table->timestamps();
         });
     }

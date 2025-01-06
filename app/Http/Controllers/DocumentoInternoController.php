@@ -37,6 +37,7 @@ class DocumentoInternoController extends Controller
         $validatedData = $request->validate([
             'artista_id' => ['nullable'],
             'categoria_id' => ['required'],
+            'data_validade' => ['required', 'date'],
             'arquivo' => ['required', 'file'],
         ]);
 

@@ -24,6 +24,20 @@
                 </div>
 
                 <div>
+                    <FloatLabel variant="in">
+                        <DatePicker
+                            id="data_validade"
+                            class="w-full"
+                            size="small"
+                            v-model="form.data_validade"
+                            variant="filled"
+                        />
+                        <label for="data_validade">Valido até</label>
+                    </FloatLabel>
+                    <div class="text-red-500" v-if="form.errors.data_validade">{{ form.errors.data_validade }}</div>
+                </div>
+
+                <div>
                     <input type="file" @input="form.arquivo = $event.target.files[0]" />
                     <progress v-if="form.progress" :value="form.progress.percentage" max="100">
                         {{ form.progress.percentage }}%
@@ -63,6 +77,7 @@ const modalRef = ref(null);
 const form = useForm({
     arquivo: props.documento?.arquivo ?? "",
     categoria_id: props.documento?.categoria_id ?? "",
+    data_validade: props.documento?.data_validade ?? "",
 });
 
 const closeModal = () => modalRef.value.close();
