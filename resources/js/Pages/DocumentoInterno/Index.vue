@@ -33,18 +33,18 @@
                     <AccordionContent>
                         <div class="flex flex-wrap gap-2">
                             <div
-                                v-for="documento in documentos.filter((doc) => doc.categoria_id == tab.id)"
+                                v-for="documento in documentosFiltrados.filter((doc) => doc.categoria_id == tab.id)"
                                 :key="documento.id"
                                 class="flex min-w-24 max-w-48 cursor-pointer flex-col items-center justify-center gap-1 rounded bg-gray-200 p-2 hover:bg-gray-300 hover:shadow-sm"
                             >
                                 <Button
-                                    icon="mdi mdi-file-certificate"
+                                    icon="mdi mdi-file-download"
                                     size="large"
                                     rounded
                                     @click="downloadDocumento(documento)"
                                 ></Button>
                                 <div class="text-center font-bold">{{ documento.nome_original }}</div>
-                                <div class="text-sm">{{ documento.data_validade }}</div>
+                                <div class="text-sm">{{ dateLocale(documento.data_validade) }}</div>
                                 <div v-if="documento.artista_id" class="text-sm font-light">Artista</div>
                             </div>
                         </div>
@@ -61,6 +61,7 @@
 
 <script setup>
 import TituloCard from "@/Components/TituloCard.vue";
+import { dateLocale } from "@/Utils/dateUtils";
 import { Head } from "@inertiajs/vue3";
 import { visitModal } from "@inertiaui/modal-vue";
 
@@ -72,16 +73,18 @@ const props = defineProps({
 
 const loadingModal = ref(false);
 
+const documentosFiltrados = computed(() => {
+    return props.documentos.filter((doc) => {
+        // debugger;
+        if (filtroArtista.value.value == 0) return true;
+        return doc.artista_id == filtroArtista.value.value;
+    });
+});
+
 const filtroArtista = ref({ name: "Todos artistas", value: 0 });
 const options = ref([
     { name: "Todos artistas", value: 0 },
     ...props.artistas.map((artista) => ({ name: artista.nome, value: artista.id })),
-]);
-
-const tabs = ref([
-    { title: "Title 1", content: "Content 1", value: "0" },
-    { title: "Title 2", content: "Content 2", value: "1" },
-    { title: "Title 3", content: "Content 3", value: "2" },
 ]);
 
 async function uploadDocumento() {
