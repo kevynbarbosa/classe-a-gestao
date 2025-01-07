@@ -45,7 +45,10 @@
                                 ></Button>
                                 <div class="text-center font-bold">{{ documento.nome_original }}</div>
                                 <div class="text-sm">{{ dateLocale(documento.data_validade) }}</div>
-                                <div v-if="documento.artista_id" class="text-sm font-light">Artista</div>
+                                <div v-if="documento.artista_id" class="text-sm font-light">
+                                    {{ documento.artista.nome }}
+                                </div>
+                                <div v-else class="text-sm font-light">Doc interno</div>
                             </div>
                         </div>
                     </AccordionContent>
@@ -75,7 +78,7 @@ const loadingModal = ref(false);
 
 const documentosFiltrados = computed(() => {
     return props.documentos.filter((doc) => {
-        // debugger;
+        if (!filtroArtista.value) return true;
         if (filtroArtista.value.value == 0) return true;
         return doc.artista_id == filtroArtista.value.value;
     });

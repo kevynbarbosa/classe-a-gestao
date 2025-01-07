@@ -18,7 +18,7 @@ class DocumentoInternoController extends Controller
     {
         $artistas = Artista::all();
         $categorias = DocumentoInternoCategoria::orderBy('nome')->get();
-        $documentos = DocumentoInterno::all();
+        $documentos = DocumentoInterno::with('artista')->get();
 
         return Inertia::render('DocumentoInterno/Index', [
             'artistas' => $artistas,
@@ -61,6 +61,6 @@ class DocumentoInternoController extends Controller
 
     public function download(DocumentoInterno $documento)
     {
-        return response()->download(storage_path('app/') . $documento->path);
+        return response()->download(storage_path('app/') . $documento->path, $documento->categoria->nome);
     }
 }

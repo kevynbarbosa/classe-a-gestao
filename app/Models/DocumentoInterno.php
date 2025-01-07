@@ -12,4 +12,14 @@ class DocumentoInterno extends Model
     protected $table = 'documentos_internos';
 
     protected $guarded = [];
+
+    public function artista()
+    {
+        return $this->belongsTo(Artista::class);
+    }
+
+    public function categoria()
+    {
+        return $this->belongsTo(DocumentoInternoCategoria::class);
+    }
 }
