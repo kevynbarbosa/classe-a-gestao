@@ -13,6 +13,7 @@
                             class="w-full"
                             size="small"
                             v-model="form.artista_id"
+                            :options="artistas"
                             option-label="nome"
                             option-value="id"
                             variant="filled"

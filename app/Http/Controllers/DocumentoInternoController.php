@@ -31,6 +31,7 @@ class DocumentoInternoController extends Controller
     public function create()
     {
         return Inertia::render('DocumentoInterno/UploadDocumento', [
+            'artistas' => Artista::all(),
             'categorias' => DocumentoInternoCategoria::all()
         ]);
     }
