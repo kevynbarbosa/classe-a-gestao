@@ -9,6 +9,22 @@
                 <div>
                     <FloatLabel variant="in">
                         <Select
+                            id="artista_id"
+                            class="w-full"
+                            size="small"
+                            v-model="form.artista_id"
+                            option-label="nome"
+                            option-value="id"
+                            variant="filled"
+                        />
+                        <label for="artista_id">Artista (caso seja referente ao artista)</label>
+                    </FloatLabel>
+                    <div class="text-red-500" v-if="form.errors.artista_id">{{ form.errors.artista_id }}</div>
+                </div>
+
+                <div>
+                    <FloatLabel variant="in">
+                        <Select
                             id="categoria_id"
                             class="w-full"
                             size="small"
@@ -68,7 +84,7 @@ import TituloCard from "@/Components/TituloCard.vue";
 import { Head, useForm } from "@inertiajs/vue3";
 import { Modal } from "@inertiaui/modal-vue";
 
-const props = defineProps({ documento: Object, categorias: Array, updating: Boolean, errors: Object });
+const props = defineProps({ documento: Object, artistas: Array, categorias: Array, updating: Boolean, errors: Object });
 
 const titulo = "Upload de novo documento";
 
@@ -76,6 +92,7 @@ const modalRef = ref(null);
 
 const form = useForm({
     arquivo: props.documento?.arquivo ?? "",
+    artista_id: props.documento?.artista_id ?? "",
     categoria_id: props.documento?.categoria_id ?? "",
     data_validade: props.documento?.data_validade ?? "",
 });

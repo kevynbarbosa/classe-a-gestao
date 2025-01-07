@@ -33,14 +33,19 @@
                     <AccordionContent>
                         <div class="flex flex-wrap gap-2">
                             <div
-                                v-for="i in 25"
-                                :key="i"
+                                v-for="documento in documentos.filter((doc) => doc.categoria_id == tab.id)"
+                                :key="documento.id"
                                 class="flex min-w-24 max-w-48 cursor-pointer flex-col items-center justify-center gap-1 rounded bg-gray-200 p-2 hover:bg-gray-300 hover:shadow-sm"
                             >
-                                <Button icon="mdi mdi-file-certificate" size="large" rounded></Button>
-                                <div class="font-bold">Nome</div>
-                                <div class="text-sm">12/05/2025</div>
-                                <div class="text-sm font-light">Artista</div>
+                                <Button
+                                    icon="mdi mdi-file-certificate"
+                                    size="large"
+                                    rounded
+                                    @click="downloadDocumento(documento)"
+                                ></Button>
+                                <div class="text-center font-bold">{{ documento.nome_original }}</div>
+                                <div class="text-sm">{{ documento.data_validade }}</div>
+                                <div v-if="documento.artista_id" class="text-sm font-light">Artista</div>
                             </div>
                         </div>
                     </AccordionContent>
@@ -89,5 +94,9 @@ async function novaCategoria() {
     loadingModal.value = true;
     await visitModal(`/documentos-internos-categorias/create`);
     loadingModal.value = false;
+}
+
+function downloadDocumento(documento) {
+    window.open(route("documentos-internos.download", documento.id), "_blank");
 }
 </script>

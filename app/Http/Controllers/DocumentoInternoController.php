@@ -6,8 +6,11 @@ use App\Http\Resources\CommonResource;
 use App\Models\Artista;
 use App\Models\DocumentoInterno;
 use App\Models\DocumentoInternoCategoria;
+use Carbon\Carbon;
+use Illuminate\Container\Attributes\Storage;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use League\CommonMark\Node\Block\Document;
 
 class DocumentoInternoController extends Controller
 {
@@ -41,8 +44,22 @@ class DocumentoInternoController extends Controller
             'arquivo' => ['required', 'file'],
         ]);
 
-        $documento = DocumentoInterno::create($validatedData);
+        $nome_original = $request->arquivo->getClientOriginalName();
+        $path = $request->arquivo->store('documentos_internos');
+
+        $data = array_merge($request->except(['arquivo']), [
+            'data_validade' => Carbon::parse($request->data_validade)->format('Y-m-d'),
+            'nome_original' => $nome_original,
+            'path' => $path
+        ]);
+
+        $documento = DocumentoInterno::create($data);
 
         return redirect()->back();
+    }
+
+    public function download(DocumentoInterno $documento)
+    {
+        return response()->download(storage_path('app/') . $documento->path);
     }
 }
