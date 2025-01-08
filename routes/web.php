@@ -90,7 +90,9 @@ Route::middleware(['auth', /* SimulateRealNetwork::class */])->group(function ()
         'vendedores' => 'vendedor'
     ]);
     Route::resource('contratantes', ContratanteController::class);
-    Route::resource('documentos-internos', DocumentoInternoController::class);
+    Route::resource('documentos-internos', DocumentoInternoController::class)->parameters([
+        'documentos-internos' => 'documento'
+    ]);
     Route::get('documentos-internos/download/{documento}', [DocumentoInternoController::class, 'download'])->name('documentos-internos.download');
     Route::resource('documentos-internos-categorias', DocumentoInternoCategoriaController::class);
 });

@@ -15,13 +15,14 @@
             label="Excluir"
             size="small"
             severity="danger"
-            @click="downloadDocumento(documento)"
+            @click="deletarDocumento(documento)"
         ></Button>
     </div>
 </template>
 
 <script setup>
 import { dateLocale } from "@/Utils/dateUtils";
+import { router } from "@inertiajs/vue3";
 
 const props = defineProps({ documento: Object });
 
@@ -37,6 +38,10 @@ const statusValidade = computed(() => {
 });
 function downloadDocumento(documento) {
     window.open(route("documentos-internos.download", documento.id), "_blank");
+}
+
+function deletarDocumento(documento) {
+    router.delete(route("documentos-internos.destroy", documento.id));
 }
 
 function calcularDiferencaDias(dataParametro) {

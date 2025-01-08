@@ -70,6 +70,14 @@ class DocumentoInternoController extends Controller
         return redirect()->back();
     }
 
+    public function destroy(DocumentoInterno $documento)
+    {
+        Storage::delete($documento->path);
+        $documento->delete();
+
+        return redirect()->back();
+    }
+
     public function download(DocumentoInterno $documento)
     {
         $fileExtension = pathinfo($documento->path, PATHINFO_EXTENSION);
