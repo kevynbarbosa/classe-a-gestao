@@ -17,6 +17,7 @@
                             option-label="nome"
                             option-value="id"
                             variant="filled"
+                            showClear
                         />
                         <label for="artista_id">Artista (caso seja referente ao artista)</label>
                     </FloatLabel>

@@ -23,7 +23,9 @@
 
             <Accordion :value="['0']" multiple>
                 <AccordionPanel v-for="tab in categorias" :key="tab.nome" :value="tab.id">
-                    <AccordionHeader>{{ tab.nome }}</AccordionHeader>
+                    <AccordionHeader>
+                        {{ tab.nome }}
+                    </AccordionHeader>
                     <AccordionContent>
                         <div class="flex flex-wrap gap-2">
                             <Tag

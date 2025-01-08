@@ -13,41 +13,32 @@ class DocumentoInternoCategoriaSeeder extends Seeder
      */
     public function run(): void
     {
-        $cnd_id = DocumentoInternoCategoria::firstOrCreate(
-            ['nome' => 'CND - Certidão negativa de débitos']
-        );
-
         DocumentoInternoCategoria::firstOrCreate(
             [
-                'categoria_pai_id' => $cnd_id->id,
                 'nome' => 'CND FEDERAL'
             ]
         );
 
         DocumentoInternoCategoria::firstOrCreate(
             [
-                'categoria_pai_id' => $cnd_id->id,
                 'nome' => 'CND ESTADUAL'
             ]
         );
 
         DocumentoInternoCategoria::firstOrCreate(
             [
-                'categoria_pai_id' => $cnd_id->id,
                 'nome' => 'CND PREFEITURA'
             ]
         );
 
         DocumentoInternoCategoria::firstOrCreate(
             [
-                'categoria_pai_id' => $cnd_id->id,
                 'nome' => 'CND FGTS'
             ]
         );
 
         DocumentoInternoCategoria::firstOrCreate(
             [
-                'categoria_pai_id' => $cnd_id->id,
                 'nome' => 'CND FALÊNCIA E CONCORDATA'
             ]
         );
