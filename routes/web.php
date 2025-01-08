@@ -30,6 +30,9 @@ Route::get('/', function () {
 
 Route::get('/teste', function () {
 
+    Storage::delete('documentos_internos/5NU3E4H5vI6nYeCkIhhoDi1cOKk9dV3jpzTbsxS5.txt');
+    return;
+
     $modeloDocx = storage_path('app/modelos_proposta/MODELO_PROPOSTA.docx');
     $dados = [
         '{{ARTISTA_NOME}}' => '{{TOKEN_SUBSTITUIDO}}',

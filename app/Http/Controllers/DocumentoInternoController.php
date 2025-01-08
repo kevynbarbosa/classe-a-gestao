@@ -7,8 +7,8 @@ use App\Models\Artista;
 use App\Models\DocumentoInterno;
 use App\Models\DocumentoInternoCategoria;
 use Carbon\Carbon;
-use Illuminate\Container\Attributes\Storage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use League\CommonMark\Node\Block\Document;
 
@@ -18,13 +18,12 @@ class DocumentoInternoController extends Controller
     {
         $artistas = Artista::all();
         $categorias = DocumentoInternoCategoria::orderBy('nome')->get();
-        $documentos = DocumentoInterno::with('artista')->get();
+        $documentos = DocumentoInterno::with('artista')->orderBy('artista_id')->get();
 
         return Inertia::render('DocumentoInterno/Index', [
             'artistas' => $artistas,
             'categorias' => $categorias,
             'documentos' => $documentos
-            // 'documentos' => CommonResource::collection($documentos)
         ]);
     }
 
@@ -45,6 +44,18 @@ class DocumentoInternoController extends Controller
             'arquivo' => ['required', 'file'],
         ]);
 
+        // Excluir o arquivo antigo se existir
+        if ($request->artista_id) {
+            $documentosExcluir = DocumentoInterno::where('artista_id', $request->artista_id)->where('categoria_id', $request->categoria_id)->get();
+        } else {
+            $documentosExcluir = DocumentoInterno::whereNull('artista_id')->where('categoria_id', $request->categoria_id)->get();
+        }
+
+        $documentosExcluir->each(function ($documento) {
+            Storage::delete($documento->path);
+            $documento->delete();
+        });
+
         $nome_original = $request->arquivo->getClientOriginalName();
         $path = $request->arquivo->store('documentos_internos');
 
@@ -61,6 +72,9 @@ class DocumentoInternoController extends Controller
 
     public function download(DocumentoInterno $documento)
     {
-        return response()->download(storage_path('app/') . $documento->path, $documento->categoria->nome);
+        $fileExtension = pathinfo($documento->path, PATHINFO_EXTENSION);
+        $fileName = $documento->categoria->nome . ".$fileExtension";
+
+        return response()->download(storage_path('app/') . $documento->path, $fileName);
     }
 }

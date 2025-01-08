@@ -21,35 +21,16 @@
                 />
             </div>
 
-            <!-- <div class="border-b border-gray-300">
-                {{ categorias }}
-            </div>
-
-            {{ documentos }} -->
-
             <Accordion :value="['0']" multiple>
                 <AccordionPanel v-for="tab in categorias" :key="tab.nome" :value="tab.id">
                     <AccordionHeader>{{ tab.nome }}</AccordionHeader>
                     <AccordionContent>
                         <div class="flex flex-wrap gap-2">
-                            <div
+                            <DocumentoCard
                                 v-for="documento in documentosFiltrados.filter((doc) => doc.categoria_id == tab.id)"
                                 :key="documento.id"
-                                class="flex min-w-24 max-w-48 cursor-pointer flex-col items-center justify-center gap-1 rounded bg-gray-200 p-2 hover:bg-gray-300 hover:shadow-sm"
-                            >
-                                <Button
-                                    icon="mdi mdi-file-download"
-                                    size="large"
-                                    rounded
-                                    @click="downloadDocumento(documento)"
-                                ></Button>
-                                <div class="text-center font-bold">{{ documento.nome_original }}</div>
-                                <div class="text-sm">{{ dateLocale(documento.data_validade) }}</div>
-                                <div v-if="documento.artista_id" class="text-sm font-light">
-                                    {{ documento.artista.nome }}
-                                </div>
-                                <div v-else class="text-sm font-light">Doc interno</div>
-                            </div>
+                                :documento="documento"
+                            />
                         </div>
                     </AccordionContent>
                 </AccordionPanel>
@@ -63,8 +44,8 @@
 </template>
 
 <script setup>
+import DocumentoCard from "@/Components/DocumentoInterno/DocumentoCard.vue";
 import TituloCard from "@/Components/TituloCard.vue";
-import { dateLocale } from "@/Utils/dateUtils";
 import { Head } from "@inertiajs/vue3";
 import { visitModal } from "@inertiaui/modal-vue";
 
@@ -100,9 +81,5 @@ async function novaCategoria() {
     loadingModal.value = true;
     await visitModal(`/documentos-internos-categorias/create`);
     loadingModal.value = false;
-}
-
-function downloadDocumento(documento) {
-    window.open(route("documentos-internos.download", documento.id), "_blank");
 }
 </script>
