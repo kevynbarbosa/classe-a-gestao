@@ -54,6 +54,13 @@
                 :active="route().current('documentos-internos')"
             />
 
+            <NavLink
+                icon="mdi mdi-youtube"
+                label="Gestão de campanha"
+                :href="route('documentos-internos.index')"
+                :active="route().current('documentos-internos')"
+            />
+
             <!-- <NavSubmenu label="Submenu 1" icon="mdi mdi-view-list">
                 <NavLink
                     icon="mdi mdi-view-list"

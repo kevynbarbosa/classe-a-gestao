@@ -3,9 +3,9 @@
         <Link :href="href">
             <a
                 v-ripple
-                class="flex items-center cursor-pointer px-4 py-2 rounded text-surface-700 hover:bg-surface-100 dark:text-surface-0 dark:hover:bg-surface-800 duration-150 transition-colors p-ripple"
+                class="p-ripple flex cursor-pointer items-center rounded px-4 py-2 text-surface-700 transition-colors duration-150 hover:bg-surface-100 dark:text-surface-0 dark:hover:bg-surface-800"
             >
-                <i class="mr-2" :class="icon"></i>
+                <i class="mr-2 text-lg" :class="icon"></i>
                 <span class="font-medium">{{ label }}</span>
             </a>
         </Link>
