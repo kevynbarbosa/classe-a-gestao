@@ -26,6 +26,12 @@
                     <AccordionHeader>{{ tab.nome }}</AccordionHeader>
                     <AccordionContent>
                         <div class="flex flex-wrap gap-2">
+                            <Tag
+                                v-if="documentosFiltrados.filter((doc) => doc.categoria_id == tab.id).length == 0"
+                                severity="info"
+                            >
+                                Não há documentos nesta categoria
+                            </Tag>
                             <DocumentoCard
                                 v-for="documento in documentosFiltrados.filter((doc) => doc.categoria_id == tab.id)"
                                 :key="documento.id"
