@@ -4,6 +4,7 @@ use App\Enums\EventoStatusEnum;
 use App\Http\Controllers\ArtistaController;
 use App\Http\Controllers\CalendarioController;
 use App\Http\Controllers\ContratanteController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DocumentoInternoCategoriaController;
 use App\Http\Controllers\DocumentoInternoController;
 use App\Http\Controllers\EventoController;
@@ -20,12 +21,6 @@ use Inertia\Inertia;
 
 Route::get('/', function () {
     return redirect('/dashboard');
-    // return Inertia::render('Welcome', [
-    //     'canLogin' => Route::has('login'),
-    //     'canRegister' => Route::has('register'),
-    //     'laravelVersion' => Application::VERSION,
-    //     'phpVersion' => PHP_VERSION,
-    // ]);
 });
 
 Route::get('/teste', function () {
@@ -73,9 +68,7 @@ Route::get('/teste', function () {
     // ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard',);
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['auth', /* SimulateRealNetwork::class */])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

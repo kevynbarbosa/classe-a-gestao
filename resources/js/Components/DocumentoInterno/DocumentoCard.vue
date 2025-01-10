@@ -10,7 +10,11 @@
             {{ documento.artista.nome }}
         </div>
         <div v-else class="text-sm font-light">Doc interno</div>
+
+        <Tag v-if="dashboard" class="text-sm font-bold" severity="info">{{ documento.categoria.nome }}</Tag>
+
         <Button
+            v-if="!dashboard"
             icon="mdi mdi-delete"
             label="Excluir"
             size="small"
@@ -24,7 +28,7 @@
 import { dateLocale } from "@/Utils/dateUtils";
 import { router } from "@inertiajs/vue3";
 
-const props = defineProps({ documento: Object });
+const props = defineProps({ documento: Object, dashboard: Boolean });
 
 const statusValidade = computed(() => {
     const diferencaDias = calcularDiferencaDias(props.documento.data_validade);
