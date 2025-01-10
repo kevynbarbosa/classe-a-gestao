@@ -1,9 +1,8 @@
 <template>
     <div
-        class="flex min-w-24 max-w-48 cursor-pointer flex-col items-center justify-center gap-1 rounded bg-gray-200 p-2 hover:bg-gray-300 hover:shadow-sm"
+        class="flex min-w-24 max-w-48 cursor-pointer flex-col items-center justify-center gap-1 rounded bg-primary/10 p-2 hover:bg-primary/30 hover:shadow-sm"
     >
         <Button icon="mdi mdi-file-download" size="large" rounded @click="downloadDocumento(documento)"></Button>
-        <!-- <div class="text-center font-bold">{{ documento.nome_original }}</div> -->
         <Tag class="text-sm" :severity="statusValidade.severity">{{ statusValidade.label }}</Tag>
         <div class="text-sm font-bold">Valido até: {{ dateLocale(documento.data_validade) }}</div>
         <div v-if="documento.artista_id" class="text-sm font-light">
