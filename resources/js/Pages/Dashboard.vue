@@ -2,65 +2,25 @@
     <Head title="Dashboard" />
 
     <div class="grid grid-cols-3 gap-4">
-        <div class="card h-min">
-            <TituloCard titulo="Documentação interna (avisos)">
-                <Button
-                    label="Link"
-                    icon="mdi mdi-open-in-new"
-                    size="small"
-                    @click="router.visit('/documentos-internos')"
-                ></Button>
-            </TituloCard>
-            <div class="max-h-96 overflow-y-auto">
-                <DocumentoCard
-                    v-for="documento in documentos_internos"
-                    :key="documento.id"
-                    :documento="documento"
-                    dashboard
-                />
-            </div>
-        </div>
+        <DashDocumentosInternos :documentos_internos="documentos_internos" />
 
-        <div class="card h-min">
-            <TituloCard titulo="Estatísticas de campanha">
-                <Button label="Link" icon="mdi mdi-open-in-new" size="small"></Button>
-            </TituloCard>
-        </div>
+        <DashCampanha />
 
-        <div class="card h-min">
-            <TituloCard titulo="Próximos eventos">
-                <Button label="Link" icon="mdi mdi-open-in-new" size="small"></Button>
-            </TituloCard>
+        <DashProximosEventos :proximos_eventos="proximos_eventos" />
 
-            <div class="max-h-96 overflow-y-auto">
-                <EventoDashboardCard v-for="evento in proximos_eventos" :key="evento.id" :evento="evento" />
-            </div>
-        </div>
+        <DashEventosRealizados :eventos_realizados_artista="eventos_realizados_artista" />
 
-        <div class="card h-min">
-            <TituloCard titulo="Eventos realizados (por artista)">
-                <Button label="Link" icon="mdi mdi-open-in-new" size="small"></Button>
-            </TituloCard>
-
-            <GridEventosArtista :dados="eventos_realizados_artista" />
-        </div>
-
-        <div class="card h-min">
-            <TituloCard titulo="Eventos futuros (por artista)">
-                <Button label="Link" icon="mdi mdi-open-in-new" size="small"></Button>
-            </TituloCard>
-
-            <GridEventosArtista :dados="eventos_futuros_artista" />
-        </div>
+        <DashEventosFuturos :eventos_futuros_artista="eventos_futuros_artista" />
     </div>
 </template>
 
 <script setup>
-import GridEventosArtista from "@/Components/Dashboard/GridEventosArtista.vue";
-import DocumentoCard from "@/Components/DocumentoInterno/DocumentoCard.vue";
-import EventoDashboardCard from "@/Components/Evento/EventoDashboardCard.vue";
-import TituloCard from "@/Components/TituloCard.vue";
-import { Head, router } from "@inertiajs/vue3";
+import { Head } from "@inertiajs/vue3";
+import DashCampanha from "./Dashboard/Partials/DashCampanha.vue";
+import DashDocumentosInternos from "./Dashboard/Partials/DashDocumentosInternos.vue";
+import DashEventosFuturos from "./Dashboard/Partials/DashEventosFuturos.vue";
+import DashEventosRealizados from "./Dashboard/Partials/DashEventosRealizados.vue";
+import DashProximosEventos from "./Dashboard/Partials/DashProximosEventos.vue";
 
 const props = defineProps({
     documentos_internos: Array,
