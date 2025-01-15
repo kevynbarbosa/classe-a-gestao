@@ -41,4 +41,9 @@ class Evento extends Model
     {
         return $this->hasMany(EventoHistorico::class);
     }
+
+    public function observacoes()
+    {
+        return $this->hasMany(EventoObservacao::class);
+    }
 }

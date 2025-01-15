@@ -16,7 +16,7 @@ class EventoWorkflowController extends Controller
 {
     public function show(Evento $evento)
     {
-        $evento->load(['artista', 'contratante', 'vendedor', 'cidade', 'historico']);
+        $evento->load(['artista', 'contratante', 'vendedor', 'cidade', 'historico', 'observacoes']);
 
         return Inertia::render('EventoWorkflow/Index', [
             'evento' => $evento,

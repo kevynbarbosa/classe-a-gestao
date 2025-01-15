@@ -8,6 +8,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DocumentoInternoCategoriaController;
 use App\Http\Controllers\DocumentoInternoController;
 use App\Http\Controllers\EventoController;
+use App\Http\Controllers\EventoObservacaoController;
 use App\Http\Controllers\EventoWorkflowController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VendedorController;
@@ -79,6 +80,9 @@ Route::middleware(['auth', /* SimulateRealNetwork::class */])->group(function ()
     Route::get('/calendario/evento-detalhes/{evento}', [CalendarioController::class, 'eventoDetalhes']);
     Route::resource('calendario', CalendarioController::class);
     Route::resource('eventos', EventoController::class);
+    Route::resource('evento-observacoes', EventoObservacaoController::class)->parameters([
+        'evento-observacoes' => 'eventoObservacao'
+    ]);;
     Route::resource('vendedores', VendedorController::class)->parameters([
         'vendedores' => 'vendedor'
     ]);
