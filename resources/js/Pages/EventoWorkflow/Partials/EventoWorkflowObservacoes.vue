@@ -10,12 +10,15 @@
                 </div>
             </div>
 
-            <Button
-                icon="mdi mdi-delete"
-                severity="danger"
-                size="small"
-                @click="form.delete('/evento-observacoes/' + item.id)"
-            ></Button>
+            <div>
+                <Button
+                    icon="mdi mdi-delete-forever"
+                    severity="danger"
+                    size="small"
+                    rounded
+                    @click="form.delete('/evento-observacoes/' + item.id)"
+                ></Button>
+            </div>
         </div>
     </div>
 

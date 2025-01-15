@@ -44,16 +44,20 @@
 
         <FluxoEtapaControlador :evento="evento" />
 
-        <Tabs value="timeline" class="mt-14">
+        <Tabs value="observacoes" class="mt-14">
             <TabList class="mb-4">
+                <Tab value="observacoes">
+                    Observações
+                    <Badge severity="info" size="small" :value="evento.observacoes?.length"></Badge>
+                </Tab>
                 <Tab value="timeline">Timeline</Tab>
                 <Tab value="contratante">Contratante</Tab>
                 <!-- <Tab value="documentacao">Documentação</Tab> -->
-                <Tab value="observacoes">
-                    Observações
-                    <Badge severity="info" size="small" :value="2"></Badge>
-                </Tab>
             </TabList>
+
+            <TabPanel value="observacoes">
+                <EventoWorkflowObservacoes :evento="evento" />
+            </TabPanel>
 
             <TabPanel value="contratante">
                 <EventoWorkflowContratante :evento="evento" />
@@ -65,10 +69,6 @@
 
             <TabPanel value="timeline">
                 <EventoWorkflowTimeline :evento="evento" :evento_status_enum="evento_status_enum" />
-            </TabPanel>
-
-            <TabPanel value="observacoes">
-                <EventoWorkflowObservacoes :evento="evento" />
             </TabPanel>
         </Tabs>
     </div>
