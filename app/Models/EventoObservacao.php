@@ -12,4 +12,9 @@ class EventoObservacao extends Model
     protected $guarded = [];
 
     protected $table = 'evento_observacoes';
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

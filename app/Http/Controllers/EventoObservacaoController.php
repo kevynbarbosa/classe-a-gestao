@@ -23,4 +23,11 @@ class EventoObservacaoController extends Controller
 
         return redirect()->back();
     }
+
+    public function destroy(EventoObservacao $eventoObservacao)
+    {
+        $eventoObservacao->delete();
+
+        return redirect()->back();
+    }
 }

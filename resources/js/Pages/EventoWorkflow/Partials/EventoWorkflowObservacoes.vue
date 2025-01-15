@@ -1,10 +1,22 @@
 <template>
     <div class="text-lg font-bold">Registrar observações</div>
 
-    <div class="pl-4">
-        <ul class="list-disc">
-            <li v-for="item in evento?.observacoes" class="my-2">{{ item.observacao }}</li>
-        </ul>
+    <div class="my-1 rounded bg-primary/10 p-2 hover:bg-primary/20" v-for="item in evento?.observacoes">
+        <div class="flex justify-between">
+            <div>
+                <div class="text-xs font-light">{{ item.user?.name }} às {{ dateTimeLocale(item.created_at) }}</div>
+                <div>
+                    {{ item.observacao }}
+                </div>
+            </div>
+
+            <Button
+                icon="mdi mdi-delete"
+                severity="danger"
+                size="small"
+                @click="form.delete('/evento-observacoes/' + item.id)"
+            ></Button>
+        </div>
     </div>
 
     <div>
@@ -40,6 +52,7 @@
 </template>
 
 <script setup>
+import { dateTimeLocale } from "@/Utils/dateUtils";
 import { useForm } from "@inertiajs/vue3";
 
 const props = defineProps({ evento: Object });
