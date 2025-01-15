@@ -46,14 +46,14 @@
 
         <Tabs value="timeline" class="mt-14">
             <TabList>
-                <Tab value="contratante">Contratante</Tab>
-                <Tab value="documentacao">Documentação</Tab>
                 <Tab value="timeline">Timeline</Tab>
+                <Tab value="contratante">Contratante</Tab>
+                <!-- <Tab value="documentacao">Documentação</Tab> -->
                 <Tab value="observacoes">Observações</Tab>
             </TabList>
 
             <TabPanel value="contratante">
-                <EventoWorkflowContratante />
+                <EventoWorkflowContratante :evento="evento" />
             </TabPanel>
 
             <TabPanel value="documentacao">
@@ -61,11 +61,11 @@
             </TabPanel>
 
             <TabPanel value="timeline">
-                <EventoWorkflowTimeline />
+                <EventoWorkflowTimeline :evento="evento" :evento_status_enum="evento_status_enum" />
             </TabPanel>
 
             <TabPanel value="observacoes">
-                <EventoWorkflowTimeline />
+                <EventoWorkflowObservacoes />
             </TabPanel>
         </Tabs>
     </div>
@@ -78,6 +78,7 @@ import { findEnumValue } from "@/Utils/enumUtils";
 import { Head } from "@inertiajs/vue3";
 import EventoWorkflowContratante from "./Partials/EventoWorkflowContratante.vue";
 import EventoWorkflowDocumentacao from "./Partials/EventoWorkflowDocumentacao.vue";
+import EventoWorkflowObservacoes from "./Partials/EventoWorkflowObservacoes.vue";
 import EventoWorkflowTimeline from "./Partials/EventoWorkflowTimeline.vue";
 import FluxoEtapaControlador from "./Partials/FluxoEtapaControlador.vue";
 
