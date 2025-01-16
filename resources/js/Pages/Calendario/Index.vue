@@ -6,6 +6,7 @@
             <!-- <TituloCard titulo="Calendário de eventos">
                 <Button label="Novo evento" icon="mdi mdi-plus" @click="novoArtista" :loading="loadingModal"></Button>
             </TituloCard> -->
+            {{ evento_status_enum }}
 
             <FullCalendarComponent ref="fullCalendar" :options="calendarOptions">
                 <template v-slot:eventContent="arg">
@@ -14,11 +15,17 @@
                         v-if="loadingModalId != arg.event.id"
                         :class="`fc-event-title cursor-pointer font-normal ${arg.event.backgroundColor}`"
                     >
-                        <span class="font-normal">{{ arg.timeText }}h: {{ arg.event.extendedProps.cidade }} (DF)</span>
+                        <span class="font-normal">
+                            {{ arg.timeText }}h: {{ arg.event.extendedProps.cidade.nome }} ({{
+                                arg.event.extendedProps.cidade.uf_codigo
+                            }})
+                        </span>
                         <br />
                         {{ arg.event.title }}
                         <br />
-                        <div>{{ findEnumValue(evento_status_enum, arg.event.extendedProps.status) }}</div>
+                        <div class="text-wrap text-sm font-light">
+                            {{ findEnumValue(evento_status_enum, arg.event.extendedProps.status) }}
+                        </div>
                     </div>
                     <div v-else>
                         <div>Carregando informações</div>
@@ -85,9 +92,11 @@ function calendarUpdateSize() {
 
 function mapEvents() {
     const eventos = props.eventos.map((x) => {
+        const backgroundColor = findEnumValue(props.evento_status_enum, x.status, "severitycolor");
+        console.log(backgroundColor);
         x.title = x.artista.nome;
         x.date = parseDateTime(x.data_hora);
-        x.backgroundColor = "bg-blue-100";
+        x.backgroundColor = `bg-${backgroundColor} rounded p-1`;
         return x;
     });
 

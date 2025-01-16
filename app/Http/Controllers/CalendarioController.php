@@ -12,7 +12,7 @@ class CalendarioController extends Controller
 {
     public function index(Request $request)
     {
-        $eventos = Evento::with('artista', 'contratante')->get();
+        $eventos = Evento::with('artista', 'contratante', 'cidade')->get();
 
         return Inertia::render('Calendario/Index', [
             'eventos' => $eventos,

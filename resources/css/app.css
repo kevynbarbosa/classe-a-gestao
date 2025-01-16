@@ -49,3 +49,20 @@ td.column-right {
 .im-modal-content {
     @apply dark:bg-surface-700;
 }
+
+/* Utilizado no calendario */
+.bg-warning {
+    @apply bg-orange-200;
+}
+
+.bg-info {
+    @apply bg-blue-200;
+}
+
+.bg-danger {
+    @apply bg-red-200;
+}
+
+.bg-success {
+    @apply bg-green-200;
+}
