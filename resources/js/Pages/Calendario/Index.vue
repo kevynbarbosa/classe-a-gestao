@@ -4,9 +4,8 @@
 
         <div class="card" ref="calendarDiv">
             <!-- <TituloCard titulo="Calendário de eventos">
-                <Button label="Novo evento" icon="mdi mdi-plus" @click="novoArtista" :loading="loadingModal"></Button>
+                <Button label="Novo evento" icon="mdi mdi-plus"></Button>
             </TituloCard> -->
-            {{ evento_status_enum }}
 
             <FullCalendarComponent ref="fullCalendar" :options="calendarOptions">
                 <template v-slot:eventContent="arg">

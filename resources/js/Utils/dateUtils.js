@@ -27,7 +27,15 @@ function dateLocale(date, fuso = "-3") {
 function dateTimeLocale(date, fuso = -3) {
     const dateObj = parseDateTime(date, fuso);
 
-    return dateObj.toLocaleString();
+    const options = {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+    };
+
+    return dateObj.toLocaleString("pt-BR", options);
 }
 
 export { dateLocale, dateTimeLocale, parse2Date, parseDateTime };

@@ -51,7 +51,7 @@ td.column-right {
 }
 
 /* Utilizado no calendario */
-.bg-warning {
+.bg-warn {
     @apply bg-orange-200;
 }
 

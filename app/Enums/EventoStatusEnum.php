@@ -12,7 +12,7 @@ enum EventoStatusEnum: string
     use AttributableEnum, HasOptionsEnum;
 
     #[EnumDescription('Formulário pendente de envio')]
-    #[EnumSeverityColor('warning')]
+    #[EnumSeverityColor('warn')]
     case FORMULARIO_PENDENTE = 'formulario_pendente';
 
     #[EnumDescription('Formulário enviado, aguardando preenchimento')]
@@ -20,7 +20,7 @@ enum EventoStatusEnum: string
     case FORMULARIO_ENVIADO = 'formulario_enviado';
 
     #[EnumDescription('Pendente de proposta')]
-    #[EnumSeverityColor('warning')]
+    #[EnumSeverityColor('warn')]
     case PENDENTE_PROPOSTA = 'pendente_proposta';
 
     #[EnumDescription('Proposta gerada')]
@@ -32,7 +32,7 @@ enum EventoStatusEnum: string
     case PROPOSTA_ENVIADA = 'proposta_enviada';
 
     #[EnumDescription('Pendente de NF')]
-    #[EnumSeverityColor('warning')]
+    #[EnumSeverityColor('warn')]
     case PENDENTE_NF = 'pendente_nf';
 
     #[EnumDescription('Concluído')]

@@ -38,13 +38,13 @@
                 <Column field="cidade" header="Cidade" sortable :showFilterMenu="false"></Column>
                 <Column field="recinto" header="Recinto" sortable :showFilterMenu="false"></Column>
 
-                <Column field="status" header="Status" sortable :showFilterMenu="false">
+                <Column class="column-center" field="status" header="Status" sortable :showFilterMenu="false">
                     <template #body="{ data }">
                         <!-- <Tag :value="data.status" :severity="getSeverity(slotProps.data)" /> -->
                         <Tag
                             class="text-center"
                             :value="findEnumValue(evento_status_enum, data.status)"
-                            severity="success"
+                            :severity="findEnumValue(evento_status_enum, data.status, 'severitycolor')"
                         />
                     </template>
                 </Column>
