@@ -40,7 +40,6 @@
 
                 <Column class="column-center" field="status" header="Status" sortable :showFilterMenu="false">
                     <template #body="{ data }">
-                        <!-- <Tag :value="data.status" :severity="getSeverity(slotProps.data)" /> -->
                         <Tag
                             class="text-center"
                             :value="findEnumValue(evento_status_enum, data.status)"

@@ -9,9 +9,13 @@ class EventoObservacao extends Model
 {
     use HasFactory;
 
+    protected $table = 'evento_observacoes';
+
     protected $guarded = [];
 
-    protected $table = 'evento_observacoes';
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d H:i',
+    ];
 
     public function user()
     {
