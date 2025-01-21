@@ -3,7 +3,15 @@
         <TituloCard titulo="Serviços"></TituloCard>
 
         <div class="text-right">
-            <Button label="Adicionar" icon="mdi mdi-plus" severity="info" size="small" outlined @click="add" />
+            <Button
+                label="Adicionar"
+                icon="mdi mdi-plus"
+                severity="info"
+                size="small"
+                outlined
+                @click="novoServico"
+                :loading="loadingModal"
+            />
         </div>
 
         <table class="mt-4 w-full">
@@ -26,11 +34,10 @@
 </template>
 
 <script setup>
-import CurrencyInput from "@/Components/Form/CurrencyInput.vue";
 import TituloCard from "@/Components/TituloCard.vue";
-import { useForm } from "@inertiajs/vue3";
+import { visitModal } from "@inertiaui/modal-vue";
 
-const model = defineModel();
+const props = defineProps({ evento: Object });
 
 const servicos = ref([
     {
@@ -38,4 +45,11 @@ const servicos = ref([
         valor: "10,00",
     },
 ]);
+
+const loadingModal = ref(false);
+async function novoServico() {
+    loadingModal.value = true;
+    await visitModal(`/evento-servicos/create`);
+    loadingModal.value = false;
+}
 </script>

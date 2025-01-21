@@ -41,7 +41,7 @@
             </label>
         </div>
 
-        <ServicosDetalhamento v-model="form.servicos" :evento="evento" />
+        <ServicosDetalhamento :evento="evento" />
 
         <div class="mt-4 w-full border-t border-slate-300 pt-2 text-center">
             <Button

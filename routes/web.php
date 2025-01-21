@@ -9,6 +9,7 @@ use App\Http\Controllers\DocumentoInternoCategoriaController;
 use App\Http\Controllers\DocumentoInternoController;
 use App\Http\Controllers\EventoController;
 use App\Http\Controllers\EventoObservacaoController;
+use App\Http\Controllers\EventoServicoController;
 use App\Http\Controllers\EventoWorkflowController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VendedorController;
@@ -83,7 +84,7 @@ Route::middleware(['auth', /* SimulateRealNetwork::class */])->group(function ()
     Route::resource('evento-observacoes', EventoObservacaoController::class)->parameters([
         'evento-observacoes' => 'eventoObservacao'
     ]);
-    Route::resource('evento-servicos', EventoObservacaoController::class);
+    Route::resource('evento-servicos', EventoServicoController::class);
     Route::resource('vendedores', VendedorController::class)->parameters([
         'vendedores' => 'vendedor'
     ]);
