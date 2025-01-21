@@ -25,7 +25,7 @@
             <tbody>
                 <tr v-for="item in evento?.servicos">
                     <td class="text-left">{{ item.descricao }}</td>
-                    <td class="text-right">R$ {{ item.valor }}</td>
+                    <td class="text-right">R$ {{ decimalLocale(item.valor) }}</td>
                     <td class="flex justify-end gap-2">
                         <Button icon="mdi mdi-pencil" severity="secondary" size="small" outlined></Button>
                         <Button icon="mdi mdi-delete-forever" severity="danger" size="small" outlined></Button>
@@ -38,6 +38,7 @@
 
 <script setup>
 import TituloCard from "@/Components/TituloCard.vue";
+import { decimalLocale } from "@/Utils/decimalUtils";
 import { visitModal } from "@inertiaui/modal-vue";
 
 const props = defineProps({ evento: Object });
