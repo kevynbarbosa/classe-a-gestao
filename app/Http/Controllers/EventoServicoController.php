@@ -29,23 +29,23 @@ class EventoServicoController extends Controller
         return redirect()->back();
     }
 
-    public function edit(EventoServico $eventoServico)
+    public function edit(Evento $evento, EventoServico $evento_servico)
     {
         return Inertia::render('EventoWorkflow/Partials/ServicoForm', [
-            'eventoServico' => $eventoServico,
+            'evento' => $evento,
+            'servico' => $evento_servico,
             'updating' => true
         ]);
     }
 
-    public function update(Request $request, Evento $evento, EventoServico $eventoServico)
+    public function update(Request $request, Evento $evento, EventoServico $evento_servico)
     {
         $validated = $request->validate([
-            'evento_id' => 'required',
             'descricao' => 'required',
             'valor' => 'required',
         ]);
 
-        $eventoServico->update($validated);
+        $evento_servico->update($validated);
 
         return redirect()->back();
     }

@@ -27,7 +27,17 @@
                     <td class="text-left">{{ item.descricao }}</td>
                     <td class="text-right">R$ {{ decimalLocale(item.valor) }}</td>
                     <td class="flex justify-end gap-2">
-                        <Button icon="mdi mdi-pencil" severity="secondary" size="small" outlined></Button>
+                        <Button
+                            icon="mdi mdi-pencil"
+                            severity="secondary"
+                            size="small"
+                            outlined
+                            @click="
+                                visitModal(
+                                    route('evento-servicos.edit', { evento: evento.id, evento_servico: item.id }),
+                                )
+                            "
+                        ></Button>
                         <Button icon="mdi mdi-delete-forever" severity="danger" size="small" outlined></Button>
                     </td>
                 </tr>

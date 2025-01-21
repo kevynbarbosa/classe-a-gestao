@@ -56,8 +56,8 @@ const titulo = props.updating ? "Editar serviço" : "Adicionando serviço";
 const modalRef = ref(null);
 
 const form = useForm({
-    descricao: "",
-    valor: null,
+    descricao: props.servico?.descricao ?? "",
+    valor: props.servico?.valor ? parseFloat(props.servico?.valor) : "",
 });
 
 const closeModal = () => modalRef.value.close();
@@ -72,7 +72,7 @@ const addRecord = () => {
 };
 
 const updateRecord = () => {
-    form.put(route("evento-servicos.update", { evento: props.evento.id, servico: props.servico.id }), {
+    form.put(route("evento-servicos.update", { evento: props.evento?.id, evento_servico: props.servico?.id }), {
         onSuccess() {
             closeModal();
         },
