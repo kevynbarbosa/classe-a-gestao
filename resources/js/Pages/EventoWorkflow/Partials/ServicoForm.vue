@@ -1,5 +1,5 @@
 <template>
-    <Modal max-width="md">
+    <Modal ref="modalRef" max-width="md">
         <Head :title="titulo" />
 
         <TituloCard :titulo="titulo"></TituloCard>
@@ -49,7 +49,7 @@ import TituloCard from "@/Components/TituloCard.vue";
 import { Head, useForm } from "@inertiajs/vue3";
 import { Modal } from "@inertiaui/modal-vue";
 
-const props = defineProps({ servico: Object, updating: Boolean, errors: Object });
+const props = defineProps({ evento: Object, servico: Object, updating: Boolean, errors: Object });
 
 const titulo = props.updating ? "Editar serviço" : "Adicionando serviço";
 
@@ -64,7 +64,7 @@ const closeModal = () => modalRef.value.close();
 const submit = () => (props.updating ? updateRecord() : addRecord());
 
 const addRecord = () => {
-    form.post("/evento-servicos", {
+    form.post(route("evento-servicos.store", { evento: props.evento.id }), {
         onSuccess() {
             closeModal();
         },
@@ -72,7 +72,7 @@ const addRecord = () => {
 };
 
 const updateRecord = () => {
-    form.put(`/evento-servicos/${props.evento.id}`, {
+    form.put(route("evento-servicos.update", { evento: props.evento.id, servico: props.servico.id }), {
         onSuccess() {
             closeModal();
         },

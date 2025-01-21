@@ -10,18 +10,19 @@ use Inertia\Inertia;
 class EventoServicoController extends Controller
 {
 
-    public function create()
+    public function create(Evento $evento)
     {
-        return Inertia::render('EventoWorkflow/Partials/ServicoForm', []);
+        return Inertia::render('EventoWorkflow/Partials/ServicoForm', ['evento' => $evento]);
     }
 
-    public function store(Request $request)
+    public function store(Request $request, Evento $evento)
     {
         $validated = $request->validate([
-            'evento_id' => 'required',
             'descricao' => 'required',
             'valor' => 'required',
         ]);
+
+        $validated['evento_id'] = $evento->id;
 
         $eventoServico = EventoServico::create($validated);
 
@@ -36,7 +37,7 @@ class EventoServicoController extends Controller
         ]);
     }
 
-    public function update(Request $request, EventoServico $eventoServico)
+    public function update(Request $request, Evento $evento, EventoServico $eventoServico)
     {
         $validated = $request->validate([
             'evento_id' => 'required',

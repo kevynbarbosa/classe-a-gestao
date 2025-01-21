@@ -23,10 +23,13 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="item in servicos">
+                <tr v-for="item in evento?.servicos">
                     <td class="text-left">{{ item.descricao }}</td>
-                    <td class="text-right">{{ item.valor }}</td>
-                    <td class="text-right"><Button label="Remover" severity="danger" size="small"></Button></td>
+                    <td class="text-right">R$ {{ item.valor }}</td>
+                    <td class="flex justify-end gap-2">
+                        <Button icon="mdi mdi-pencil" severity="secondary" size="small" outlined></Button>
+                        <Button icon="mdi mdi-delete-forever" severity="danger" size="small" outlined></Button>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -49,7 +52,7 @@ const servicos = ref([
 const loadingModal = ref(false);
 async function novoServico() {
     loadingModal.value = true;
-    await visitModal(`/evento-servicos/create`);
+    await visitModal(route("evento-servicos.create", { evento: props.evento.id }));
     loadingModal.value = false;
 }
 </script>
