@@ -82,7 +82,8 @@ Route::middleware(['auth', /* SimulateRealNetwork::class */])->group(function ()
     Route::resource('eventos', EventoController::class);
     Route::resource('evento-observacoes', EventoObservacaoController::class)->parameters([
         'evento-observacoes' => 'eventoObservacao'
-    ]);;
+    ]);
+    Route::resource('evento-servicos', EventoObservacaoController::class);
     Route::resource('vendedores', VendedorController::class)->parameters([
         'vendedores' => 'vendedor'
     ]);
