@@ -4,9 +4,7 @@
     <div class="my-1 rounded bg-primary/10 p-2 hover:bg-primary/20" v-for="item in evento?.observacoes">
         <div class="flex justify-between">
             <div>
-                <div class="text-xs font-light">
-                    {{ item.user?.name }} às {{ dateTimeLocale(item.created_at) }} {{ item.created_at }}
-                </div>
+                <div class="text-xs font-light">{{ item.user?.name }} às {{ dateTimeLocale(item.created_at) }}</div>
                 <div>
                     {{ item.observacao }}
                 </div>

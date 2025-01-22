@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Evento;
+use Carbon\Carbon;
 use PhpOffice\PhpWord\Element\Table;
 use PhpOffice\PhpWord\TemplateProcessor;
 use PhpOffice\PhpWord\IOFactory;
@@ -77,7 +78,7 @@ class GeracaoModeloService
             'ARTISTA_REPRESENTANTE_LEGAL_RG' => $artista->representante_legal_rg,
             'EVENTO_CIDADE' => $evento->cidade->nome,
             'EVENTO_DURACAO' => $evento->duracao,
-            'EVENTO_DATA' => $evento->data_hora,
+            'EVENTO_DATA' => Carbon::parse($evento->data_hora)->format('d/m/Y H:i'),
             'EVENTO_RECINTO' => $evento->recinto,
             'EVENTO_VALOR' => number_format($evento->valor, 2, ',', '.'),
             'EVENTO_VALOR_EXTENSO' => MonetaryService::numberToExt($evento->valor),
