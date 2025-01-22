@@ -25,7 +25,7 @@
             <tbody>
                 <tr v-for="item in evento?.servicos">
                     <td class="text-left">{{ item.descricao }}</td>
-                    <td class="text-right">R$ {{ decimalLocale(item.valor) }}</td>
+                    <td class="whitespace-nowrap text-right">R$ {{ decimalLocale(item.valor) }}</td>
                     <td class="flex justify-end gap-2">
                         <Button
                             icon="mdi mdi-pencil"

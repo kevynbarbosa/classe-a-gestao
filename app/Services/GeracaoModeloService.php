@@ -34,13 +34,19 @@ class GeracaoModeloService
         $table->addCell(40 * 50, ['bgColor' => 'black', 'valign' => 'center'])->addText('SERVIÇO', ['bold' => true, 'color' => 'white'], ['alignment' => Jc::CENTER, 'spaceAfter' => 200, 'spaceBefore' => 200]);
         $table->addCell(60 * 50, ['bgColor' => 'black', 'valign' => 'center'])->addText('VALORES', ['bold' => true, 'color' => 'white'], ['alignment' => Jc::CENTER, 'spaceAfter' => 200, 'spaceBefore' => 200]);
 
-        $table->addRow();
-        $table->addCell(null, ['bgColor' => 'black'])->addText('Cachê dos artistas/ equipe de músicos/ equipe técnica e operacional', ['color' => 'white'], ['spaceAfter' => 150, 'spaceBefore' => 150]);
-        $table->addCell(null, ['bgColor' => 'black'])->addText('R$ 37.980,00', ['color' => 'white'], ['alignment' => Jc::END, 'spaceAfter' => 150, 'spaceBefore' => 150]);
+        foreach ($dados['TABELA_SERVICOS'] as $servico) {
+            $table->addRow();
+            $table->addCell(null, ['bgColor' => 'black'])->addText($servico['DESCRICAO'], ['color' => 'white'], ['spaceAfter' => 150, 'spaceBefore' => 150]);
+            $table->addCell(null, ['bgColor' => 'black'])->addText('R$ ' . number_format($servico['VALOR'], 2, ',', '.'), ['color' => 'white'], ['alignment' => Jc::END, 'spaceAfter' => 150, 'spaceBefore' => 150]);
+        }
+        // $table->addRow();
+        // $table->addCell(null, ['bgColor' => 'black'])->addText('Cachê dos artistas/ equipe de músicos/ equipe técnica e operacional', ['color' => 'white'], ['spaceAfter' => 150, 'spaceBefore' => 150]);
+        // $table->addCell(null, ['bgColor' => 'black'])->addText('R$ 37.980,00', ['color' => 'white'], ['alignment' => Jc::END, 'spaceAfter' => 150, 'spaceBefore' => 150]);
 
+        $total = $dados['TABELA_SERVICOS']->sum('VALOR');
         $table->addRow();
         $table->addCell(null, ['bgColor' => 'black'])->addText('TOTAL', ['bold' => true, 'color' => 'white'], ['spaceAfter' => 150, 'spaceBefore' => 150]);
-        $table->addCell(null, ['bgColor' => 'black'])->addText('R$ 90.000,00', ['bold' => true, 'color' => 'white'], ['alignment' => Jc::END, 'spaceAfter' => 150, 'spaceBefore' => 150]);
+        $table->addCell(null, ['bgColor' => 'black'])->addText('R$ ' . number_format($total, 2, ',', '.'), ['bold' => true, 'color' => 'white'], ['alignment' => Jc::END, 'spaceAfter' => 150, 'spaceBefore' => 150]);
 
         $templateProcessor->setComplexBlock('table', $table);
 
@@ -73,9 +79,15 @@ class GeracaoModeloService
             'EVENTO_DURACAO' => $evento->duracao,
             'EVENTO_DATA' => $evento->data_hora,
             'EVENTO_RECINTO' => $evento->recinto,
-            'EVENTO_VALOR' => $evento->valor,
-            // 'EVENTO_VALOR_EXTENSO' => $evento->valor_extenso,
+            'EVENTO_VALOR' => number_format($evento->valor, 2, ',', '.'),
+            'EVENTO_VALOR_EXTENSO' => MonetaryService::numberToExt($evento->valor),
             'PROPOSTA_DATA_GERACAO' => date('d/m/Y'),
+            'TABELA_SERVICOS' => collect($evento->servicos)->map(function ($servico) {
+                return [
+                    'DESCRICAO' => $servico->descricao,
+                    'VALOR' => $servico->valor,
+                ];
+            }),
         ];
 
         foreach ($dados as $key => $value) {
@@ -84,6 +96,15 @@ class GeracaoModeloService
             }
         }
 
+        if ($evento->servicos()->count() <= 0) {
+            throw new \Exception("O evento não possui serviços cadastrados.");
+        }
+
         $this->substituirTokensNoDocxEConverterPdf($modeloDocx, $dados, $saidaDocx);
+    }
+
+    private function valorEmExtenso($valor)
+    {
+        MonetaryService::numberToExt(500.00);
     }
 }
