@@ -57,7 +57,7 @@ const modalRef = ref(null);
 
 const form = useForm({
     descricao: props.servico?.descricao ?? "",
-    valor: props.servico?.valor ? parseFloat(props.servico?.valor) : "",
+    valor: props.servico?.valor ? parseFloat(props.servico?.valor) : null,
 });
 
 const closeModal = () => modalRef.value.close();

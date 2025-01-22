@@ -50,9 +50,9 @@ class EventoServicoController extends Controller
         return redirect()->back();
     }
 
-    public function destroy(EventoServico $eventoServico)
+    public function destroy(Evento $evento, EventoServico $evento_servico)
     {
-        $eventoServico->delete();
+        $evento_servico->delete();
 
         return redirect()->back();
     }

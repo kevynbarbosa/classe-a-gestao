@@ -38,7 +38,16 @@
                                 )
                             "
                         ></Button>
-                        <Button icon="mdi mdi-delete-forever" severity="danger" size="small" outlined></Button>
+
+                        <ModalLink href="#modalDelete">
+                            <Button
+                                icon="mdi mdi-delete-forever"
+                                severity="danger"
+                                size="small"
+                                outlined
+                                @click="servicoSelecionado = item"
+                            ></Button>
+                        </ModalLink>
                     </td>
                 </tr>
 
@@ -61,12 +70,30 @@
             <div>Valor dos serviços difere do valor do evento</div>
         </div>
     </div>
+
+    <Modal name="modalDelete" ref="modalDeleteRef" max-width="md" v-slot="{ close }">
+        <Head title="Remover serviço" />
+
+        <TituloCard titulo="Remover serviço"></TituloCard>
+
+        <div>
+            Deseja remover o serviço
+            <b>"{{ servicoSelecionado?.descricao }}"</b>
+            ?
+        </div>
+
+        <div class="mt-4 flex justify-end gap-2">
+            <Button label="Cancelar" severity="secondary" @click="close" />
+            <Button label="Remover" severity="danger" @click="submitDelete(), close()" />
+        </div>
+    </Modal>
 </template>
 
 <script setup>
 import TituloCard from "@/Components/TituloCard.vue";
 import { decimalLocale } from "@/Utils/decimalUtils";
-import { visitModal } from "@inertiaui/modal-vue";
+import { Head, useForm } from "@inertiajs/vue3";
+import { Modal, ModalLink, visitModal } from "@inertiaui/modal-vue";
 import { computed } from "vue";
 
 const props = defineProps({ evento: Object });
@@ -81,10 +108,29 @@ const servicos = ref([
 const totalServicos = computed(() => {
     return props.evento?.servicos.reduce((total, item) => total + parseFloat(item.valor), 0);
 });
+
 const loadingModal = ref(false);
 async function novoServico() {
     loadingModal.value = true;
     await visitModal(route("evento-servicos.create", { evento: props.evento.id }));
     loadingModal.value = false;
+}
+
+const servicoSelecionado = ref(null);
+const deleteServicoForm = useForm({});
+const modalDeleteRef = ref(null);
+async function submitDelete() {
+    deleteServicoForm.delete(
+        route("evento-servicos.destroy", {
+            evento: props.evento.id,
+            evento_servico: servicoSelecionado.value.id,
+        }),
+        {
+            preserveScroll: true,
+            onSuccess() {
+                servicoSelecionado.value = null;
+            },
+        },
+    );
 }
 </script>
