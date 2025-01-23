@@ -14,7 +14,7 @@ use PhpOffice\PhpWord\SimpleType\TextAlignment;
 
 class GeracaoModeloService
 {
-    function substituirTokensNoDocxEConverterPdf($modeloDocx, $dados, $saidaDocx)
+    function substituirTokensNoDocx($modeloDocx, $dados, $pathDocx)
     {
         // Carregar o template do Word
         $templateProcessor = new TemplateProcessor($modeloDocx);
@@ -52,7 +52,19 @@ class GeracaoModeloService
         $templateProcessor->setComplexBlock('table', $table);
 
         // Salvar o arquivo Word com os dados substituídos
-        $templateProcessor->saveAs($saidaDocx);
+        $templateProcessor->saveAs($pathDocx);
+    }
+
+    private function converteEmPdf($pathDocx)
+    {
+        $result = null;
+        $output = null;
+        exec('libreoffice --convert-to pdf ' . $pathDocx, $output, $result);
+        // dd($output, $result);
+
+        if ($result !== 0) {
+            throw new \Exception("Erro ao converter o arquivo Word para PDF.");
+        }
     }
 
 
@@ -61,7 +73,7 @@ class GeracaoModeloService
         $artista = $evento->artista;
 
         $modeloDocx = storage_path('app/modelos_proposta/MODELO_PROPOSTA.docx');
-        $saidaDocx = storage_path('app/public/saida.docx');
+        $pathDocx = storage_path('app/public/saida.docx');
 
         $dados = [
             'ARTISTA_NOME' => $artista->nome,
@@ -101,11 +113,7 @@ class GeracaoModeloService
             throw new \Exception("O evento não possui serviços cadastrados.");
         }
 
-        $this->substituirTokensNoDocxEConverterPdf($modeloDocx, $dados, $saidaDocx);
-    }
-
-    private function valorEmExtenso($valor)
-    {
-        MonetaryService::numberToExt(500.00);
+        $this->substituirTokensNoDocx($modeloDocx, $dados, $pathDocx);
+        $this->converteEmPdf($pathDocx);
     }
 }
