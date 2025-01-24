@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Evento;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpWord\Element\Table;
 use PhpOffice\PhpWord\TemplateProcessor;
 use PhpOffice\PhpWord\IOFactory;
@@ -55,11 +56,12 @@ class GeracaoModeloService
         $templateProcessor->saveAs($pathDocx);
     }
 
-    private function converteEmPdf($pathDocx)
+    private function converteEmPdf($pathDocx, $pathPdf)
     {
+        $outputDir = $pathPdf;
         $result = null;
         $output = null;
-        exec('libreoffice --convert-to pdf ' . $pathDocx, $output, $result);
+        exec("libreoffice --convert-to pdf $pathDocx --outdir $outputDir", $output, $result);
         // dd($output, $result);
 
         if ($result !== 0) {
@@ -73,7 +75,7 @@ class GeracaoModeloService
         $artista = $evento->artista;
 
         $modeloDocx = storage_path('app/modelos_proposta/MODELO_PROPOSTA.docx');
-        $pathDocx = storage_path('app/public/saida.docx');
+        $pathDocx = storage_path('app/public/eventos/' . $evento->id . '/proposta.docx');
 
         $dados = [
             'ARTISTA_NOME' => $artista->nome,
@@ -113,7 +115,8 @@ class GeracaoModeloService
             throw new \Exception("O evento não possui serviços cadastrados.");
         }
 
+        Storage::makeDirectory('public/eventos/' . $evento->id);
         $this->substituirTokensNoDocx($modeloDocx, $dados, $pathDocx);
-        $this->converteEmPdf($pathDocx);
+        $this->converteEmPdf($pathDocx, storage_path('app/public/eventos/' . $evento->id));
     }
 }
