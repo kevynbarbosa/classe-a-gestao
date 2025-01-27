@@ -26,26 +26,30 @@ class GeracaoModeloService
         }
 
         // Tabela de descrição dos serviços
+        $rowBgColor = 'black';
+        $rowColor = 'black';
         $table = new Table([
             'borderSize' => 6,
-            'borderColor' => 'white',
+            'borderColor' => 'black',
+            'bgColor' => 'black',
             'width' => 100 * 50, // 100% x (1/50)
             'unit' => TblWidth::PERCENT,
         ]);
+
         $table->addRow(200);
-        $table->addCell(40 * 50, ['bgColor' => 'black', 'valign' => 'center'])->addText('SERVIÇO', ['bold' => true, 'color' => 'white'], ['alignment' => Jc::CENTER, 'spaceAfter' => 200, 'spaceBefore' => 200]);
-        $table->addCell(60 * 50, ['bgColor' => 'black', 'valign' => 'center'])->addText('VALORES', ['bold' => true, 'color' => 'white'], ['alignment' => Jc::CENTER, 'spaceAfter' => 200, 'spaceBefore' => 200]);
+        $table->addCell(40 * 50, ['valign' => 'center'])->addText('SERVIÇO', ['bold' => true, 'color' => $rowColor], ['alignment' => Jc::CENTER, 'spaceAfter' => 200, 'spaceBefore' => 200]);
+        $table->addCell(60 * 50, ['valign' => 'center'])->addText('VALORES', ['bold' => true, 'color' => $rowColor], ['alignment' => Jc::CENTER, 'spaceAfter' => 200, 'spaceBefore' => 200]);
 
         foreach ($dados['TABELA_SERVICOS'] as $servico) {
             $table->addRow();
-            $table->addCell(null, ['bgColor' => 'black'])->addText($servico['DESCRICAO'], ['color' => 'white'], ['spaceAfter' => 150, 'spaceBefore' => 150]);
-            $table->addCell(null, ['bgColor' => 'black'])->addText('R$ ' . number_format($servico['VALOR'], 2, ',', '.'), ['color' => 'white'], ['alignment' => Jc::END, 'spaceAfter' => 150, 'spaceBefore' => 150]);
+            $table->addCell(null, [])->addText($servico['DESCRICAO'], ['color' => $rowColor], ['spaceAfter' => 150, 'spaceBefore' => 150]);
+            $table->addCell(null, [])->addText('R$ ' . number_format($servico['VALOR'], 2, ',', '.'), ['color' => $rowColor], ['alignment' => Jc::END, 'spaceAfter' => 150, 'spaceBefore' => 150]);
         }
 
         $total = $dados['TABELA_SERVICOS']->sum('VALOR');
         $table->addRow();
-        $table->addCell(null, ['bgColor' => 'black'])->addText('TOTAL', ['bold' => true, 'color' => 'white'], ['spaceAfter' => 150, 'spaceBefore' => 150]);
-        $table->addCell(null, ['bgColor' => 'black'])->addText('R$ ' . number_format($total, 2, ',', '.'), ['bold' => true, 'color' => 'white'], ['alignment' => Jc::END, 'spaceAfter' => 150, 'spaceBefore' => 150]);
+        $table->addCell(null, [])->addText('TOTAL', ['bold' => true, 'color' => $rowColor], ['spaceAfter' => 150, 'spaceBefore' => 150]);
+        $table->addCell(null, [])->addText('R$ ' . number_format($total, 2, ',', '.'), ['bold' => true, 'color' => $rowColor], ['alignment' => Jc::END, 'spaceAfter' => 150, 'spaceBefore' => 150]);
 
         $templateProcessor->setComplexBlock('table', $table);
 
@@ -59,7 +63,7 @@ class GeracaoModeloService
         $outputDir = $pathPdf;
         $result = null;
         $output = null;
-        exec("libreoffice --convert-to pdf $pathDocx --outdir $outputDir", $output, $result);
+        exec("libreoffice --headless --invisible --norestore --convert-to pdf $pathDocx --outdir $outputDir", $output, $result);
         // dd($output, $result);
 
         if ($result !== 0) {
