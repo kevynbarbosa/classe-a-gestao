@@ -4,7 +4,7 @@
     <div class="grid grid-cols-3 gap-4">
         <DashDocumentosInternos :documentos_internos="documentos_internos" />
 
-        <DashCampanha />
+        <!-- <DashCampanha /> -->
 
         <DashProximosEventos :proximos_eventos="proximos_eventos" />
 
@@ -16,7 +16,6 @@
 
 <script setup>
 import { Head } from "@inertiajs/vue3";
-import DashCampanha from "./Dashboard/Partials/DashCampanha.vue";
 import DashDocumentosInternos from "./Dashboard/Partials/DashDocumentosInternos.vue";
 import DashEventosFuturos from "./Dashboard/Partials/DashEventosFuturos.vue";
 import DashEventosRealizados from "./Dashboard/Partials/DashEventosRealizados.vue";
