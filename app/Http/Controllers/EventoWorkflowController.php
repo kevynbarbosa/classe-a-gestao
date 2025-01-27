@@ -86,16 +86,16 @@ class EventoWorkflowController extends Controller
     public function gerarProposta(Request $request, Evento $evento)
     {
         $validatedData = $request->validate([
-            'nome_completo' => ['required'],
-            'cpf_cnpj' => ['required'],
-            'rg' => ['required'],
-            'atualizar_cadastro' => ['required', 'boolean'],
+            // 'nome_completo' => ['required'],
+            // 'cpf_cnpj' => ['required'],
+            // 'rg' => ['required'],
+            // 'atualizar_cadastro' => ['required', 'boolean'],
         ]);
 
-        if ($validatedData['atualizar_cadastro']) {
-            $contratante = $evento->contratante;
-            $contratante->update($validatedData);
-        }
+        // if ($validatedData['atualizar_cadastro']) {
+        //     $contratante = $evento->contratante;
+        //     $contratante->update($validatedData);
+        // }
 
         $geracaoModeloService = new GeracaoModeloService();
         $geracaoModeloService->gerarProposta($evento);

@@ -2,7 +2,7 @@
     <p class="my-1 text-sm text-gray-600">Digite as informações para gerar uma proposta.</p>
 
     <form>
-        <div class="flex flex-col gap-3">
+        <!-- <div class="flex flex-col gap-3">
             <div>
                 <FloatLabel variant="in">
                     <InputText
@@ -39,7 +39,7 @@
                 <Checkbox name="remember" v-model="form.atualizar_cadastro" binary />
                 <span class="ms-2 text-sm text-gray-600">Atualizar cadastro do contratante</span>
             </label>
-        </div>
+        </div> -->
 
         <ServicosDetalhamento :evento="evento" />
 
