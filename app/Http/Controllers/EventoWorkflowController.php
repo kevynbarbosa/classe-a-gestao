@@ -115,12 +115,14 @@ class EventoWorkflowController extends Controller
     public function downloadPdf(Evento $evento)
     {
         $path = storage_path('/app/public/eventos/') . $evento->id . '/proposta.pdf';
+        // dd($path);
         return response()->download($path);
     }
 
     public function downloadWord(Evento $evento)
     {
         $path = storage_path('/app/public/eventos/') . $evento->id . '/proposta.docx';
+        dd($path);
         return response()->download($path);
     }
 }

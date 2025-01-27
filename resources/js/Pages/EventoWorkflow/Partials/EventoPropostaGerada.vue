@@ -5,8 +5,8 @@
         <Button label="Download Word" class="mdi mdi-microsoft-word" icon-class="text-2xl" @click="downloadWord" />
         <Button label="Download PDF" class="mdi mdi-file-pdf-box" icon-class="text-2xl" @click="downloadPdf" />
 
-        <Button label="E-mail " class="mdi mdi-email-fast" icon-class="text-2xl" severity="info" />
-        <Button label="WhatsApp" class="mdi mdi-whatsapp" icon-class="text-2xl" severity="info" />
+        <Button label="Enviar PDF por E-mail " class="mdi mdi-email-fast" icon-class="text-2xl" severity="info" />
+        <!-- <Button label="WhatsApp" class="mdi mdi-whatsapp" icon-class="text-2xl" severity="info" /> -->
 
         <Button
             label="Editar dados"
@@ -30,12 +30,12 @@ function editarProposta() {
 }
 
 function downloadPdf() {
-    const url = route("evento-workflow.download-pdf", { evento: props.evento.id });
+    const url = route("evento-workflow.download-pdf", { evento: props.evento.id }) + "?" + Date.now();
     window.open(url, "_blank");
 }
 
 function downloadWord() {
-    const url = route("evento-workflow.download-word", { evento: props.evento.id });
+    const url = route("evento-workflow.download-word", { evento: props.evento.id }) + "?" + Date.now();
     window.open(url, "_blank");
 }
 </script>

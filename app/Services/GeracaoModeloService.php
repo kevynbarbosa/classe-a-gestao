@@ -41,9 +41,6 @@ class GeracaoModeloService
             $table->addCell(null, ['bgColor' => 'black'])->addText($servico['DESCRICAO'], ['color' => 'white'], ['spaceAfter' => 150, 'spaceBefore' => 150]);
             $table->addCell(null, ['bgColor' => 'black'])->addText('R$ ' . number_format($servico['VALOR'], 2, ',', '.'), ['color' => 'white'], ['alignment' => Jc::END, 'spaceAfter' => 150, 'spaceBefore' => 150]);
         }
-        // $table->addRow();
-        // $table->addCell(null, ['bgColor' => 'black'])->addText('Cachê dos artistas/ equipe de músicos/ equipe técnica e operacional', ['color' => 'white'], ['spaceAfter' => 150, 'spaceBefore' => 150]);
-        // $table->addCell(null, ['bgColor' => 'black'])->addText('R$ 37.980,00', ['color' => 'white'], ['alignment' => Jc::END, 'spaceAfter' => 150, 'spaceBefore' => 150]);
 
         $total = $dados['TABELA_SERVICOS']->sum('VALOR');
         $table->addRow();
@@ -58,6 +55,7 @@ class GeracaoModeloService
 
     private function converteEmPdf($pathDocx, $pathPdf)
     {
+        // dd($pathDocx);
         $outputDir = $pathPdf;
         $result = null;
         $output = null;

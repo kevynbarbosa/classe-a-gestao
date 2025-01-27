@@ -2,30 +2,32 @@
     <div class="text-lg font-bold">Dados do contratante</div>
 
     <table class="w-full table-auto">
-        <tr>
-            <td>Nome:</td>
-            <td>{{ evento?.contratante.nome_completo }}</td>
-        </tr>
+        <tbody>
+            <tr>
+                <td>Nome:</td>
+                <td>{{ evento?.contratante.nome_completo }}</td>
+            </tr>
 
-        <tr>
-            <td>CPF/CNPJ:</td>
-            <td>{{ formataCpfCnpj(evento?.contratante.cpf_cnpj) }}</td>
-        </tr>
+            <tr>
+                <td>CPF/CNPJ:</td>
+                <td>{{ formataCpfCnpj(evento?.contratante.cpf_cnpj) }}</td>
+            </tr>
 
-        <tr>
-            <td>RG:</td>
-            <td>{{ evento?.contratante.rg }}</td>
-        </tr>
+            <tr>
+                <td>RG:</td>
+                <td>{{ evento?.contratante.rg }}</td>
+            </tr>
 
-        <tr>
-            <td>Tipo:</td>
-            <td>{{ evento?.contratante.tipo_pessoa.toUpperCase() }}</td>
-        </tr>
+            <tr>
+                <td>Tipo:</td>
+                <td>{{ evento?.contratante.tipo_pessoa.toUpperCase() }}</td>
+            </tr>
 
-        <tr>
-            <td>Data nascimento:</td>
-            <td>{{ dateLocale(evento?.contratante.data_nascimento) }}</td>
-        </tr>
+            <tr>
+                <td>Data nascimento:</td>
+                <td>{{ dateLocale(evento?.contratante.data_nascimento) }}</td>
+            </tr>
+        </tbody>
     </table>
 </template>
 
