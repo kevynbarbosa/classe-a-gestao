@@ -104,6 +104,8 @@ Route::controller(EventoWorkflowController::class)->name('evento-workflow.')->gr
         Route::post('evento-workflow/{evento}/enviar-formulario', 'enviarFormulario')->name('enviar-formulario-contratante');
         Route::post('evento-workflow/{evento}/gerar-proposta', 'gerarProposta')->name('gerar-proposta');
         Route::post('evento-workflow/{evento}/editar-proposta', 'editarProposta')->name('editar-proposta');
+        Route::get('evento-workflow/{evento}/download-pdf', 'downloadPdf')->name('download-pdf');
+        Route::get('evento-workflow/{evento}/download-word', 'downloadWord')->name('download-word');
     });
     Route::get('contratante-formulario/{evento:token_formulario}', 'showFormulario')->name('contratante-formulario');
     Route::post('contratante-formulario/{evento:token_formulario}/salvar-formulario', 'salvarFormulario')->name('salvar-contratante-formulario');
