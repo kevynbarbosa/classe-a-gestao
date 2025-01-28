@@ -2,9 +2,6 @@
     <div class="text-center">Como deseja enviar a proposta?</div>
 
     <div class="grid grid-cols-2 gap-2">
-        <Button label="Download Word" class="mdi mdi-microsoft-word" icon-class="text-2xl" @click="downloadWord" />
-        <Button label="Download PDF" class="mdi mdi-file-pdf-box" icon-class="text-2xl" @click="downloadPdf" />
-
         <Button
             label="Enviar PDF por E-mail "
             class="mdi mdi-email-fast"
@@ -32,16 +29,6 @@ const props = defineProps({ evento: Object });
 
 function editarProposta() {
     router.post(route("evento-workflow.editar-proposta", { evento: props.evento.id }));
-}
-
-function downloadPdf() {
-    const url = route("evento-workflow.download-pdf", { evento: props.evento.id }) + "?" + Date.now();
-    window.open(url, "_blank");
-}
-
-function downloadWord() {
-    const url = route("evento-workflow.download-word", { evento: props.evento.id }) + "?" + Date.now();
-    window.open(url, "_blank");
 }
 
 function confirmarModal() {

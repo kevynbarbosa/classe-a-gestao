@@ -142,7 +142,7 @@ class EventoWorkflowController extends Controller
     {
         Mail::to($evento->email_formulario)->send(new PropostaContratanteMail($evento));
 
-        EventoHistoricoService::gerarHistorico($evento, EventoStatusEnum::PROPOSTA_ENVIADA);
+        EventoHistoricoService::gerarHistorico($evento, EventoStatusEnum::PENDENTE_NF);
 
         return redirect()->back();
     }
