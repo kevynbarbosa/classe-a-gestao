@@ -131,4 +131,16 @@ class EventoWorkflowController extends Controller
             'Expires' => 'Sat, 01 Jan 2000 00:00:00 GMT',
         ]);
     }
+
+    public function confirmarPropostaEmail(Evento $evento)
+    {
+        return Inertia::render('EventoWorkflow/Partials/ModalEnviarProposta', ['evento' => $evento]);
+    }
+
+    public function enviarPropostaEmail(Evento $evento)
+    {
+        Mail::to($evento->email_formulario)->send(new PropostaContratanteMail($evento));
+
+        return redirect()->back();
+    }
 }
