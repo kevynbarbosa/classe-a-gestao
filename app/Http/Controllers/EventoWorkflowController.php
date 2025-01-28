@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Enums\EventoStatusEnum;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\FormularioContratanteMail;
+use App\Mail\PropostaContratanteMail;
 use App\Services\EventoHistoricoService;
 use App\Services\GeracaoModeloService;
 
@@ -140,6 +141,8 @@ class EventoWorkflowController extends Controller
     public function enviarPropostaEmail(Evento $evento)
     {
         Mail::to($evento->email_formulario)->send(new PropostaContratanteMail($evento));
+
+        EventoHistoricoService::gerarHistorico($evento, EventoStatusEnum::PROPOSTA_ENVIADA);
 
         return redirect()->back();
     }

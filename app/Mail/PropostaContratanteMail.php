@@ -6,11 +6,12 @@ use App\Models\Evento;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class FormularioContratanteMail extends Mailable
+class PropostaContratanteMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -25,7 +26,7 @@ class FormularioContratanteMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Formulario Contratante',
+            subject: 'Proposta',
         );
     }
 
@@ -35,7 +36,7 @@ class FormularioContratanteMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'mails.formulario_contratante',
+            view: 'mails.proposta_contratante',
         );
     }
 
@@ -46,6 +47,8 @@ class FormularioContratanteMail extends Mailable
      */
     public function attachments(): array
     {
-        return [];
+        return [
+            Attachment::fromPath(storage_path('app/public/eventos/' . $this->evento->id . '/proposta.pdf'))->as('Proposta.pdf'),
+        ];
     }
 }

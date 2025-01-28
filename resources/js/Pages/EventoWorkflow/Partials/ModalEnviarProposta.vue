@@ -42,7 +42,7 @@ const modalRef = ref(null);
 function submit() {
     form.post(route("evento-workflow.enviar-proposta-email", { evento: props.evento.id }), {
         onSuccess: () => {
-            modalRef.close();
+            modalRef.value.close();
         },
     });
 }
