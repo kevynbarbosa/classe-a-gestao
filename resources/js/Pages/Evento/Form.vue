@@ -160,6 +160,14 @@
             </div>
 
             <div
+                v-if="disabledForm"
+                class="mt-4 flex items-center justify-center rounded bg-orange-200 p-2 font-bold text-orange-500"
+            >
+                <i class="mdi mdi-alert-box mr-2 text-[22px]"></i>
+                <div>Este evento já foi enviado para o contratante e portanto não poderá ser alterado</div>
+            </div>
+
+            <div
                 v-if="Object.keys(form.errors).length > 0"
                 class="mt-4 flex items-center justify-center rounded bg-red-200 p-2 font-bold text-red-500"
             >
@@ -169,7 +177,7 @@
 
             <div class="mt-4 flex justify-end gap-2">
                 <Button label="Cancelar" severity="secondary" @click="closeModal" />
-                <Button label="Salvar" type="submit" :loading="salvando" />
+                <Button label="Salvar" type="submit" :loading="form.processing" :disabled="disabledForm" />
             </div>
         </form>
     </Modal>
@@ -196,7 +204,10 @@ const props = defineProps({
 const titulo = props.updating ? "Editar evento" : "Novo evento";
 
 const modalRef = ref(null);
-const salvando = ref(false);
+
+const disabledForm = computed(() => {
+    return props.evento?.status !== "formulario_pendente";
+});
 
 const form = useForm({
     artista_id: props.evento?.artista_id ?? "",
@@ -215,25 +226,17 @@ const back = () => window.history.back();
 const closeModal = () => modalRef.value.close();
 const submit = () => (props.updating ? updateRecord() : addRecord());
 const addRecord = () => {
-    salvando.value = true;
     form.post("/eventos", {
         onSuccess() {
             closeModal();
-        },
-        onFinish() {
-            salvando.value = false;
         },
     });
 };
 
 const updateRecord = () => {
-    salvando.value = true;
     form.put(`/eventos/${props.evento.id}`, {
         onSuccess() {
             closeModal();
-        },
-        onFinish() {
-            salvando.value = false;
         },
     });
 };
