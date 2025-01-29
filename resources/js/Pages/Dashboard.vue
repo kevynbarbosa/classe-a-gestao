@@ -1,7 +1,7 @@
 <template>
     <Head title="Dashboard" />
 
-    <div class="grid grid-cols-3 gap-4">
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
         <DashDocumentosInternos :documentos_internos="documentos_internos" />
 
         <!-- <DashCampanha /> -->
