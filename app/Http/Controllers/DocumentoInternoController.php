@@ -6,11 +6,13 @@ use App\Http\Resources\CommonResource;
 use App\Models\Artista;
 use App\Models\DocumentoInterno;
 use App\Models\DocumentoInternoCategoria;
+use App\Models\Evento;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use League\CommonMark\Node\Block\Document;
+use ZipArchive;
 
 class DocumentoInternoController extends Controller
 {
@@ -84,5 +86,38 @@ class DocumentoInternoController extends Controller
         $fileName = $documento->categoria->nome . ".$fileExtension";
 
         return response()->download(storage_path('app/') . $documento->path, $fileName);
+    }
+
+    public function selecionarLoteDownload(Evento $evento)
+    {
+        $documentos = DocumentoInterno::where('artista_id', $evento->artista_id)->where('data_validade', '>=', now())->get();
+
+        return Inertia::render('DocumentoInterno/DownloadLoteDocumentos', [
+            'evento' => $evento,
+            'documentos' => $documentos
+        ]);
+    }
+
+    public function loteDownload(Request $request)
+    {
+        $documentos = DocumentoInterno::whereIn('id', $request->documento_ids)->get();
+
+        $zipFileName = 'arquivos.zip';
+        $zipPath = storage_path('app/' . $zipFileName);
+
+        $zip = new ZipArchive;
+
+        if ($zip->open($zipPath, ZipArchive::CREATE | ZipArchive::OVERWRITE) === true) {
+            foreach ($documentos as $documento) {
+                $filePath = storage_path('app/' . $documento->path);
+                if (file_exists($filePath)) {
+                    $zip->addFile($filePath, basename($documento->nome_original));
+                }
+            }
+
+            $zip->close();
+        }
+
+        return response()->download($zipPath)->deleteFileAfterSend(true);
     }
 }

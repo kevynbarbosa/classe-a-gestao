@@ -2,7 +2,9 @@
     <Head title="Detalhes do evento" />
 
     <div class="card mx-auto max-w-2xl">
-        <TituloCard titulo="Detalhes do evento" />
+        <TituloCard titulo="Detalhes do evento">
+            <Button size="small" @click="downloadLoteDocumentos">Download de documentos</Button>
+        </TituloCard>
 
         <div class="my-2 grid grid-cols-2 gap-4 rounded bg-slate-100 p-2">
             <div>
@@ -81,6 +83,7 @@ import TituloCard from "@/Components/TituloCard.vue";
 import { dateTimeLocale } from "@/Utils/dateUtils";
 import { findEnumValue } from "@/Utils/enumUtils";
 import { Head } from "@inertiajs/vue3";
+import { visitModal } from "@inertiaui/modal-vue";
 import EventoWorkflowContratante from "./Partials/EventoWorkflowContratante.vue";
 import EventoWorkflowDocumentacao from "./Partials/EventoWorkflowDocumentacao.vue";
 import EventoWorkflowObservacoes from "./Partials/EventoWorkflowObservacoes.vue";
@@ -89,4 +92,8 @@ import FluxoEtapaControlador from "./Partials/FluxoEtapaControlador.vue";
 import LinkProposta from "./Partials/LinkProposta.vue";
 
 const props = defineProps({ evento: Object, evento_status_enum: Array });
+
+function downloadLoteDocumentos() {
+    visitModal(route("documentos-internos.selecionar-lote-download", { evento: props.evento?.id }));
+}
 </script>

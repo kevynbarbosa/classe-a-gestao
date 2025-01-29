@@ -91,10 +91,12 @@ Route::middleware(['auth', /* SimulateRealNetwork::class */])->group(function ()
         'vendedores' => 'vendedor'
     ]);
     Route::resource('contratantes', ContratanteController::class);
+    Route::get('documentos-internos/download/{documento}', [DocumentoInternoController::class, 'download'])->name('documentos-internos.download');
+    Route::get('documentos-internos/selecionarLoteDownload/{evento}', [DocumentoInternoController::class, 'selecionarLoteDownload'])->name('documentos-internos.selecionar-lote-download');
+    Route::get('documentos-internos/loteDownload', [DocumentoInternoController::class, 'loteDownload'])->name('documentos-internos.lote-download');
     Route::resource('documentos-internos', DocumentoInternoController::class)->parameters([
         'documentos-internos' => 'documento'
     ]);
-    Route::get('documentos-internos/download/{documento}', [DocumentoInternoController::class, 'download'])->name('documentos-internos.download');
     Route::resource('documentos-internos-categorias', DocumentoInternoCategoriaController::class);
 });
 
