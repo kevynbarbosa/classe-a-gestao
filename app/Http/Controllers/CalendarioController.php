@@ -22,6 +22,8 @@ class CalendarioController extends Controller
 
     public function eventoDetalhes(Evento $evento)
     {
+        $evento->load(['artista', 'contratante', 'vendedor', 'cidade', 'historico', 'observacoes', 'observacoes.user', 'servicos']);
+
         return Inertia::render('Calendario/EventoDetalhes', [
             'evento' => $evento,
             'evento_status_enum' => EventoStatusEnum::options()
