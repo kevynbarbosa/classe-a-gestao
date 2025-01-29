@@ -1,6 +1,6 @@
 <template>
     <div
-        class="col-span-2 rounded bg-primary/10 py-4 text-center"
+        class="col-span-2 rounded bg-primary/10 py-4 text-center dark:bg-primary/20"
         v-if="!statusPropostaIndisponivel.includes(evento.status)"
     >
         <div class="mb-2 font-bold">Propostas geradas</div>

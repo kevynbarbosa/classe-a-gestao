@@ -6,7 +6,7 @@
             <Button size="small" @click="downloadLoteDocumentos">Download de documentos</Button>
         </TituloCard>
 
-        <div class="my-2 grid grid-cols-2 gap-4 rounded bg-slate-100 p-2">
+        <div class="my-2 grid grid-cols-2 gap-4 rounded bg-slate-100 p-2 dark:bg-slate-800">
             <div>
                 <b>Artista:</b>
                 {{ evento.artista.nome }}
@@ -37,7 +37,7 @@
                 {{ evento.recinto }}
             </div>
 
-            <div class="col-span-2 rounded border-x-4 border-green-700 bg-green-200 p-2 text-center">
+            <div class="col-span-2 rounded border-x-4 border-green-900 bg-green-200 p-2 text-center dark:bg-green-600">
                 <b>Status do fluxo:</b>
                 <br />
                 {{ findEnumValue(evento_status_enum, evento.status) }}

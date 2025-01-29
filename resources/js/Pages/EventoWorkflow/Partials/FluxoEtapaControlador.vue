@@ -1,5 +1,5 @@
 <template>
-    <div class="my-2 rounded bg-slate-100 p-2">
+    <div class="my-2 rounded bg-slate-100 p-2 dark:bg-slate-800">
         <!-- <TituloCard titulo="Ação pendente do workflow do evento" /> -->
 
         <EnviarFormularioContratante v-if="evento.status == 'formulario_pendente'" :evento="evento" />
