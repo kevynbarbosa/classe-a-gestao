@@ -15,6 +15,7 @@ import ToastService from "primevue/toastservice";
 import ptBrLocale from "./Config/pt-br-locale.json";
 import DefaultLayout from "./Layouts/DefaultLayout.vue";
 
+import { resolvePageComponent } from "laravel-vite-plugin/inertia-helpers";
 import VueTheMask from "vue-the-mask";
 
 const appName = import.meta.env.VITE_APP_NAME || "";
@@ -41,9 +42,15 @@ const CustomTheme = definePreset(Aura, {
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
     resolve: (name) => {
-        const pages = import.meta.glob("./Pages/**/*.vue", { eager: true });
-        let page = pages[`./Pages/${name}.vue`];
-        page.default.layout = page.default.layout || DefaultLayout;
+        // const pages = import.meta.glob("./Pages/**/*.vue", { eager: true });
+        // let page = pages[`./Pages/${name}.vue`];
+        // page.default.layout = page.default.layout || DefaultLayout;
+        // return page;
+
+        const page = resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob("./Pages/**/*.vue"));
+        page.then((p) => {
+            p.default.layout = p.default?.layout || DefaultLayout;
+        });
         return page;
     },
     setup({ el, App, props, plugin }) {
