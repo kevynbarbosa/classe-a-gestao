@@ -6,6 +6,7 @@ use App\Models\Artista;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,12 +16,23 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         if (!User::where('email', 'test@example.com')->exists()) {
-            User::factory()->create(
-                [
-                    'email' => 'test@example.com',
-                    'name' => 'Test User',
-                ]
-            );
+            User::create([
+                'email' => 'kevynbarbosa1@gmail.com',
+                'name' => 'Kevyn Barbosa',
+                'password' => Hash::make('password'),
+            ]);
+
+            // User::factory()->create([
+            //     'email' => 'divulgacaosp1@hotmail.com',
+            //     'name' => 'Alexandre Souto',
+            //     'password' => Hash::make('password'),
+            // ]);
+
+            // User::factory()->create([
+            //     'email' => 'tiraosi@yahoo.com',
+            //     'name' => 'Adriana Oliveira',
+            //     'password' => Hash::make('password'),
+            // ]);
         }
 
         $this->call([
