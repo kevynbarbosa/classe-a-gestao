@@ -1,6 +1,5 @@
 <?php
 
-use App\Enums\EventoStatusEnum;
 use App\Http\Controllers\ArtistaController;
 use App\Http\Controllers\CalendarioController;
 use App\Http\Controllers\ContratanteController;
@@ -13,16 +12,13 @@ use App\Http\Controllers\EventoServicoController;
 use App\Http\Controllers\EventoWorkflowController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VendedorController;
-use App\Http\Middleware\SimulateRealNetwork;
-use App\Models\Cidade;
 use App\Services\GeracaoModeloService;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
-use Inertia\Inertia;
 
 Route::get('/', function () {
-    return redirect('/dashboard');
+    // return redirect('/dashboard');
+    return view('landing_page');
 });
 
 Route::get('/teste', function () {
