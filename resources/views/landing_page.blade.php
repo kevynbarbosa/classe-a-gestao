@@ -11,7 +11,7 @@
     <link
         rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500" />
-    <link rel="stylesheet" href="fonts/icomoon/style.css" />
+    <link rel="stylesheet" href="{{ asset('assets/landing_page') }}/fonts/icomoon/style.css" />
 
     <link rel="stylesheet" href="{{ asset('assets/landing_page/css/bootstrap.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/landing_page/css/magnific-popup.css') }}" />
@@ -135,42 +135,10 @@
                 </div>
             </div>
             <div class="row">
-                <!-- Card do artista -->
-
-
-                <div class="col-md-6 col-lg-4 mb-5 mb-lg-5">
-                    <div class="team-member">
-                        <img
-                            src="{{ asset('assets/landing_page/fotos/trio_parada_dura.jpeg') }}"
-                            alt="Image"
-                            class="img-fluid" />
-                        <div class="text" style="width: 100%">
-                            <h2 class="mb-2 font-weight-light h4">Trio Parada Dura</h2>
-                            <p>
-                                <a
-                                    href="https://www.facebook.com/otrioparadadura/"
-                                    target="_blank"
-                                    class="text-white p-2">
-                                    <span class="icon-facebook"></span>
-                                </a>
-                                <a
-                                    href="https://twitter.com/otrioparadadura"
-                                    target="_blank"
-                                    class="text-white p-2">
-                                    <span class="icon-twitter"></span>
-                                </a>
-                                <a
-                                    href="https://www.instagram.com/trioparadadura/?hl=pt-br"
-                                    target="_blank"
-                                    class="text-white p-2">
-                                    <span class="icon-instagram"></span>
-                                </a>
-                            </p>
-                        </div>
-                    </div>
-                    <p class="text-center font-weight-light h4">Trio Parada Dura</p>
-                </div>
-                <!-- Fim do card de artista -->
+                <x-landing.card nome="Trio Parada Dura" foto="{{ asset('assets/landing_page/fotos/trio_parada_dura.jpeg') }}"
+                    facebook="https://www.facebook.com/otrioparadadura"
+                    x="https://twitter.com/otrioparadadura"
+                    instagram="https://www.instagram.com/trioparadadura/?hl=pt-br" />
 
                 <!-- Card do artista -->
                 <div class="col-md-6 col-lg-4 mb-5 mb-lg-5">
