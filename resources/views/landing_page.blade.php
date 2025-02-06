@@ -58,6 +58,11 @@
                             </a>
                         </h1>
                     </div>
+                    <div class="col-4 col-md-4 col-lg-8" style="text-align: right;">
+                        <a href="/login" class="text-white mb-0" style="font-size: 1rem;">
+                            Painel Gerencial
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
