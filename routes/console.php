@@ -9,4 +9,4 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote')->hourly();
 
 
-Schedule::command('backup:run')->everyMinute();
+Schedule::command('backup:run')->daily();
