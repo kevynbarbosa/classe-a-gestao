@@ -35,7 +35,11 @@ class EventoWorkflowController extends Controller
 
             $evento->email_formulario = $validatedData['email_contratante'];
             $evento->token_formulario = Str::uuid();
-            Mail::to($validatedData['email_contratante'])->send(new FormularioContratanteMail($evento));
+            try {
+                Mail::to($validatedData['email_contratante'])->send(new FormularioContratanteMail($evento));
+            } catch (\Throwable $th) {
+                throw $th;
+            }
             $evento->save();
         } catch (\Throwable $th) {
             throw $th;

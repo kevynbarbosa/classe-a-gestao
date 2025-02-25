@@ -206,7 +206,7 @@ const titulo = props.updating ? "Editar evento" : "Novo evento";
 const modalRef = ref(null);
 
 const disabledForm = computed(() => {
-    return props.evento?.status !== "formulario_pendente";
+    return props.updating && props.evento?.status !== "formulario_pendente";
 });
 
 const form = useForm({
