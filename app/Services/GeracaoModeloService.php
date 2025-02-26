@@ -76,10 +76,11 @@ class GeracaoModeloService
     {
         $artista = $evento->artista;
 
-        $modeloDocx = storage_path('app/modelos_proposta/MODELO_PROPOSTA.docx');
+        $modeloDocx = resource_path('modelos_proposta/MODELO_PROPOSTA.docx');
         $pathDocx = storage_path('app/public/eventos/' . $evento->id . '/proposta.docx');
 
         $dados = [
+            'CONTRATANTE_NOME' => $evento->contratante->nome_completo,
             'ARTISTA_NOME' => $artista->nome,
             'ARTISTA_RAZAO_SOCIAL' => $artista->razao_social,
             'ARTISTA_CNPJ' => $artista->cnpj,
@@ -89,6 +90,8 @@ class GeracaoModeloService
             'ARTISTA_BAIRRO' => $artista->bairro,
             'ARTISTA_CIDADE' => $artista->cidade->nome,
             'ARTISTA_CEP' => $artista->cep,
+            'ARTISTA_TELEFONE' => $artista->telefone,
+            'ARTISTA_EMAIL' => $artista->email,
             'ARTISTA_REPRESENTANTE_LEGAL_NOME' => $artista->representante_legal_nome,
             'ARTISTA_REPRESENTANTE_LEGAL_CPF' => $artista->representante_legal_cpf,
             'ARTISTA_REPRESENTANTE_LEGAL_RG' => $artista->representante_legal_rg,
