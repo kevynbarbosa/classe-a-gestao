@@ -37,6 +37,11 @@
                 {{ evento.recinto }}
             </div>
 
+            <div>
+                <b>Valor:</b>
+                {{ decimalLocale(evento.valor) }}
+            </div>
+
             <div class="col-span-2 rounded border-x-4 border-green-900 bg-green-200 p-2 text-center dark:bg-green-600">
                 <b>Status do fluxo:</b>
                 <br />
@@ -81,6 +86,7 @@
 <script setup>
 import TituloCard from "@/Components/TituloCard.vue";
 import { dateTimeLocale } from "@/Utils/dateUtils";
+import { decimalLocale } from "@/Utils/decimalUtils";
 import { findEnumValue } from "@/Utils/enumUtils";
 import { Head } from "@inertiajs/vue3";
 import { visitModal } from "@inertiaui/modal-vue";
