@@ -1,3 +1,10 @@
+<template>
+    <div>
+        <h1>{{ title }}</h1>
+        <div>{{ description }}</div>
+    </div>
+</template>
+
 <script setup>
 import { computed } from "vue";
 
@@ -21,10 +28,3 @@ const description = computed(() => {
     }[props.status];
 });
 </script>
-
-<template>
-    <div>
-        <h1>{{ title }}</h1>
-        <div>{{ description }}</div>
-    </div>
-</template>
