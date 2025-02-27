@@ -1,14 +1,14 @@
 <template>
-    <div>
-        <h1>{{ title }}</h1>
-        <div>{{ description }}</div>
-    </div>
+    <div></div>
 </template>
 
 <script setup>
+import { useToast } from "primevue/usetoast";
 import { computed } from "vue";
 
 const props = defineProps({ status: Number });
+
+const toast = useToast();
 
 const title = computed(() => {
     return {
@@ -27,4 +27,10 @@ const description = computed(() => {
         403: "Sorry, you are forbidden from accessing this page.",
     }[props.status];
 });
+
+const showError = () => {
+    toast.add({ severity: "error", summary: title.value, detail: description.value });
+};
+
+showError();
 </script>
