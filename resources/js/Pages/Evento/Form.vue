@@ -152,7 +152,15 @@
 
                 <div>
                     <FloatLabel variant="in">
-                        <CurrencyInput id="valor" class="w-full" size="small" v-model="form.valor" variant="filled" />
+                        <InputNumber
+                            v-model="form.valor"
+                            inputId="currency-br"
+                            mode="currency"
+                            currency="BRL"
+                            locale="pt-BR"
+                            :maxFractionDigits="0"
+                            fluid
+                        />
                         <label for="valor">Valor</label>
                     </FloatLabel>
                     <div class="text-red-500" v-if="form.errors.valor">{{ form.errors.valor }}</div>
@@ -184,7 +192,6 @@
 </template>
 
 <script setup>
-import CurrencyInput from "@/Components/Form/CurrencyInput.vue";
 import CustomAutoComplete from "@/Components/Form/CustomAutoComplete.vue";
 import TituloCard from "@/Components/TituloCard.vue";
 import { parseDateTime } from "@/Utils/dateUtils";
