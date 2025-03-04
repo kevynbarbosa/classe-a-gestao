@@ -24,13 +24,15 @@
     <Modal name="link-formulario" max-width="sm">
         <TituloCard titulo="Link do formulário"></TituloCard>
 
-        <a
-            v-if="props.evento.token_formulario"
-            :href="route('evento-workflow.contratante-formulario', { evento: props.evento.token_formulario })"
-            target="_blank"
-        >
-            {{ route("evento-workflow.contratante-formulario", { evento: props.evento.token_formulario }) }}
-        </a>
+        <div v-if="props.evento.token_formulario" class="rounded bg-primary/20 p-2 text-center hover:bg-primary/40">
+            <a
+                class="underline"
+                :href="route('evento-workflow.contratante-formulario', { evento: props.evento.token_formulario })"
+                target="_blank"
+            >
+                {{ route("evento-workflow.contratante-formulario", { evento: props.evento.token_formulario }) }}
+            </a>
+        </div>
         <div v-else>Não há link gerado para o formulário</div>
 
         <div class="w-full text-center">
