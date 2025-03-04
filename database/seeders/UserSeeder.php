@@ -3,9 +3,10 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class UserSeeder extends Seeder
 {
@@ -20,7 +21,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'name' => 'Kevyn Barbosa',
-                'password' => Hash::make('password'),
+                'password' => Hash::make(Str::password()),
             ]
         );
 
@@ -30,7 +31,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'name' => 'Alexandre Souto',
-                'password' => Hash::make('password'),
+                'password' => Hash::make(Str::password()),
             ]
         );
 
@@ -40,7 +41,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'name' => 'Adriana Oliveira',
-                'password' => Hash::make('password'),
+                'password' => Hash::make(Str::password()),
             ]
         );
     }
