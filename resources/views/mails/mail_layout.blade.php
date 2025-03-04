@@ -327,6 +327,10 @@
                     <span class="apple-link">Sertanejo Classe A</span>
                   </td>
                 </tr>
+
+                <tr>
+                    <img src="{{ asset('logo.png') }}" width="100"/>
+                </tr>
               </table>
             </div>
 
