@@ -36,6 +36,7 @@ class FormularioContratanteMail extends Mailable
     {
         return new Content(
             view: 'mails.formulario_contratante',
+            // view: 'mails.mail_layout',
         );
     }
 
