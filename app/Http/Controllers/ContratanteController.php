@@ -17,7 +17,7 @@ class ContratanteController extends Controller
 
         $contratantes = QueryBuilder::for(Contratante::class)
             ->allowedFilters(['id', 'cpf_cnpj', 'rg', 'nome_completo'])
-            ->allowedSorts(['id', 'cpf_cnpj', 'rg', 'nome_completo', 'data_nascimento'])
+            ->allowedSorts(['id', 'cpf_cnpj', 'rg', 'nome_completo'])
             ->paginate($perPage);
 
         return Inertia::render('Contratante/Index', ['contratantes' => CommonResource::collection($contratantes)]);
@@ -35,11 +35,8 @@ class ContratanteController extends Controller
             'cpf_cnpj' => ['required'],
             'rg' => ['nullable'],
             'nome_completo' => ['required'],
-            'data_nascimento' => ['required', 'date'],
             'foto_path' => ['nullable'],
         ]);
-
-        $validated['data_nascimento'] = Carbon::parse($validated['data_nascimento'])->format('Y-m-d');
 
         Contratante::create($validated);
 
@@ -64,11 +61,8 @@ class ContratanteController extends Controller
             'cpf_cnpj' => ['required'],
             'rg' => ['nullable'],
             'nome_completo' => ['required'],
-            'data_nascimento' => ['required', 'date'],
             'foto_path' => ['nullable'],
         ]);
-
-        $validated['data_nascimento'] = Carbon::parse($validated['data_nascimento'])->format('Y-m-d');
 
         $contratante->update($validated);
 

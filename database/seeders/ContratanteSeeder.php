@@ -21,7 +21,6 @@ class ContratanteSeeder extends Seeder
                 'tipo_pessoa' => 'pf',
                 'rg' => '999999',
                 'nome_completo' => 'Contratante teste',
-                'data_nascimento' => '2024-01-01',
             ]
         );
     }

@@ -21,7 +21,6 @@ class VendedorSeeder extends Seeder
                 'tipo_pessoa' => 'pf',
                 'rg' => '999999',
                 'nome_completo' => 'Vendedor teste',
-                'data_nascimento' => '2024-01-01',
             ]
         );
     }

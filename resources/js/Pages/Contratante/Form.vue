@@ -61,22 +61,6 @@
                     </FloatLabel>
                     <div class="text-red-500" v-if="form.errors.rg">{{ form.errors.rg }}</div>
                 </div>
-
-                <div>
-                    <FloatLabel variant="in">
-                        <DatePicker
-                            id="data_nascimento"
-                            class="w-full"
-                            size="small"
-                            v-model="form.data_nascimento"
-                            dateFormat="dd/MM/yy"
-                            variant="filled"
-                            :invalid="!!form.errors?.data_nascimento"
-                        />
-                        <label for="data_nascimento">Data de nascimento</label>
-                    </FloatLabel>
-                    <div class="text-red-500" v-if="form.errors.data_nascimento">{{ form.errors.data_nascimento }}</div>
-                </div>
             </div>
 
             <div
@@ -113,7 +97,6 @@ const form = useForm({
     nome_completo: props.contratante?.nome_completo ?? "",
     cpf_cnpj: props.contratante?.cpf_cnpj ?? "",
     rg: props.contratante?.rg ?? "",
-    data_nascimento: parse2Date(props.contratante?.data_nascimento) ?? "",
 });
 
 const back = () => window.history.back();

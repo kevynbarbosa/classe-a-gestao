@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('cpf_cnpj');
             $table->string('rg')->nullable();
             $table->string('nome_completo');
-            $table->date('data_nascimento');
             $table->string('foto_path')->nullable();
             $table->timestamps();
         });

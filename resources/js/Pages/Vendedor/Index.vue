@@ -44,10 +44,6 @@
                     </template>
                 </Column>
 
-                <Column field="data_nascimento" header="Data nascimento" sortable :showFilterMenu="false">
-                    <template #body="{ data }">{{ dateLocale(data.data_nascimento) }}</template>
-                </Column>
-
                 <Column field="cpf_cnpj" header="CPF/CNPJ" sortable :showFilterMenu="false">
                     <template #filter="{ filterModel, filterCallback }">
                         <InputText
@@ -94,7 +90,6 @@
 import WrapDataTable from "@/Components/DataTable/WrapDataTable.vue";
 import TituloCard from "@/Components/TituloCard.vue";
 import { useTableMenu } from "@/Composables/useTableMenu";
-import { dateLocale } from "@/Utils/dateUtils";
 import { formataCpfCnpj, iniciaisNome } from "@/Utils/stringUtils";
 import { Head, router } from "@inertiajs/vue3";
 import { visitModal } from "@inertiaui/modal-vue";

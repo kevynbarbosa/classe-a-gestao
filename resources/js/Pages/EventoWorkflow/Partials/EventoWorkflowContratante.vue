@@ -22,17 +22,11 @@
                 <td>Tipo:</td>
                 <td>{{ evento?.contratante.tipo_pessoa.toUpperCase() }}</td>
             </tr>
-
-            <tr>
-                <td>Data nascimento:</td>
-                <td>{{ dateLocale(evento?.contratante.data_nascimento) }}</td>
-            </tr>
         </tbody>
     </table>
 </template>
 
 <script setup>
-import { dateLocale } from "@/Utils/dateUtils";
 import { formataCpfCnpj } from "@/Utils/stringUtils";
 
 const props = defineProps({ evento: Object });

@@ -61,22 +61,6 @@
                     </FloatLabel>
                     <div class="text-red-500" v-if="form.errors.rg">{{ form.errors.rg }}</div>
                 </div>
-
-                <div>
-                    <FloatLabel variant="in">
-                        <DatePicker
-                            id="data_nascimento"
-                            class="w-full"
-                            size="small"
-                            v-model="form.data_nascimento"
-                            dateFormat="dd/MM/yy"
-                            variant="filled"
-                            :invalid="!!form.errors?.data_nascimento"
-                        />
-                        <label for="data_nascimento">Data de nascimento</label>
-                    </FloatLabel>
-                    <div class="text-red-500" v-if="form.errors.data_nascimento">{{ form.errors.data_nascimento }}</div>
-                </div>
             </div>
 
             <div
@@ -97,7 +81,6 @@
 
 <script setup>
 import TituloCard from "@/Components/TituloCard.vue";
-import { parse2Date } from "@/Utils/dateUtils";
 import { Head, useForm } from "@inertiajs/vue3";
 import { Modal } from "@inertiaui/modal-vue";
 
@@ -113,7 +96,6 @@ const form = useForm({
     nome_completo: props.vendedor?.nome_completo ?? "",
     cpf_cnpj: props.vendedor?.cpf_cnpj ?? "",
     rg: props.vendedor?.rg ?? "",
-    data_nascimento: parse2Date(props.vendedor?.data_nascimento) ?? "",
 });
 
 const back = () => window.history.back();

@@ -17,7 +17,7 @@ class VendedorController extends Controller
 
         $vendedores = QueryBuilder::for(Vendedor::class)
             ->allowedFilters(['id', 'cpf_cnpj', 'rg', 'nome_completo'])
-            ->allowedSorts(['id', 'cpf_cnpj', 'rg', 'nome_completo', 'data_nascimento'])
+            ->allowedSorts(['id', 'cpf_cnpj', 'rg', 'nome_completo'])
             ->paginate($perPage);
 
         return Inertia::render('Vendedor/Index', ['vendedores' => CommonResource::collection($vendedores)]);
@@ -35,11 +35,8 @@ class VendedorController extends Controller
             'cpf_cnpj' => ['required'],
             'rg' => ['nullable'],
             'nome_completo' => ['required'],
-            'data_nascimento' => ['required', 'date'],
             'foto_path' => ['nullable'],
         ]);
-
-        $validated['data_nascimento'] = Carbon::parse($validated['data_nascimento'])->format('Y-m-d');
 
         Vendedor::create($validated);
 
@@ -63,11 +60,8 @@ class VendedorController extends Controller
             'cpf_cnpj' => ['required'],
             'rg' => ['nullable'],
             'nome_completo' => ['required'],
-            'data_nascimento' => ['required', 'date'],
             'foto_path' => ['nullable'],
         ]);
-
-        $validated['data_nascimento'] = Carbon::parse($validated['data_nascimento'])->format('Y-m-d');
 
         $vendedor->update($validated);
 
