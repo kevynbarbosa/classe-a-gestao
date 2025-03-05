@@ -15,8 +15,8 @@
         <TituloCard titulo="Preencha as informações para prosseguir com o fluxo de contratação"></TituloCard>
 
         <form @submit.prevent="submit">
-            <div class="flex flex-col gap-3">
-                <div>
+            <div class="grid grid-cols-2 gap-2">
+                <div class="col-span-2">
                     <FloatLabel variant="in">
                         <InputText
                             id="nome_completo"
@@ -45,6 +45,27 @@
                     </FloatLabel>
                     <div class="text-red-500" v-if="form.errors.rg">{{ form.errors.rg }}</div>
                 </div>
+
+                <!-- Endereço -->
+                <div class="col-span-2 my-2 pl-2 text-center font-bold">Endereço do contratante</div>
+                <FieldWrap v-model="form" field="definir" label="CEP" />
+                <FieldWrap v-model="form" field="definir" label="Endereço" />
+                <FieldWrap v-model="form" field="definir" label="Número" />
+                <FieldWrap v-model="form" field="definir" label="Complemento" />
+                <FieldWrap v-model="form" field="definir" label="Bairro" />
+                <FieldWrap v-model="form" field="definir" label="Cidade" />
+
+                <!-- Dados do representante legal -->
+                <div class="col-span-2 my-2 pl-2 text-center font-bold">Dados do representante legal</div>
+                <FieldWrap class="col-span-2" v-model="form" field="definir" label="Nome do representante legal" />
+                <FieldWrap v-model="form" field="definir" label="CPF do representante legal" />
+                <FieldWrap v-model="form" field="definir" label="RG do representante legal" />
+                <FieldWrap v-model="form" field="definir" label="CEP" />
+                <FieldWrap v-model="form" field="definir" label="Endereço" />
+                <FieldWrap v-model="form" field="definir" label="Número" />
+                <FieldWrap v-model="form" field="definir" label="Complemento" />
+                <FieldWrap v-model="form" field="definir" label="Bairro" />
+                <FieldWrap v-model="form" field="definir" label="Cidade" />
             </div>
 
             <div class="mt-4 text-center">
@@ -61,6 +82,7 @@
 
 <script setup>
 import ApplicationLogo from "@/Components/ApplicationLogo.vue";
+import FieldWrap from "@/Components/Form/FieldWrap.vue";
 import TituloCard from "@/Components/TituloCard.vue";
 import EFormLayout from "@/Layouts/EFormLayout.vue";
 import { Head, useForm } from "@inertiajs/vue3";
