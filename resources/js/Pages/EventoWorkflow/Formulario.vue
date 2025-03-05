@@ -58,9 +58,9 @@
                 <!-- Dados do representante legal -->
                 <div class="col-span-2 my-2 pl-2 text-center font-bold">Dados do representante legal</div>
                 <FieldWrap class="col-span-2" v-model="form" field="definir" label="Nome do representante legal" />
-                <FieldWrap v-model="form" field="definir" label="CPF do representante legal" />
+                <FieldWrap v-model="form" field="cpf_representante_legal" label="CPF do representante legal" cpf />
                 <FieldWrap v-model="form" field="definir" label="RG do representante legal" />
-                <FieldWrap v-model="form" field="definir" label="CEP" />
+                <FieldWrap v-model="form" field="cep_representante_legal" label="CEP" cep />
                 <FieldWrap v-model="form" field="definir" label="Endereço" />
                 <FieldWrap v-model="form" field="definir" label="Número" />
                 <FieldWrap v-model="form" field="definir" label="Complemento" />
