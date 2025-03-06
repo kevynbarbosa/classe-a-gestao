@@ -10,6 +10,20 @@
                 variant="filled"
                 v-mask="mask"
             />
+
+            <InputNumber
+                v-else-if="props.currency"
+                v-model="model[field]"
+                :id="field"
+                inputId="currency-br"
+                mode="currency"
+                currency="BRL"
+                locale="pt-BR"
+                :minFractionDigits="2"
+                :maxFractionDigits="2"
+                fluid
+            />
+
             <InputText v-else :id="field" class="w-full" size="small" v-model="model[field]" variant="filled" />
 
             <label :for="field">{{ label }}</label>
@@ -45,12 +59,21 @@ const props = defineProps({
         type: Boolean,
         default: false,
     },
+    phone: {
+        type: Boolean,
+        default: false,
+    },
+    currency: {
+        type: Boolean,
+        default: false,
+    },
 });
 
 const mask = computed(() => {
     if (props.cep) return "#####-###";
     if (props.cpf) return "###.###.###-##";
     if (props.cnpj) return "##.###.###/####-##";
+    if (props.phone) return ["(##) #####-####", "(##) ####-####"];
 
     return null;
 });

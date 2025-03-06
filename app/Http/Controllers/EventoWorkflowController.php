@@ -74,6 +74,22 @@ class EventoWorkflowController extends Controller
             'nome_completo' => ['required'],
             'cpf_cnpj' => ['required'],
             'rg' => ['required'],
+            'cep' => ['required'],
+            'endereco' => ['required'],
+            'numero' => ['required'],
+            'complemento' => ['nullable'],
+            'bairro' => ['required'],
+            'cidade' => ['required'],
+            'nome_representante_legal' => ['required'],
+            'cpf_representante_legal' => ['required'],
+            'rg_representante_legal' => ['required'],
+            'cep_representante_legal' => ['required'],
+            'endereco_representante_legal' => ['required'],
+            'numero_representante_legal' => ['required'],
+            'complemento_representante_legal' => ['nullable'],
+            'bairro_representante_legal' => ['required'],
+            'cidade_representante_legal' => ['required'],
+            'telefone_representante_legal' => ['required'],
         ]);
 
         $contratante = $evento->contratante;

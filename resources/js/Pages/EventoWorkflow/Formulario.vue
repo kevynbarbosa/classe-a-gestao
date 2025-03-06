@@ -16,57 +16,45 @@
 
         <form @submit.prevent="submit">
             <div class="grid grid-cols-2 gap-2">
-                <div class="col-span-2">
-                    <FloatLabel variant="in">
-                        <InputText
-                            id="nome_completo"
-                            class="w-full"
-                            size="small"
-                            v-model="form.nome_completo"
-                            variant="filled"
-                        />
-                        <label for="nome_completo">Nome</label>
-                    </FloatLabel>
-                    <div class="text-red-500" v-if="form.errors.nome_completo">{{ form.errors.nome_completo }}</div>
-                </div>
-
-                <div>
-                    <FloatLabel variant="in">
-                        <InputText id="cpf_cnpj" class="w-full" size="small" v-model="form.cpf_cnpj" variant="filled" />
-                        <label for="cpf_cnpj">CPF/CNPJ</label>
-                    </FloatLabel>
-                    <div class="text-red-500" v-if="form.errors.cpf_cnpj">{{ form.errors.cpf_cnpj }}</div>
-                </div>
-
-                <div>
-                    <FloatLabel variant="in">
-                        <InputText id="rg" class="w-full" size="small" v-model="form.rg" variant="filled" />
-                        <label for="rg">RG (incluir órgão emissor e pontuações)</label>
-                    </FloatLabel>
-                    <div class="text-red-500" v-if="form.errors.rg">{{ form.errors.rg }}</div>
-                </div>
+                <!-- Dados basicos -->
+                <FieldWrap class="col-span-2" v-model="form" field="nome_completo" label="Nome completo" />
+                <FieldWrap v-model="form" field="cpf_cnpj" label="CNPJ" cnpj />
+                <FieldWrap v-model="form" field="rg" label="RG (incluir órgão emissor e pontuações)" />
 
                 <!-- Endereço -->
                 <div class="col-span-2 my-2 pl-2 text-center font-bold">Endereço do contratante</div>
-                <FieldWrap v-model="form" field="definir" label="CEP" />
-                <FieldWrap v-model="form" field="definir" label="Endereço" />
-                <FieldWrap v-model="form" field="definir" label="Número" />
-                <FieldWrap v-model="form" field="definir" label="Complemento" />
-                <FieldWrap v-model="form" field="definir" label="Bairro" />
-                <FieldWrap v-model="form" field="definir" label="Cidade" />
+                <FieldWrap v-model="form" field="cep" label="CEP" cep />
+                <FieldWrap v-model="form" field="endereco" label="Endereço" />
+                <FieldWrap v-model="form" field="numero" label="Número" />
+                <FieldWrap v-model="form" field="complemento" label="Complemento" />
+                <FieldWrap v-model="form" field="bairro" label="Bairro" />
+                <FieldWrap v-model="form" field="cidade" label="Cidade" />
 
                 <!-- Dados do representante legal -->
                 <div class="col-span-2 my-2 pl-2 text-center font-bold">Dados do representante legal</div>
-                <FieldWrap class="col-span-2" v-model="form" field="definir" label="Nome do representante legal" />
+                <FieldWrap
+                    class="col-span-2"
+                    v-model="form"
+                    field="nome_representante_legal"
+                    label="Nome do representante legal"
+                />
+                <FieldWrap
+                    v-model="form"
+                    field="telefone_representante_legal"
+                    label="Telefone do representante legal"
+                    phone
+                />
                 <FieldWrap v-model="form" field="cpf_representante_legal" label="CPF do representante legal" cpf />
-                <FieldWrap v-model="form" field="definir" label="RG do representante legal" />
+                <FieldWrap v-model="form" field="rg_representante_legal" label="RG do representante legal" />
                 <FieldWrap v-model="form" field="cep_representante_legal" label="CEP" cep />
-                <FieldWrap v-model="form" field="definir" label="Endereço" />
-                <FieldWrap v-model="form" field="definir" label="Número" />
-                <FieldWrap v-model="form" field="definir" label="Complemento" />
-                <FieldWrap v-model="form" field="definir" label="Bairro" />
-                <FieldWrap v-model="form" field="definir" label="Cidade" />
+                <FieldWrap v-model="form" field="endereco_representante_legal" label="Endereço" />
+                <FieldWrap v-model="form" field="numero_representante_legal" label="Número" />
+                <FieldWrap v-model="form" field="complemento_representante_legal" label="Complemento" />
+                <FieldWrap v-model="form" field="bairro_representante_legal" label="Bairro" />
+                <FieldWrap v-model="form" field="cidade_representante_legal" label="Cidade" />
             </div>
+
+            <ValidationResultDisplay :form="form" />
 
             <div class="mt-4 text-center">
                 <Button
@@ -83,6 +71,7 @@
 <script setup>
 import ApplicationLogo from "@/Components/ApplicationLogo.vue";
 import FieldWrap from "@/Components/Form/FieldWrap.vue";
+import ValidationResultDisplay from "@/Components/Form/ValidationResultDisplay.vue";
 import TituloCard from "@/Components/TituloCard.vue";
 import EFormLayout from "@/Layouts/EFormLayout.vue";
 import { Head, useForm } from "@inertiajs/vue3";
@@ -95,6 +84,22 @@ const form = useForm("EventoWorkflowFormularioContratante", {
     nome_completo: props.contratante?.nome_completo ?? null,
     cpf_cnpj: props.contratante?.cpf_cnpj ?? null,
     rg: props.contratante?.rg ?? null,
+    cep: props.contratante?.cep ?? null,
+    endereco: props.contratante?.endereco ?? null,
+    numero: props.contratante?.numero ?? null,
+    complemento: props.contratante?.complemento ?? null,
+    bairro: props.contratante?.bairro ?? null,
+    cidade: props.contratante?.cidade ?? null,
+    nome_representante_legal: props.contratante?.nome_representante_legal ?? null,
+    cpf_representante_legal: props.contratante?.cpf_representante_legal ?? null,
+    rg_representante_legal: props.contratante?.rg_representante_legal ?? null,
+    cep_representante_legal: props.contratante?.cep_representante_legal ?? null,
+    endereco_representante_legal: props.contratante?.endereco_representante_legal ?? null,
+    numero_representante_legal: props.contratante?.numero_representante_legal ?? null,
+    complemento_representante_legal: props.contratante?.complemento_representante_legal ?? null,
+    bairro_representante_legal: props.contratante?.bairro_representante_legal ?? null,
+    cidade_representante_legal: props.contratante?.cidade_representante_legal ?? null,
+    telefone_representante_legal: props.contratante?.telefone_representante_legal ?? null,
 });
 
 function submit() {

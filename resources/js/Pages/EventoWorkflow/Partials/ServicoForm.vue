@@ -19,12 +19,14 @@
                     </FloatLabel>
                 </div>
 
-                <div>
+                <!-- <div>
                     <FloatLabel variant="in">
                         <CurrencyInput id="valor" class="w-full" size="small" v-model="form.valor" variant="filled" />
                         <label for="valor">Valor</label>
                     </FloatLabel>
-                </div>
+                </div> -->
+
+                <FieldWrap v-model="form" field="valor" label="Valor" currency />
 
                 <div
                     v-if="Object.keys(form.errors).length > 0"
@@ -44,7 +46,7 @@
 </template>
 
 <script setup>
-import CurrencyInput from "@/Components/Form/CurrencyInput.vue";
+import FieldWrap from "@/Components/Form/FieldWrap.vue";
 import TituloCard from "@/Components/TituloCard.vue";
 import { Head, useForm } from "@inertiajs/vue3";
 import { Modal } from "@inertiaui/modal-vue";
