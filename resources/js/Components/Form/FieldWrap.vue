@@ -24,6 +24,29 @@
                 fluid
             />
 
+            <Select
+                v-else-if="props.select"
+                :id="field"
+                class="w-full"
+                size="small"
+                v-model="model[field]"
+                :options="props.selectOptions"
+                variant="filled"
+            />
+
+            <CustomAutoComplete
+                v-else-if="props.city"
+                :id="field"
+                class="w-full"
+                size="small"
+                v-model="model[field]"
+                :lista="cidades"
+                campo-pesquisa="sem_acentos"
+                option-label="nome"
+                variant="filled"
+                fluid
+            />
+
             <InputText v-else :id="field" class="w-full" size="small" v-model="model[field]" variant="filled" />
 
             <label :for="field">{{ label }}</label>
@@ -35,7 +58,9 @@
 </template>
 
 <script setup>
+import Select from "primevue/select";
 import { computed } from "vue";
+import CustomAutoComplete from "./CustomAutoComplete.vue";
 
 const model = defineModel(); // Form Object
 const props = defineProps({
@@ -66,6 +91,22 @@ const props = defineProps({
     currency: {
         type: Boolean,
         default: false,
+    },
+    city: {
+        type: Boolean,
+        default: false,
+    },
+    cidades: {
+        type: Array,
+        default: () => [],
+    },
+    select: {
+        type: Boolean,
+        default: false,
+    },
+    selectOptions: {
+        type: Array,
+        default: () => [],
     },
 });
 

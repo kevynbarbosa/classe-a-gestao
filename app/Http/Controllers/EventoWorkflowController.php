@@ -10,6 +10,7 @@ use App\Enums\EventoStatusEnum;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\FormularioContratanteMail;
 use App\Mail\PropostaContratanteMail;
+use App\Models\Cidade;
 use App\Services\EventoHistoricoService;
 use App\Services\GeracaoModeloService;
 
@@ -61,6 +62,7 @@ class EventoWorkflowController extends Controller
 
             return Inertia::render('EventoWorkflow/Formulario', [
                 'evento' => $evento,
+                'cidades' => Cidade::all(),
                 'contratante' => $evento->contratante
             ]);
         }

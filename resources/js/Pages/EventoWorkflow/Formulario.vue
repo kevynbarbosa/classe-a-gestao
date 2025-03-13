@@ -16,19 +16,36 @@
 
         <form @submit.prevent="submit">
             <div class="grid grid-cols-2 gap-2">
+                <!-- Artista -->
+                <div class="col-span-2 my-2 pl-2 text-center font-bold">Informações do evento</div>
+                <FieldWrap v-model="form" field="artista_pretendido" label="Artista pretendido" />
+                <FieldWrap
+                    v-model="form"
+                    field="valor_combinado"
+                    label="Valor total do cachê combinado entre as partes"
+                    currency
+                />
+                <FieldWrap v-model="form" field="evento_cidade_id" label="Cidade" city :cidades="cidades" />
+                <FieldWrap v-model="form" field="evento_recinto" label="Recinto" />
+
                 <!-- Dados basicos -->
-                <FieldWrap class="col-span-2" v-model="form" field="nome_completo" label="Nome completo" />
-                <FieldWrap v-model="form" field="cpf_cnpj" label="CNPJ" cnpj />
-                <FieldWrap v-model="form" field="rg" label="RG (incluir órgão emissor e pontuações)" />
+                <div class="col-span-2 my-2 pl-2 text-center font-bold">Dados básicos</div>
+                <FieldWrap
+                    class="col-span-2"
+                    v-model="form"
+                    field="nome_completo"
+                    label="Nome da empresa contratante"
+                />
+                <FieldWrap v-model="form" field="cpf_cnpj" label="CNPJ da empresa contratante" cnpj />
 
                 <!-- Endereço -->
                 <div class="col-span-2 my-2 pl-2 text-center font-bold">Endereço do contratante</div>
-                <FieldWrap v-model="form" field="cep" label="CEP" cep />
-                <FieldWrap v-model="form" field="endereco" label="Endereço" />
-                <FieldWrap v-model="form" field="numero" label="Número" />
-                <FieldWrap v-model="form" field="complemento" label="Complemento" />
-                <FieldWrap v-model="form" field="bairro" label="Bairro" />
-                <FieldWrap v-model="form" field="cidade" label="Cidade" />
+                <FieldWrap v-model="form" field="contratante_cep" label="CEP" cep />
+                <FieldWrap v-model="form" field="contratante_endereco" label="Endereço" />
+                <FieldWrap v-model="form" field="contratante_numero" label="Número" />
+                <FieldWrap v-model="form" field="contratante_complemento" label="Complemento" />
+                <FieldWrap v-model="form" field="contratante_bairro" label="Bairro" />
+                <FieldWrap v-model="form" field="contratante_cidade_id" label="Cidade" city :cidades="cidades" />
 
                 <!-- Dados do representante legal -->
                 <div class="col-span-2 my-2 pl-2 text-center font-bold">Dados do representante legal</div>
@@ -51,7 +68,12 @@
                 <FieldWrap v-model="form" field="numero_representante_legal" label="Número" />
                 <FieldWrap v-model="form" field="complemento_representante_legal" label="Complemento" />
                 <FieldWrap v-model="form" field="bairro_representante_legal" label="Bairro" />
-                <FieldWrap v-model="form" field="cidade_representante_legal" label="Cidade" />
+                <FieldWrap v-model="form" field="cidade_representante_legal" label="Cidade" city :cidades="cidades" />
+
+                <!-- Valores -->
+                <div class="col-span-2 my-2 pl-2 text-center font-bold">
+                    Valor total do cachê combinado entre as partes
+                </div>
             </div>
 
             <ValidationResultDisplay :form="form" />
@@ -78,9 +100,13 @@ import { Head, useForm } from "@inertiajs/vue3";
 
 defineOptions({ layout: EFormLayout });
 
-const props = defineProps({ evento: Object, contratante: Object });
+const props = defineProps({ evento: Object, contratante: Object, cidades: Array });
 
 const form = useForm("EventoWorkflowFormularioContratante", {
+    artista_pretendido: props.contratante?.artista_pretendido ?? null,
+    valor_combinado: props.evento?.valor ?? null,
+    evento_cidade_id: props.evento?.cidade_id ?? null,
+    evento_recinto: props.evento?.recinto ?? null,
     nome_completo: props.contratante?.nome_completo ?? null,
     cpf_cnpj: props.contratante?.cpf_cnpj ?? null,
     rg: props.contratante?.rg ?? null,
