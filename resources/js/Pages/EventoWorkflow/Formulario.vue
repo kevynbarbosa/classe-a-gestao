@@ -129,6 +129,7 @@ const form = useForm("EventoWorkflowFormularioContratante", {
     representante_legal_bairro: props.contratante?.representante_legal_bairro ?? null,
     representante_legal_cidade_id: props.contratante?.representante_legal_cidade_id ?? null,
     representante_legal_telefone: props.contratante?.representante_legal_telefone ?? null,
+    observacoes: props.evento?.observacoes ?? null,
 });
 
 function submit() {

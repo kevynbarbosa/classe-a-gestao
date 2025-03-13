@@ -96,14 +96,17 @@ class EventoWorkflowController extends Controller
             'representante_legal_bairro' => ['required'],
             'representante_legal_cidade_id' => ['required'],
             'representante_legal_telefone' => ['required'],
+            'observacoes' => ['nullable'],
         ]);
 
         $contratante = $evento->contratante;
-        $contratante->update($request->except('artista_pretendido', 'valor_combinado', 'evento_cidade_id', 'evento_recinto'));
+        $contratante->update($request->except('artista_pretendido', 'valor_combinado', 'evento_cidade_id', 'evento_recinto', 'observacoes'));
 
         $evento->valor = $validatedData['valor_combinado'];
         $evento->cidade_id = $validatedData['evento_cidade_id'];
         $evento->recinto = $validatedData['evento_recinto'];
+        $evento->artista_pretendido = $validatedData['artista_pretendido'];
+        $evento->observacoes = $validatedData['observacoes'];
         $evento->save();
 
         if (!$evento->status == EventoStatusEnum::FORMULARIO_ENVIADO) {
