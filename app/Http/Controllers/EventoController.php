@@ -56,7 +56,7 @@ class EventoController extends Controller
             'cidade_id' => ['required_if:evento_internacional,0'],
             'cidade_exterior' => ['required_if:evento_internacional,1'],
             'recinto' => ['required'],
-            'duracao' => ['required', 'date_format:H:i'],
+            'duracao' => ['required', 'numeric'],
             'valor' => ['required'],
         ]);
 

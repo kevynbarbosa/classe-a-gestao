@@ -137,13 +137,13 @@
 
                 <div>
                     <FloatLabel variant="in">
-                        <InputText
+                        <InputNumber
                             id="duracao"
                             class="w-full"
                             size="small"
                             v-model="form.duracao"
                             variant="filled"
-                            v-mask="['##:##']"
+                            suffix=" minutos"
                         />
                         <label for="duracao">Duração</label>
                     </FloatLabel>
@@ -225,7 +225,7 @@ const form = useForm({
     recinto: props.evento?.recinto ?? "",
     evento_internacional: props.evento?.evento_internacional ?? 0,
     cidade_exterior: props.evento?.cidade_exterior ?? "",
-    duracao: props.evento?.duracao ?? "",
+    duracao: props.evento?.duracao ?? null,
     valor: props.evento?.valor ?? null,
 });
 
