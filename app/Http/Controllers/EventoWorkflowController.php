@@ -106,7 +106,7 @@ class EventoWorkflowController extends Controller
         $evento->cidade_id = $validatedData['evento_cidade_id'];
         $evento->recinto = $validatedData['evento_recinto'];
         $evento->artista_pretendido = $validatedData['artista_pretendido'];
-        $evento->observacoes = $validatedData['observacoes'];
+        $evento->observacoes_contratante = $validatedData['observacoes'];
         $evento->save();
 
         if (!$evento->status == EventoStatusEnum::FORMULARIO_ENVIADO) {
@@ -120,17 +120,9 @@ class EventoWorkflowController extends Controller
 
     public function gerarProposta(Request $request, Evento $evento)
     {
-        $validatedData = $request->validate([
-            // 'nome_completo' => ['required'],
-            // 'cpf_cnpj' => ['required'],
-            // 'rg' => ['required'],
-            // 'atualizar_cadastro' => ['required', 'boolean'],
-        ]);
+        $request->validate([]);
 
-        // if ($validatedData['atualizar_cadastro']) {
-        //     $contratante = $evento->contratante;
-        //     $contratante->update($validatedData);
-        // }
+
 
         $geracaoModeloService = new GeracaoModeloService();
         $geracaoModeloService->gerarProposta($evento);

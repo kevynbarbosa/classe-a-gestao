@@ -25,34 +25,6 @@ class GeracaoModeloService
             $templateProcessor->setValue($token, $valor);
         }
 
-        // Tabela de descrição dos serviços
-        $rowBgColor = 'black';
-        $rowColor = 'black';
-        $table = new Table([
-            'borderSize' => 6,
-            'borderColor' => 'black',
-            'bgColor' => 'black',
-            'width' => 100 * 50, // 100% x (1/50)
-            'unit' => TblWidth::PERCENT,
-        ]);
-
-        $table->addRow(200);
-        $table->addCell(40 * 50, ['valign' => 'center'])->addText('SERVIÇO', ['bold' => true, 'color' => $rowColor], ['alignment' => Jc::CENTER, 'spaceAfter' => 200, 'spaceBefore' => 200]);
-        $table->addCell(60 * 50, ['valign' => 'center'])->addText('VALORES', ['bold' => true, 'color' => $rowColor], ['alignment' => Jc::CENTER, 'spaceAfter' => 200, 'spaceBefore' => 200]);
-
-        foreach ($dados['TABELA_SERVICOS'] as $servico) {
-            $table->addRow();
-            $table->addCell(null, [])->addText($servico['DESCRICAO'], ['color' => $rowColor], ['spaceAfter' => 150, 'spaceBefore' => 150]);
-            $table->addCell(null, [])->addText('R$ ' . number_format($servico['VALOR'], 2, ',', '.'), ['color' => $rowColor], ['alignment' => Jc::END, 'spaceAfter' => 150, 'spaceBefore' => 150]);
-        }
-
-        $total = $dados['TABELA_SERVICOS']->sum('VALOR');
-        $table->addRow();
-        $table->addCell(null, [])->addText('TOTAL', ['bold' => true, 'color' => $rowColor], ['spaceAfter' => 150, 'spaceBefore' => 150]);
-        $table->addCell(null, [])->addText('R$ ' . number_format($total, 2, ',', '.'), ['bold' => true, 'color' => $rowColor], ['alignment' => Jc::END, 'spaceAfter' => 150, 'spaceBefore' => 150]);
-
-        $templateProcessor->setComplexBlock('table', $table);
-
         // Salvar o arquivo Word com os dados substituídos
         $templateProcessor->saveAs($pathDocx);
     }
@@ -102,22 +74,12 @@ class GeracaoModeloService
             'EVENTO_VALOR' => number_format($evento->valor, 2, ',', '.'),
             'EVENTO_VALOR_EXTENSO' => MonetaryService::numberToExt($evento->valor),
             'PROPOSTA_DATA_GERACAO' => date('d/m/Y'),
-            'TABELA_SERVICOS' => collect($evento->servicos)->map(function ($servico) {
-                return [
-                    'DESCRICAO' => $servico->descricao,
-                    'VALOR' => $servico->valor,
-                ];
-            }),
         ];
 
         foreach ($dados as $key => $value) {
             if (is_null($value)) {
                 throw new \Exception("O valor para o token '$key' n o pode ser nulo.");
             }
-        }
-
-        if ($evento->servicos()->count() <= 0) {
-            throw new \Exception("O evento não possui serviços cadastrados.");
         }
 
         Storage::makeDirectory('public/eventos/' . $evento->id);
