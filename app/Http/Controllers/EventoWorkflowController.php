@@ -72,30 +72,35 @@ class EventoWorkflowController extends Controller
 
     public function salvarFormulario(Request $request, Evento $evento)
     {
+
         $validatedData = $request->validate([
+            'artista_pretendido' => ['required'],
+            'valor_combinado' => ['required'],
+            'evento_cidade_id' => ['required'],
+            'evento_recinto' => ['required'],
             'nome_completo' => ['required'],
-            'cpf_cnpj' => ['required'],
-            'rg' => ['required'],
-            'cep' => ['required'],
-            'endereco' => ['required'],
-            'numero' => ['required'],
-            'complemento' => ['nullable'],
-            'bairro' => ['required'],
-            'cidade' => ['required'],
-            'nome_representante_legal' => ['required'],
-            'cpf_representante_legal' => ['required'],
-            'rg_representante_legal' => ['required'],
-            'cep_representante_legal' => ['required'],
-            'endereco_representante_legal' => ['required'],
-            'numero_representante_legal' => ['required'],
-            'complemento_representante_legal' => ['nullable'],
-            'bairro_representante_legal' => ['required'],
-            'cidade_representante_legal' => ['required'],
-            'telefone_representante_legal' => ['required'],
+            'contratante_cpf_cnpj' => ['required'],
+            'contratante_rg' => ['required'],
+            'contratante_cep' => ['required'],
+            'contratante_endereco' => ['required'],
+            'contratante_numero' => ['required'],
+            'contratante_complemento' => ['nullable'],
+            'contratante_bairro' => ['required'],
+            'contratante_cidade_id' => ['required'],
+            'representante_legal_nome' => ['required'],
+            'representante_legal_cpf' => ['required'],
+            'representante_legal_rg' => ['required'],
+            'representante_legal_cep' => ['required'],
+            'representante_legal_endereco' => ['required'],
+            'representante_legal_numero' => ['required'],
+            'representante_legal_complemento' => ['nullable'],
+            'representante_legal_bairro' => ['required'],
+            'representante_legal_cidade' => ['required'],
+            'representante_legal_telefone' => ['required'],
         ]);
 
         $contratante = $evento->contratante;
-        $contratante->update($validatedData);
+        $contratante->update($request->except('artista_pretendido', 'valor_combinado', 'evento_cidade_id', 'evento_recinto'));
 
         if (!$evento->status == EventoStatusEnum::FORMULARIO_ENVIADO) {
             return 'expirado';

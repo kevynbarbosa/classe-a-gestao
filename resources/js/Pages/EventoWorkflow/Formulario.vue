@@ -52,28 +52,25 @@
                 <FieldWrap
                     class="col-span-2"
                     v-model="form"
-                    field="nome_representante_legal"
+                    field="representante_legal_nome"
                     label="Nome do representante legal"
                 />
                 <FieldWrap
                     v-model="form"
-                    field="telefone_representante_legal"
+                    field="representante_legal_telefone"
                     label="Telefone do representante legal"
                     phone
                 />
-                <FieldWrap v-model="form" field="cpf_representante_legal" label="CPF do representante legal" cpf />
-                <FieldWrap v-model="form" field="rg_representante_legal" label="RG do representante legal" />
-                <FieldWrap v-model="form" field="cep_representante_legal" label="CEP" cep />
-                <FieldWrap v-model="form" field="endereco_representante_legal" label="Endereço" />
-                <FieldWrap v-model="form" field="numero_representante_legal" label="Número" />
-                <FieldWrap v-model="form" field="complemento_representante_legal" label="Complemento" />
-                <FieldWrap v-model="form" field="bairro_representante_legal" label="Bairro" />
-                <FieldWrap v-model="form" field="cidade_representante_legal" label="Cidade" city :cidades="cidades" />
+                <FieldWrap v-model="form" field="representante_legal_cpf" label="CPF do representante legal" cpf />
+                <FieldWrap v-model="form" field="representante_legal_rg" label="RG do representante legal" />
+                <FieldWrap v-model="form" field="representante_legal_cep" label="CEP" cep />
+                <FieldWrap v-model="form" field="representante_legal_endereco" label="Endereço" />
+                <FieldWrap v-model="form" field="representante_legal_numero" label="Número" />
+                <FieldWrap v-model="form" field="representante_legal_complemento" label="Complemento" />
+                <FieldWrap v-model="form" field="representante_legal_bairro" label="Bairro" />
+                <FieldWrap v-model="form" field="representante_legal_cidade" label="Cidade" city :cidades="cidades" />
 
-                <!-- Valores -->
-                <div class="col-span-2 my-2 pl-2 text-center font-bold">
-                    Valor total do cachê combinado entre as partes
-                </div>
+                <FieldWrap v-model="form" field="observacoes" label="Observações" />
             </div>
 
             <ValidationResultDisplay :form="form" />
@@ -108,24 +105,24 @@ const form = useForm("EventoWorkflowFormularioContratante", {
     evento_cidade_id: props.evento?.cidade_id ?? null,
     evento_recinto: props.evento?.recinto ?? null,
     nome_completo: props.contratante?.nome_completo ?? null,
-    cpf_cnpj: props.contratante?.cpf_cnpj ?? null,
-    rg: props.contratante?.rg ?? null,
-    cep: props.contratante?.cep ?? null,
-    endereco: props.contratante?.endereco ?? null,
-    numero: props.contratante?.numero ?? null,
-    complemento: props.contratante?.complemento ?? null,
-    bairro: props.contratante?.bairro ?? null,
-    cidade: props.contratante?.cidade ?? null,
-    nome_representante_legal: props.contratante?.nome_representante_legal ?? null,
-    cpf_representante_legal: props.contratante?.cpf_representante_legal ?? null,
-    rg_representante_legal: props.contratante?.rg_representante_legal ?? null,
-    cep_representante_legal: props.contratante?.cep_representante_legal ?? null,
-    endereco_representante_legal: props.contratante?.endereco_representante_legal ?? null,
-    numero_representante_legal: props.contratante?.numero_representante_legal ?? null,
-    complemento_representante_legal: props.contratante?.complemento_representante_legal ?? null,
-    bairro_representante_legal: props.contratante?.bairro_representante_legal ?? null,
-    cidade_representante_legal: props.contratante?.cidade_representante_legal ?? null,
-    telefone_representante_legal: props.contratante?.telefone_representante_legal ?? null,
+    contratante_cpf_cnpj: props.contratante?.cpf_cnpj ?? null,
+    contratante_rg: props.contratante?.rg ?? null,
+    contratante_cep: props.contratante?.cep ?? null,
+    contratante_endereco: props.contratante?.endereco ?? null,
+    contratante_numero: props.contratante?.numero ?? null,
+    contratante_complemento: props.contratante?.complemento ?? null,
+    contratante_bairro: props.contratante?.bairro ?? null,
+    contratante_cidade: props.contratante?.cidade ?? null,
+    representante_legal_nome: props.contratante?.representante_legal_nome ?? null,
+    representante_legal_cpf: props.contratante?.representante_legal_cpf ?? null,
+    representante_legal_rg: props.contratante?.representante_legal_rg ?? null,
+    representante_legal_cep: props.contratante?.representante_legal_cep ?? null,
+    representante_legal_endereco: props.contratante?.representante_legal_endereco ?? null,
+    representante_legal_numero: props.contratante?.representante_legal_numero ?? null,
+    representante_legal_complemento: props.contratante?.representante_legal_complemento ?? null,
+    representante_legal_bairro: props.contratante?.representante_legal_bairro ?? null,
+    representante_legal_cidade: props.contratante?.representante_legal_cidade ?? null,
+    representante_legal_telefone: props.contratante?.representante_legal_telefone ?? null,
 });
 
 function submit() {
