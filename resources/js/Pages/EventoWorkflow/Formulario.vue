@@ -40,12 +40,12 @@
 
                 <!-- Endereço -->
                 <div class="col-span-2 my-2 pl-2 text-center font-bold">Endereço do contratante</div>
-                <FieldWrap v-model="form" field="contratante_cep" label="CEP" cep />
-                <FieldWrap v-model="form" field="contratante_endereco" label="Endereço" />
-                <FieldWrap v-model="form" field="contratante_numero" label="Número" />
-                <FieldWrap v-model="form" field="contratante_complemento" label="Complemento" />
-                <FieldWrap v-model="form" field="contratante_bairro" label="Bairro" />
-                <FieldWrap v-model="form" field="contratante_cidade_id" label="Cidade" city :cidades="cidades" />
+                <FieldWrap v-model="form" field="cep" label="CEP" cep />
+                <FieldWrap v-model="form" field="endereco" label="Endereço" />
+                <FieldWrap v-model="form" field="numero" label="Número" />
+                <FieldWrap v-model="form" field="complemento" label="Complemento" />
+                <FieldWrap v-model="form" field="bairro" label="Bairro" />
+                <FieldWrap v-model="form" field="cidade_id" label="Cidade" city :cidades="cidades" />
 
                 <!-- Dados do representante legal -->
                 <div class="col-span-2 my-2 pl-2 text-center font-bold">Dados do representante legal</div>
@@ -68,7 +68,13 @@
                 <FieldWrap v-model="form" field="representante_legal_numero" label="Número" />
                 <FieldWrap v-model="form" field="representante_legal_complemento" label="Complemento" />
                 <FieldWrap v-model="form" field="representante_legal_bairro" label="Bairro" />
-                <FieldWrap v-model="form" field="representante_legal_cidade" label="Cidade" city :cidades="cidades" />
+                <FieldWrap
+                    v-model="form"
+                    field="representante_legal_cidade_id"
+                    label="Cidade"
+                    city
+                    :cidades="cidades"
+                />
 
                 <FieldWrap v-model="form" field="observacoes" label="Observações" />
             </div>
@@ -105,14 +111,14 @@ const form = useForm("EventoWorkflowFormularioContratante", {
     evento_cidade_id: props.evento?.cidade_id ?? null,
     evento_recinto: props.evento?.recinto ?? null,
     nome_completo: props.contratante?.nome_completo ?? null,
-    contratante_cpf_cnpj: props.contratante?.cpf_cnpj ?? null,
-    contratante_rg: props.contratante?.rg ?? null,
-    contratante_cep: props.contratante?.cep ?? null,
-    contratante_endereco: props.contratante?.endereco ?? null,
-    contratante_numero: props.contratante?.numero ?? null,
-    contratante_complemento: props.contratante?.complemento ?? null,
-    contratante_bairro: props.contratante?.bairro ?? null,
-    contratante_cidade: props.contratante?.cidade ?? null,
+    cpf_cnpj: props.contratante?.cpf_cnpj ?? null,
+    rg: props.contratante?.rg ?? null,
+    cep: props.contratante?.cep ?? null,
+    endereco: props.contratante?.endereco ?? null,
+    numero: props.contratante?.numero ?? null,
+    complemento: props.contratante?.complemento ?? null,
+    bairro: props.contratante?.bairro ?? null,
+    cidade_id: props.contratante?.cidade_id ?? null,
     representante_legal_nome: props.contratante?.representante_legal_nome ?? null,
     representante_legal_cpf: props.contratante?.representante_legal_cpf ?? null,
     representante_legal_rg: props.contratante?.representante_legal_rg ?? null,
@@ -121,7 +127,7 @@ const form = useForm("EventoWorkflowFormularioContratante", {
     representante_legal_numero: props.contratante?.representante_legal_numero ?? null,
     representante_legal_complemento: props.contratante?.representante_legal_complemento ?? null,
     representante_legal_bairro: props.contratante?.representante_legal_bairro ?? null,
-    representante_legal_cidade: props.contratante?.representante_legal_cidade ?? null,
+    representante_legal_cidade_id: props.contratante?.representante_legal_cidade_id ?? null,
     representante_legal_telefone: props.contratante?.representante_legal_telefone ?? null,
 });
 

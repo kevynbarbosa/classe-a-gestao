@@ -79,14 +79,13 @@ class EventoWorkflowController extends Controller
             'evento_cidade_id' => ['required'],
             'evento_recinto' => ['required'],
             'nome_completo' => ['required'],
-            'contratante_cpf_cnpj' => ['required'],
-            'contratante_rg' => ['required'],
-            'contratante_cep' => ['required'],
-            'contratante_endereco' => ['required'],
-            'contratante_numero' => ['required'],
-            'contratante_complemento' => ['nullable'],
-            'contratante_bairro' => ['required'],
-            'contratante_cidade_id' => ['required'],
+            'cpf_cnpj' => ['required'],
+            'cep' => ['required'],
+            'endereco' => ['required'],
+            'numero' => ['required'],
+            'complemento' => ['nullable'],
+            'bairro' => ['required'],
+            'cidade_id' => ['required'],
             'representante_legal_nome' => ['required'],
             'representante_legal_cpf' => ['required'],
             'representante_legal_rg' => ['required'],
@@ -95,12 +94,17 @@ class EventoWorkflowController extends Controller
             'representante_legal_numero' => ['required'],
             'representante_legal_complemento' => ['nullable'],
             'representante_legal_bairro' => ['required'],
-            'representante_legal_cidade' => ['required'],
+            'representante_legal_cidade_id' => ['required'],
             'representante_legal_telefone' => ['required'],
         ]);
 
         $contratante = $evento->contratante;
         $contratante->update($request->except('artista_pretendido', 'valor_combinado', 'evento_cidade_id', 'evento_recinto'));
+
+        $evento->valor = $validatedData['valor_combinado'];
+        $evento->cidade_id = $validatedData['evento_cidade_id'];
+        $evento->recinto = $validatedData['evento_recinto'];
+        $evento->save();
 
         if (!$evento->status == EventoStatusEnum::FORMULARIO_ENVIADO) {
             return 'expirado';

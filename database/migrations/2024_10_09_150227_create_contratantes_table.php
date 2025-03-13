@@ -24,18 +24,18 @@ return new class extends Migration
             $table->string('numero')->nullable();
             $table->string('complemento')->nullable();
             $table->string('bairro')->nullable();
-            $table->foreignIdFor(Cidade::class, 'cidade')->nullable()->constrained('cidades');
+            $table->foreignIdFor(Cidade::class, 'cidade_id')->nullable()->constrained('cidades');
 
-            $table->string('nome_representante_legal')->nullable();
-            $table->string('cpf_representante_legal')->nullable();
-            $table->string('rg_representante_legal')->nullable();
-            $table->string('telefone_representante_legal')->nullable();
-            $table->string('cep_representante_legal')->nullable();
-            $table->string('endereco_representante_legal')->nullable();
-            $table->string('numero_representante_legal')->nullable();
-            $table->string('complemento_representante_legal')->nullable();
-            $table->string('bairro_representante_legal')->nullable();
-            $table->foreignIdFor(Cidade::class, 'cidade_representante_legal')->nullable()->constrained('cidades');
+            $table->string('representante_legal_nome')->nullable();
+            $table->string('representante_legal_cpf')->nullable();
+            $table->string('representante_legal_rg')->nullable();
+            $table->string('representante_legal_telefone')->nullable();
+            $table->string('representante_legal_cep')->nullable();
+            $table->string('representante_legal_endereco')->nullable();
+            $table->string('representante_legal_numero')->nullable();
+            $table->string('representante_legal_complemento')->nullable();
+            $table->string('representante_legal_bairro')->nullable();
+            $table->foreignIdFor(Cidade::class, 'representante_legal_cidade_id')->nullable()->constrained('cidades');
 
             $table->timestamps();
         });
