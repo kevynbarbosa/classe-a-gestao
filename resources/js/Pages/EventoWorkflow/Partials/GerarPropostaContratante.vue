@@ -1,5 +1,5 @@
 <template>
-    <p class="my-1 text-sm text-gray-600">Digite as informações para gerar uma proposta.</p>
+    <p class="my-1 text-center text-sm text-gray-600">Confirme as informações para gerar uma proposta.</p>
 
     <form>
         <!-- <ServicosDetalhamento :evento="evento" /> -->
