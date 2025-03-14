@@ -74,6 +74,12 @@ class GeracaoModeloService
             'EVENTO_VALOR' => number_format($evento->valor, 2, ',', '.'),
             'EVENTO_VALOR_EXTENSO' => MonetaryService::numberToExt($evento->valor),
             'PROPOSTA_DATA_GERACAO' => date('d/m/Y'),
+
+            'RATEIO_1' => $evento->valor * 0.422,
+            'RATEIO_2' => $evento->valor * 0.15,
+            'RATEIO_3' => $evento->valor * 0.2,
+            'RATEIO_4' => $evento->valor * 0.06,
+            'RATEIO_5' => $evento->valor * 0.058,
         ];
 
         foreach ($dados as $key => $value) {
