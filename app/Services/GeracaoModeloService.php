@@ -5,13 +5,7 @@ namespace App\Services;
 use App\Models\Evento;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
-use PhpOffice\PhpWord\Element\Table;
 use PhpOffice\PhpWord\TemplateProcessor;
-use PhpOffice\PhpWord\IOFactory;
-use PhpOffice\PhpWord\Settings;
-use PhpOffice\PhpWord\SimpleType\Jc;
-use PhpOffice\PhpWord\SimpleType\TblWidth;
-use PhpOffice\PhpWord\SimpleType\TextAlignment;
 
 class GeracaoModeloService
 {
