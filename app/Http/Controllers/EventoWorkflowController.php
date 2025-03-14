@@ -122,10 +122,8 @@ class EventoWorkflowController extends Controller
     {
         $request->validate([]);
 
-
-
-        $geracaoModeloService = new GeracaoModeloService();
-        $geracaoModeloService->gerarProposta($evento);
+        $geracaoModeloService = new GeracaoModeloService($evento);
+        $geracaoModeloService->gerarProposta();
 
         EventoHistoricoService::gerarHistorico($evento, EventoStatusEnum::PROPOSTA_GERADA);
 

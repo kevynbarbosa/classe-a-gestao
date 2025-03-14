@@ -9,6 +9,9 @@ use PhpOffice\PhpWord\TemplateProcessor;
 
 class GeracaoModeloService
 {
+
+    public function __construct(public Evento $evento) {}
+
     function substituirTokensNoDocx($modeloDocx, $dados, $pathDocx)
     {
         // Carregar o template do Word
@@ -21,6 +24,19 @@ class GeracaoModeloService
 
         // Salvar o arquivo Word com os dados substituídos
         $templateProcessor->saveAs($pathDocx);
+    }
+
+    private function alterarCores($pathDocx)
+    {
+        $zip = new \ZipArchive();
+        $zip->open($pathDocx);
+        $content = $zip->getFromName('word/document.xml');
+        $content = str_replace('#fffac2', '#a44ad9', $content);
+        $content = str_replace('fffac2', 'a44ad9', $content);
+        $content = str_replace('FFFAC2', 'A44AD9', $content);
+        $zip->deleteName('word/document.xml');
+        $zip->addFromString('word/document.xml', $content);
+        $zip->close();
     }
 
     private function converteEmPdf($pathDocx, $pathPdf)
@@ -38,15 +54,15 @@ class GeracaoModeloService
     }
 
 
-    function gerarProposta(Evento $evento)
+    function gerarProposta()
     {
-        $artista = $evento->artista;
+        $artista = $this->evento->artista;
 
         $modeloDocx = resource_path('modelos_proposta/MODELO_PROPOSTA.docx');
-        $pathDocx = storage_path('app/public/eventos/' . $evento->id . '/proposta.docx');
+        $pathDocx = storage_path('app/public/eventos/' . $this->evento->id . '/proposta.docx');
 
         $dados = [
-            'CONTRATANTE_NOME' => $evento->contratante->nome_completo,
+            'CONTRATANTE_NOME' => $this->evento->contratante->nome_completo,
             'ARTISTA_NOME' => $artista->nome,
             'ARTISTA_RAZAO_SOCIAL' => $artista->razao_social,
             'ARTISTA_CNPJ' => $artista->cnpj,
@@ -61,19 +77,19 @@ class GeracaoModeloService
             'ARTISTA_REPRESENTANTE_LEGAL_NOME' => $artista->representante_legal_nome,
             'ARTISTA_REPRESENTANTE_LEGAL_CPF' => $artista->representante_legal_cpf,
             'ARTISTA_REPRESENTANTE_LEGAL_RG' => $artista->representante_legal_rg,
-            'EVENTO_CIDADE' => $evento->cidade->nome,
-            'EVENTO_DURACAO' => $evento->duracao,
-            'EVENTO_DATA' => Carbon::parse($evento->data_hora)->format('d/m/Y H:i'),
-            'EVENTO_RECINTO' => $evento->recinto,
-            'EVENTO_VALOR' => number_format($evento->valor, 2, ',', '.'),
-            'EVENTO_VALOR_EXTENSO' => MonetaryService::numberToExt($evento->valor),
+            'EVENTO_CIDADE' => $this->evento->cidade->nome,
+            'EVENTO_DURACAO' => $this->evento->duracao,
+            'EVENTO_DATA' => Carbon::parse($this->evento->data_hora)->format('d/m/Y H:i'),
+            'EVENTO_RECINTO' => $this->evento->recinto,
+            'EVENTO_VALOR' => number_format($this->evento->valor, 2, ',', '.'),
+            'EVENTO_VALOR_EXTENSO' => MonetaryService::numberToExt($this->evento->valor),
             'PROPOSTA_DATA_GERACAO' => date('d/m/Y'),
 
-            'RATEIO_1' => $evento->valor * 0.422,
-            'RATEIO_2' => $evento->valor * 0.15,
-            'RATEIO_3' => $evento->valor * 0.2,
-            'RATEIO_4' => $evento->valor * 0.06,
-            'RATEIO_5' => $evento->valor * 0.058,
+            'RATEIO_1' => $this->evento->valor * 0.422,
+            'RATEIO_2' => $this->evento->valor * 0.15,
+            'RATEIO_3' => $this->evento->valor * 0.2,
+            'RATEIO_4' => $this->evento->valor * 0.06,
+            'RATEIO_5' => $this->evento->valor * 0.058,
         ];
 
         foreach ($dados as $key => $value) {
@@ -82,8 +98,9 @@ class GeracaoModeloService
             }
         }
 
-        Storage::makeDirectory('public/eventos/' . $evento->id);
+        Storage::makeDirectory('public/eventos/' . $this->evento->id);
         $this->substituirTokensNoDocx($modeloDocx, $dados, $pathDocx);
-        $this->converteEmPdf($pathDocx, storage_path('app/public/eventos/' . $evento->id));
+        $this->alterarCores($pathDocx);
+        $this->converteEmPdf($pathDocx, storage_path('app/public/eventos/' . $this->evento->id));
     }
 }
