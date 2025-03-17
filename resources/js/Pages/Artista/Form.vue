@@ -208,6 +208,15 @@
                 </div>
             </div>
 
+            <div class="my-2 pl-2 text-center font-bold">Cor exibida na documentação (quando aplicável)</div>
+            <div class="flex items-center justify-center gap-2">
+                <ColorPicker v-model="form.color" :baseZIndex="99999" />
+                <div>#{{ form.color }}</div>
+                <div class="text-red-500" v-if="form.errors.color">
+                    {{ form.errors.color }}
+                </div>
+            </div>
+
             <div class="mt-4 flex justify-end gap-2">
                 <Button label="Cancelar" severity="secondary" @click="closeModal" />
                 <Button label="Salvar" type="submit" :loading="salvando" />
@@ -245,6 +254,7 @@ const form = useForm({
     representante_legal_cpf: props.artista?.representante_legal_cpf ?? null,
     representante_legal_rg: props.artista?.representante_legal_rg ?? null,
     representante_legal_email: props.artista?.representante_legal_email ?? null,
+    color: props.artista?.color ?? null,
 });
 
 const back = () => window.history.back();

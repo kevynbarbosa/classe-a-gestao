@@ -32,6 +32,7 @@ class ArtistaController extends Controller
     {
         Artista::create($request->validate([
             'nome' => ['required', 'max:50'],
+            'color' => ['required'],
             'razao_social' => ['required'],
             'cnpj' => ['required'],
             'email' => ['required', 'email'],
@@ -67,6 +68,7 @@ class ArtistaController extends Controller
     {
         $artista->update($request->validate([
             'nome' => ['required', 'max:50'],
+            'color' => ['required'],
             'razao_social' => ['required'],
             'cnpj' => ['required'],
             'email' => ['required', 'email'],
