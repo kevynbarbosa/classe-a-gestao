@@ -99,8 +99,13 @@ class GeracaoModeloService
         }
 
         Storage::makeDirectory('public/eventos/' . $this->evento->id);
+        // Proposta
         $this->substituirTokensNoDocx($modeloDocx, $dados, $pathDocx);
         $this->alterarCores($pathDocx);
         $this->converteEmPdf($pathDocx, storage_path('app/public/eventos/' . $this->evento->id));
+
+        // Declarações
+        $this->substituirTokensNoDocx(resource_path('modelos_proposta/DECLARACOES.docx'), $dados, storage_path('app/public/eventos/' . $this->evento->id . '/declaracoes.docx'));
+        $this->converteEmPdf(storage_path('app/public/eventos/' . $this->evento->id . '/declaracoes.docx'), storage_path('app/public/eventos/' . $this->evento->id));
     }
 }

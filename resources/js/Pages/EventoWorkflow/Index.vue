@@ -48,7 +48,9 @@
                 {{ findEnumValue(evento_status_enum, evento.status) }}
             </div>
 
-            <LinkProposta :evento="evento" />
+            <div class="col-span-2">
+                <LinkProposta :evento="evento" />
+            </div>
         </div>
 
         <FluxoEtapaControlador :evento="evento" />

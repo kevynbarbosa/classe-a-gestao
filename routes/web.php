@@ -6,6 +6,7 @@ use App\Http\Controllers\ContratanteController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DocumentoInternoCategoriaController;
 use App\Http\Controllers\DocumentoInternoController;
+use App\Http\Controllers\DownloadModelosController;
 use App\Http\Controllers\EventoController;
 use App\Http\Controllers\EventoObservacaoController;
 use App\Http\Controllers\EventoServicoController;
@@ -72,13 +73,20 @@ Route::controller(EventoWorkflowController::class)->name('evento-workflow.')->gr
         Route::post('evento-workflow/{evento}/enviar-formulario', 'enviarFormulario')->name('enviar-formulario-contratante');
         Route::post('evento-workflow/{evento}/gerar-proposta', 'gerarProposta')->name('gerar-proposta');
         Route::post('evento-workflow/{evento}/editar-proposta', 'editarProposta')->name('editar-proposta');
-        Route::get('evento-workflow/{evento}/download-pdf', 'downloadPdf')->name('download-pdf');
-        Route::get('evento-workflow/{evento}/download-word', 'downloadWord')->name('download-word');
         Route::get('evento-workflow/{evento}/confirmar-proposta-email', 'confirmarPropostaEmail')->name('confirmar-proposta-email');
         Route::post('evento-workflow/{evento}/enviar-proposta-email', 'enviarPropostaEmail')->name('enviar-proposta-email');
     });
     Route::get('contratante-formulario/{evento:token_formulario}', 'showFormulario')->name('contratante-formulario');
     Route::post('contratante-formulario/{evento:token_formulario}/salvar-formulario', 'salvarFormulario')->name('salvar-contratante-formulario');
+});
+
+Route::controller(DownloadModelosController::class)->name('download-modelo.')->group(function () {
+    Route::middleware(['auth'])->group(function () {
+        Route::get('download-modelo/{evento}/pdf-proposta', 'downloadPdfProposta')->name('pdf-proposta');
+        Route::get('download-modelo/{evento}/word-proposta', 'downloadWordProposta')->name('word-proposta');
+        Route::get('download-modelo/{evento}/pdf-declaracao', 'downloadPdfDeclaracao')->name('pdf-declaracao');
+        Route::get('download-modelo/{evento}/word-declaracao', 'downloadWordDeclaracao')->name('word-declaracao');
+    });
 });
 
 

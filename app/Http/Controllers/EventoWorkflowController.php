@@ -137,26 +137,6 @@ class EventoWorkflowController extends Controller
         return back();
     }
 
-    public function downloadPdf(Evento $evento)
-    {
-        $path = storage_path('/app/public/eventos/') . $evento->id . '/proposta.pdf';
-        return response()->download($path, null, [
-            'Cache-Control' => 'no-store, no-cache, must-revalidate, max-age=0',
-            'Pragma' => 'no-cache',
-            'Expires' => 'Sat, 01 Jan 2000 00:00:00 GMT',
-        ]);
-    }
-
-    public function downloadWord(Evento $evento)
-    {
-        $path = storage_path('/app/public/eventos/') . $evento->id . '/proposta.docx';
-        return response()->download($path, null, [
-            'Cache-Control' => 'no-store, no-cache, must-revalidate, max-age=0',
-            'Pragma' => 'no-cache',
-            'Expires' => 'Sat, 01 Jan 2000 00:00:00 GMT',
-        ]);
-    }
-
     public function confirmarPropostaEmail(Evento $evento)
     {
         return Inertia::render('EventoWorkflow/Partials/ModalEnviarProposta', ['evento' => $evento]);
