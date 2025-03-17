@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('artistas', function (Blueprint $table) {
-            //
+            $table->string('color')->nullable()->after('nome');
+            $table->string('logo_path')->nullable()->after('color');
         });
     }
 
@@ -22,7 +23,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('artistas', function (Blueprint $table) {
-            //
+            $table->dropColumn('color');
+            $table->dropColumn('logo_path');
         });
     }
 };
