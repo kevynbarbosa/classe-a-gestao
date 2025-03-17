@@ -32,22 +32,22 @@ const props = defineProps({ evento: Object });
 
 const statusPropostaIndisponivel = ["formulario_pendente", "formulario_enviado", "pendente_proposta"];
 function downloadPdf() {
-    const url = route("evento-workflow.download-pdf", { evento: props.evento.id }) + "?" + Date.now();
+    const url = route("download-modelo.pdf-proposta", { evento: props.evento.id }) + "?" + Date.now();
     window.open(url, "_blank");
 }
 
 function downloadWord() {
-    const url = route("evento-workflow.download-word", { evento: props.evento.id }) + "?" + Date.now();
+    const url = route("download-modelo.word-proposta", { evento: props.evento.id }) + "?" + Date.now();
     window.open(url, "_blank");
 }
 
 function downloadPdfDeclaraca() {
-    const url = route("evento-workflow.download-pdf-declaracao", { evento: props.evento.id }) + "?" + Date.now();
+    const url = route("download-modelo.pdf-declaracao", { evento: props.evento.id }) + "?" + Date.now();
     window.open(url, "_blank");
 }
 
 function downloadWordDeclaracao() {
-    const url = route("evento-workflow.download-word-declaracao", { evento: props.evento.id }) + "?" + Date.now();
+    const url = route("download-modelo.word-declaracao", { evento: props.evento.id }) + "?" + Date.now();
     window.open(url, "_blank");
 }
 </script>
