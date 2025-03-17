@@ -24,6 +24,22 @@
                 @click="downloadPdfDeclaraca"
             />
         </div>
+
+        <div class="mb-2 font-bold">Declarão econômicas geradas</div>
+        <div class="flex w-full justify-center gap-2">
+            <Button
+                label="Download Word"
+                class="mdi mdi-microsoft-word"
+                icon-class="text-2xl"
+                @click="downloadWordDeclaracaEconomica"
+            />
+            <Button
+                label="Download PDF"
+                class="mdi mdi-file-pdf-box"
+                icon-class="text-2xl"
+                @click="downloadPdfDeclaracaoEconomica"
+            />
+        </div>
     </div>
 </template>
 
@@ -31,13 +47,22 @@
 const props = defineProps({ evento: Object });
 
 const statusPropostaIndisponivel = ["formulario_pendente", "formulario_enviado", "pendente_proposta"];
+
+// Proposta
+
+function downloadWord() {
+    const url = route("download-modelo.word-proposta", { evento: props.evento.id }) + "?" + Date.now();
+    window.open(url, "_blank");
+}
+
 function downloadPdf() {
     const url = route("download-modelo.pdf-proposta", { evento: props.evento.id }) + "?" + Date.now();
     window.open(url, "_blank");
 }
 
-function downloadWord() {
-    const url = route("download-modelo.word-proposta", { evento: props.evento.id }) + "?" + Date.now();
+// Declaracao
+function downloadWordDeclaracao() {
+    const url = route("download-modelo.word-declaracao", { evento: props.evento.id }) + "?" + Date.now();
     window.open(url, "_blank");
 }
 
@@ -46,8 +71,14 @@ function downloadPdfDeclaraca() {
     window.open(url, "_blank");
 }
 
-function downloadWordDeclaracao() {
-    const url = route("download-modelo.word-declaracao", { evento: props.evento.id }) + "?" + Date.now();
+// Declaracao economica
+function downloadWordDeclaracaEconomica() {
+    const url = route("download-modelo.word-declaracao-economica", { evento: props.evento.id }) + "?" + Date.now();
+    window.open(url, "_blank");
+}
+
+function downloadPdfDeclaracaoEconomica() {
+    const url = route("download-modelo.pdf-declaracao-economica", { evento: props.evento.id }) + "?" + Date.now();
     window.open(url, "_blank");
 }
 </script>

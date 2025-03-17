@@ -86,6 +86,8 @@ Route::controller(DownloadModelosController::class)->name('download-modelo.')->g
         Route::get('download-modelo/{evento}/word-proposta', 'downloadWordProposta')->name('word-proposta');
         Route::get('download-modelo/{evento}/pdf-declaracao', 'downloadPdfDeclaracao')->name('pdf-declaracao');
         Route::get('download-modelo/{evento}/word-declaracao', 'downloadWordDeclaracao')->name('word-declaracao');
+        Route::get('download-modelo/{evento}/pdf-declaracao-economica', 'downloadPdfDeclaracaoEconomica')->name('pdf-declaracao-economica');
+        Route::get('download-modelo/{evento}/word-declaracao-economica', 'downloadWordDeclaracaoEconomica')->name('word-declaracao-economica');
     });
 });
 

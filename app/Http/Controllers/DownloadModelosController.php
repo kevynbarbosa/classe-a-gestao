@@ -46,4 +46,24 @@ class DownloadModelosController extends Controller
             'Expires' => 'Sat, 01 Jan 2000 00:00:00 GMT',
         ]);
     }
+
+    public function downloadPdfDeclaracaoEconomica(Evento $evento)
+    {
+        $path = storage_path('/app/public/eventos/') . $evento->id . '/declaracoes_economicas.pdf';
+        return response()->download($path, null, [
+            'Cache-Control' => 'no-store, no-cache, must-revalidate, max-age=0',
+            'Pragma' => 'no-cache',
+            'Expires' => 'Sat, 01 Jan 2000 00:00:00 GMT',
+        ]);
+    }
+
+    public function downloadWordDeclaracaoEconomica(Evento $evento)
+    {
+        $path = storage_path('/app/public/eventos/') . $evento->id . '/declaracoes_economicas.docx';
+        return response()->download($path, null, [
+            'Cache-Control' => 'no-store, no-cache, must-revalidate, max-age=0',
+            'Pragma' => 'no-cache',
+            'Expires' => 'Sat, 01 Jan 2000 00:00:00 GMT',
+        ]);
+    }
 }

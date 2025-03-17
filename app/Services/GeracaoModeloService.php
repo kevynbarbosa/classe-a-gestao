@@ -113,5 +113,9 @@ class GeracaoModeloService
         // Declarações
         $this->substituirTokensNoDocx(resource_path('modelos_proposta/DECLARACOES.docx'), $dados, storage_path('app/public/eventos/' . $this->evento->id . '/declaracoes.docx'));
         $this->converteEmPdf(storage_path('app/public/eventos/' . $this->evento->id . '/declaracoes.docx'), storage_path('app/public/eventos/' . $this->evento->id));
+
+        // Declarações econômicas
+        $this->substituirTokensNoDocx(resource_path('modelos_proposta/DECLARACOES_ECONOMICAS.docx'), $dados, storage_path('app/public/eventos/' . $this->evento->id . '/declaracoes_economicas.docx'));
+        $this->converteEmPdf(storage_path('app/public/eventos/' . $this->evento->id . '/declaracoes_economicas.docx'), storage_path('app/public/eventos/' . $this->evento->id));
     }
 }
