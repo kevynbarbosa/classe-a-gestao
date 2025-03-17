@@ -28,12 +28,18 @@ class GeracaoModeloService
 
     private function alterarCores($pathDocx)
     {
+        $baseColor = 'fffac2';
+        $artista = $this->evento->artista;
+        $newColor = $artista->color ?? 'fffac2';
+
         $zip = new \ZipArchive();
         $zip->open($pathDocx);
         $content = $zip->getFromName('word/document.xml');
-        $content = str_replace('#fffac2', '#a44ad9', $content);
-        $content = str_replace('fffac2', 'a44ad9', $content);
-        $content = str_replace('FFFAC2', 'A44AD9', $content);
+
+        $content = str_replace("#$baseColor", "#$newColor", $content);
+        $content = str_replace(strtolower($baseColor), strtolower($newColor), $content);
+        $content = str_replace(strtoupper($baseColor), strtoupper($newColor), $content);
+
         $zip->deleteName('word/document.xml');
         $zip->addFromString('word/document.xml', $content);
         $zip->close();
