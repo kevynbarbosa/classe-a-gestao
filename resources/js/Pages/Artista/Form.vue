@@ -217,6 +217,25 @@
                 </div>
             </div>
 
+            <div>
+                <div class="my-2 pl-2 text-center font-bold">Logo do artista</div>
+                <input
+                    id="logo_path"
+                    class="w-full"
+                    size="small"
+                    type="file"
+                    @input="form.logo_path = $event.target.files[0]"
+                    variant="filled"
+                />
+                <div class="text-red-500" v-if="form.errors.logo_path">
+                    {{ form.errors.logo_path }}
+                </div>
+            </div>
+
+            <progress v-if="form.progress" :value="form.progress.percentage" max="100">
+                {{ form.progress.percentage }}%
+            </progress>
+
             <div class="mt-4 flex justify-end gap-2">
                 <Button label="Cancelar" severity="secondary" @click="closeModal" />
                 <Button label="Salvar" type="submit" :loading="salvando" />
@@ -255,6 +274,8 @@ const form = useForm({
     representante_legal_rg: props.artista?.representante_legal_rg ?? null,
     representante_legal_email: props.artista?.representante_legal_email ?? null,
     color: props.artista?.color ?? null,
+    logo_path: null,
+    _method: props.updating ? "put" : "post",
 });
 
 const back = () => window.history.back();
@@ -263,6 +284,7 @@ const submit = () => (props.updating ? updateRecord() : addRecord());
 const addRecord = () => {
     salvando.value = true;
     form.post("/artistas", {
+        forceFormData: true,
         onSuccess() {
             closeModal();
         },
@@ -274,7 +296,8 @@ const addRecord = () => {
 
 const updateRecord = () => {
     salvando.value = true;
-    form.put(`/artistas/${props.artista.id}`, {
+    form.post(`/artistas/${props.artista.id}`, {
+        forceFormData: true,
         onSuccess() {
             closeModal();
         },
