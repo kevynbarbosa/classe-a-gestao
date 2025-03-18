@@ -22,6 +22,15 @@ class GeracaoModeloService
             $templateProcessor->setValue($token, $valor);
         }
 
+        if ($this->evento->artista->logo_path) {
+            $templateProcessor->setImageValue('IMAGEM', [
+                'path' => $this->evento->artista->logo_path, // Caminho da imagem
+                // 'width' => 200, // Largura em pixels
+                // 'height' => 150, // Altura em pixels
+                // 'ratio' => true // Mantém a proporção da imagem
+            ]);
+        }
+
         // Salvar o arquivo Word com os dados substituídos
         $templateProcessor->saveAs($pathDocx);
     }
