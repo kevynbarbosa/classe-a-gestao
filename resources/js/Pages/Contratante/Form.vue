@@ -37,7 +37,7 @@
                             id="cpf_cnpj"
                             class="w-full"
                             v-model="form.cpf_cnpj"
-                            :mask="form.tipo_pessoa == 'Jurídica' ? '99.99.999/9999-99' : '999.999.999.99'"
+                            :mask="form.tipo_pessoa == 'Jurídica' ? '99.999.999/9999-99' : '999.999.999.99'"
                             variant="filled"
                             :auto-clear="false"
                             :invalid="!!form.errors?.cpf_cnpj"
@@ -81,7 +81,6 @@
 
 <script setup>
 import TituloCard from "@/Components/TituloCard.vue";
-import { parse2Date } from "@/Utils/dateUtils";
 import { Head, useForm } from "@inertiajs/vue3";
 import { Modal } from "@inertiaui/modal-vue";
 

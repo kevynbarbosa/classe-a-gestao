@@ -63,6 +63,7 @@
                 </Tab>
                 <Tab value="timeline">Timeline</Tab>
                 <Tab value="contratante">Contratante</Tab>
+                <!-- <Tab value="pagamentos">Pagamentos</Tab> -->
                 <!-- <Tab value="documentacao">Documentação</Tab> -->
             </TabList>
 
@@ -81,6 +82,10 @@
             <TabPanel value="timeline">
                 <EventoWorkflowTimeline :evento="evento" :evento_status_enum="evento_status_enum" />
             </TabPanel>
+
+            <TabPanel value="pagamentos">
+                <EventoWorkflowPagamentos :evento="evento" :evento_status_enum="evento_status_enum" />
+            </TabPanel>
         </Tabs>
     </div>
 </template>
@@ -95,6 +100,7 @@ import { visitModal } from "@inertiaui/modal-vue";
 import EventoWorkflowContratante from "./Partials/EventoWorkflowContratante.vue";
 import EventoWorkflowDocumentacao from "./Partials/EventoWorkflowDocumentacao.vue";
 import EventoWorkflowObservacoes from "./Partials/EventoWorkflowObservacoes.vue";
+import EventoWorkflowPagamentos from "./Partials/EventoWorkflowPagamentos.vue";
 import EventoWorkflowTimeline from "./Partials/EventoWorkflowTimeline.vue";
 import FluxoEtapaControlador from "./Partials/FluxoEtapaControlador.vue";
 import LinkProposta from "./Partials/LinkProposta.vue";

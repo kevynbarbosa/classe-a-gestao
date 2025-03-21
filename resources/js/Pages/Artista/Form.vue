@@ -211,7 +211,7 @@
             <div class="my-2 pl-2 text-center font-bold">Cor exibida na documentação (quando aplicável)</div>
             <div class="flex items-center justify-center gap-2">
                 <ColorPicker v-model="form.color" :baseZIndex="99999" />
-                <div>#{{ form.color }}</div>
+                <FieldWrap v-model="form" label="Cor (em #hex)" field="color"></FieldWrap>
                 <div class="text-red-500" v-if="form.errors.color">
                     {{ form.errors.color }}
                 </div>
@@ -246,6 +246,7 @@
 
 <script setup>
 import CustomAutoComplete from "@/Components/Form/CustomAutoComplete.vue";
+import FieldWrap from "@/Components/Form/FieldWrap.vue";
 import TituloCard from "@/Components/TituloCard.vue";
 import { Head, useForm } from "@inertiajs/vue3";
 import { Modal } from "@inertiaui/modal-vue";

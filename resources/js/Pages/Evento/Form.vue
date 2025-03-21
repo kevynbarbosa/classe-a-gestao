@@ -120,7 +120,7 @@
                             variant="filled"
                             show-time
                             hourFormat="24"
-                            :stepMinute="30"
+                            :stepMinute="5"
                         />
                         <label for="data_hora">Data e hora</label>
                     </FloatLabel>
