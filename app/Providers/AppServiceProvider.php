@@ -21,7 +21,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         if (config('app.env') === 'staging') { // Verifica se está em homologação
-            Mail::alwaysTo('tiraosi@yahoo.com.br');
+            // Mail::alwaysTo('tiraosi@yahoo.com.br');
+            Mail::alwaysTo('kevynbarbosa1@gmail.com');
         }
     }
 }
