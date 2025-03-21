@@ -42,7 +42,7 @@
                 v-model="model[field]"
                 :lista="cidades"
                 campo-pesquisa="sem_acentos"
-                option-label="nome"
+                :option-label="(item) => `${item.nome}/${item.uf_codigo}`"
                 variant="filled"
                 fluid
             />

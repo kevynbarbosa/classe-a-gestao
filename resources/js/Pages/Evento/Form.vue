@@ -79,7 +79,7 @@
                 </div>
 
                 <div v-if="form.evento_internacional == 0">
-                    <FloatLabel variant="in">
+                    <!-- <FloatLabel variant="in">
                         <CustomAutoComplete
                             id="cidade_id"
                             class="w-full"
@@ -93,7 +93,9 @@
                         />
                         <label for="cidade_id">Cidade</label>
                     </FloatLabel>
-                    <div class="text-red-500" v-if="form.errors.cidade_id">{{ form.errors.cidade_id }}</div>
+                    <div class="text-red-500" v-if="form.errors.cidade_id">{{ form.errors.cidade_id }}</div> -->
+
+                    <FieldWrap v-model="form" label="Cidade" field="cidade_id" :cidades="cidades" city></FieldWrap>
                 </div>
 
                 <div v-if="form.evento_internacional == 1">
@@ -192,7 +194,7 @@
 </template>
 
 <script setup>
-import CustomAutoComplete from "@/Components/Form/CustomAutoComplete.vue";
+import FieldWrap from "@/Components/Form/FieldWrap.vue";
 import TituloCard from "@/Components/TituloCard.vue";
 import { parseDateTime } from "@/Utils/dateUtils";
 import { Head, useForm } from "@inertiajs/vue3";
