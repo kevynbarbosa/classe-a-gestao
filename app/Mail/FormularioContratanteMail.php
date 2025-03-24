@@ -17,7 +17,7 @@ class FormularioContratanteMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct(public Evento $evento) {}
+    public function __construct(public Evento $evento, public $nome = null) {}
 
     /**
      * Get the message envelope.
@@ -36,7 +36,6 @@ class FormularioContratanteMail extends Mailable
     {
         return new Content(
             view: 'mails.formulario_contratante',
-            // view: 'mails.mail_layout',
         );
     }
 

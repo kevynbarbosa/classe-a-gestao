@@ -2,18 +2,10 @@
     <p class="my-1 text-sm text-gray-600">Digite o e-mail do contratante para enviar o link do formulário.</p>
 
     <form autocomplete="off" @submit.prevent="confirmarEnvio">
-        <div>
-            <FloatLabel variant="in">
-                <InputText
-                    id="email_contratante"
-                    class="w-full"
-                    size="small"
-                    v-model="form.email_contratante"
-                    variant="filled"
-                />
-                <label for="email_contratante">Email contratante</label>
-            </FloatLabel>
-            <div class="text-red-500" v-if="form.errors.email_contratante">{{ form.errors.email_contratante }}</div>
+        <div class="grid grid-cols-1 gap-2">
+            <FieldWrap v-model="form" field="nome" label="Nome" />
+
+            <FieldWrap v-model="form" field="email_contratante" label="Email contratante" />
         </div>
 
         <div class="w-full text-center">
@@ -44,6 +36,7 @@
 </template>
 
 <script setup>
+import FieldWrap from "@/Components/Form/FieldWrap.vue";
 import TituloCard from "@/Components/TituloCard.vue";
 import { useForm } from "@inertiajs/vue3";
 import { Modal, visitModal } from "@inertiaui/modal-vue";
@@ -53,6 +46,7 @@ const props = defineProps({ evento: Object });
 const toast = useToast();
 
 const form = useForm({
+    nome: props.evento.contratante?.nome_completo ?? "",
     email_contratante: "",
 });
 

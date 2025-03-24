@@ -29,6 +29,7 @@ class EventoWorkflowController extends Controller
     public function enviarFormulario(Request $request, Evento $evento)
     {
         $validatedData = $request->validate([
+            'nome' => ['required'],
             'email_contratante' => ['required', 'email'],
         ]);
 
@@ -37,7 +38,7 @@ class EventoWorkflowController extends Controller
             $evento->email_formulario = $validatedData['email_contratante'];
             $evento->token_formulario = Str::uuid();
             try {
-                Mail::to($validatedData['email_contratante'])->send(new FormularioContratanteMail($evento));
+                Mail::to($validatedData['email_contratante'])->send(new FormularioContratanteMail($evento, $request->nome));
             } catch (\Throwable $th) {
                 throw $th;
             }
