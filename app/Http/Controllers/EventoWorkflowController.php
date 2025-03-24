@@ -100,12 +100,14 @@ class EventoWorkflowController extends Controller
             'observacoes' => ['nullable'],
         ]);
 
-        $contratante = Contratante::where('cpf_cnpj', $request->cpf_cnpj);
+        $contratante = Contratante::where('cpf_cnpj', $request->cpf_cnpj)->first();
 
         if ($contratante) {
             $contratante->update($request->except('artista_pretendido', 'valor_combinado', 'evento_cidade_id', 'evento_recinto', 'observacoes'));
         } else {
-            $contratante = Contratante::create($request->except('artista_pretendido', 'valor_combinado', 'evento_cidade_id', 'evento_recinto', 'observacoes'));
+            $data = $request->except('artista_pretendido', 'valor_combinado', 'evento_cidade_id', 'evento_recinto', 'observacoes');
+            $data['tipo_pessoa'] = $data['cpf_cnpj'] > 11 ? 'juridica' : 'fisica';
+            $contratante = Contratante::create($data);
         }
 
         if (empty($contratante)) throw new \Exception('Erro ao salvar contratante');

@@ -35,7 +35,11 @@
                         {{ dateTimeLocale(data.data_hora) }}
                     </template>
                 </Column>
-                <Column field="cidade" header="Cidade" sortable :showFilterMenu="false"></Column>
+                <Column field="cidade" header="Cidade" sortable :showFilterMenu="false">
+                    <template #body="{ data }">
+                        <div v-if="data.cidade">{{ `${data.cidade?.nome}/${data.cidade?.uf_codigo}` }}</div>
+                    </template>
+                </Column>
                 <Column field="recinto" header="Recinto" sortable :showFilterMenu="false"></Column>
 
                 <Column class="column-center" field="status" header="Status" sortable :showFilterMenu="false">

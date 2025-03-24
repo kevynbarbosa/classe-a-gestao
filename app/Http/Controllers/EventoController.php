@@ -23,7 +23,7 @@ class EventoController extends Controller
         $eventos = QueryBuilder::for(Evento::class)
             ->allowedFilters(['id', /*'other_fields...'*/])
             ->allowedSorts(['id', 'artista.nome'])
-            ->with(['artista', 'contratante'])
+            ->with(['artista', 'contratante', 'cidade'])
             ->paginate($perPage);
 
         return Inertia::render(
