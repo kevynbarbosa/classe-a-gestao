@@ -5,6 +5,7 @@
         @complete="pesquisar"
         v-bind="$attrs"
         @option-select="valorAlterado"
+        dropdown
     />
 </template>
 

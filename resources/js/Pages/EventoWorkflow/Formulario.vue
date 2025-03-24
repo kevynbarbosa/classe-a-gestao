@@ -14,81 +14,145 @@
     <div class="card mx-auto mt-4 max-w-2xl">
         <TituloCard titulo="Preencha as informações para prosseguir com o fluxo de contratação"></TituloCard>
 
-        <form @submit.prevent="submit">
-            <div class="grid grid-cols-2 gap-2">
-                <!-- Artista -->
-                <div class="col-span-2 my-2 pl-2 text-center font-bold">Informações do evento</div>
-                <FieldWrap v-model="form" field="artista_pretendido" label="Artista pretendido" />
-                <FieldWrap
-                    v-model="form"
-                    field="valor_combinado"
-                    label="Valor total do cachê combinado entre as partes"
-                    currency
-                />
-                <FieldWrap v-model="form" field="evento_cidade_id" label="Cidade" city :cidades="cidades" />
-                <FieldWrap v-model="form" field="evento_recinto" label="Recinto" />
+        <ValidationResultDisplay :form="form" />
 
-                <!-- Dados basicos -->
-                <div class="col-span-2 my-2 pl-2 text-center font-bold">Dados básicos</div>
-                <FieldWrap
-                    class="col-span-2"
-                    v-model="form"
-                    field="nome_completo"
-                    label="Nome da empresa contratante"
-                />
-                <FieldWrap v-model="form" field="cpf_cnpj" label="CNPJ da empresa contratante" cnpj />
+        <form @submit.prevent="submit" autocomplete="off">
+            <Stepper value="1">
+                <StepList>
+                    <Step value="1">Informações do evento</Step>
+                    <Step value="2">Dados básicos</Step>
+                    <Step value="3">Representante Legal</Step>
+                </StepList>
+                <StepPanels>
+                    <StepPanel v-slot="{ activateCallback }" value="1">
+                        <div class="grid grid-cols-2 gap-2">
+                            <FieldWrap v-model="form" field="artista_pretendido" label="Artista pretendido" />
+                            <FieldWrap
+                                v-model="form"
+                                field="valor_combinado"
+                                label="Valor total do cachê combinado entre as partes"
+                                currency
+                            />
+                            <FieldWrap
+                                v-model="form"
+                                field="evento_cidade_id"
+                                label="Cidade (selecionar na lista)"
+                                city
+                                :cidades="cidades"
+                                autocomplete="off"
+                            />
+                            <FieldWrap v-model="form" field="evento_recinto" label="Recinto" />
+                        </div>
 
-                <!-- Endereço -->
-                <div class="col-span-2 my-2 pl-2 text-center font-bold">Endereço do contratante</div>
-                <FieldWrap v-model="form" field="cep" label="CEP" cep />
-                <FieldWrap v-model="form" field="endereco" label="Endereço" />
-                <FieldWrap v-model="form" field="numero" label="Número" />
-                <FieldWrap v-model="form" field="complemento" label="Complemento" />
-                <FieldWrap v-model="form" field="bairro" label="Bairro" />
-                <FieldWrap v-model="form" field="cidade_id" label="Cidade" city :cidades="cidades" />
+                        <div class="flex justify-end pt-6">
+                            <Button
+                                label="Próximo"
+                                icon="mdi mdi-arrow-right"
+                                iconPos="right"
+                                @click="activateCallback('2')"
+                            />
+                        </div>
+                    </StepPanel>
 
-                <!-- Dados do representante legal -->
-                <div class="col-span-2 my-2 pl-2 text-center font-bold">Dados do representante legal</div>
-                <FieldWrap
-                    class="col-span-2"
-                    v-model="form"
-                    field="representante_legal_nome"
-                    label="Nome do representante legal"
-                />
-                <FieldWrap
-                    v-model="form"
-                    field="representante_legal_telefone"
-                    label="Telefone do representante legal"
-                    phone
-                />
-                <FieldWrap v-model="form" field="representante_legal_cpf" label="CPF do representante legal" cpf />
-                <FieldWrap v-model="form" field="representante_legal_rg" label="RG do representante legal" />
-                <FieldWrap v-model="form" field="representante_legal_cep" label="CEP" cep />
-                <FieldWrap v-model="form" field="representante_legal_endereco" label="Endereço" />
-                <FieldWrap v-model="form" field="representante_legal_numero" label="Número" />
-                <FieldWrap v-model="form" field="representante_legal_complemento" label="Complemento" />
-                <FieldWrap v-model="form" field="representante_legal_bairro" label="Bairro" />
-                <FieldWrap
-                    v-model="form"
-                    field="representante_legal_cidade_id"
-                    label="Cidade"
-                    city
-                    :cidades="cidades"
-                />
+                    <StepPanel v-slot="{ activateCallback }" value="2">
+                        <!-- Endereço -->
+                        <div class="grid grid-cols-2 gap-2">
+                            <FieldWrap
+                                class="col-span-2"
+                                v-model="form"
+                                field="nome_completo"
+                                label="Nome da empresa contratante"
+                            />
+                            <FieldWrap v-model="form" field="cpf_cnpj" label="CNPJ da empresa contratante" cnpj />
 
-                <FieldWrap v-model="form" field="observacoes" label="Observações" />
-            </div>
+                            <FieldWrap v-model="form" field="cep" label="CEP" cep />
+                            <FieldWrap v-model="form" field="endereco" label="Endereço" />
+                            <FieldWrap v-model="form" field="numero" label="Número" />
+                            <FieldWrap v-model="form" field="complemento" label="Complemento" />
+                            <FieldWrap v-model="form" field="bairro" label="Bairro" />
+                            <FieldWrap
+                                v-model="form"
+                                field="cidade_id"
+                                label="Cidade (selecionar na lista)"
+                                city
+                                :cidades="cidades"
+                            />
+                        </div>
 
-            <ValidationResultDisplay :form="form" />
+                        <div class="flex justify-between pt-6">
+                            <Button
+                                label="Anterior"
+                                severity="secondary"
+                                icon="mdi mdi-arrow-left"
+                                @click="activateCallback('1')"
+                            />
+                            <Button
+                                label="Próximo"
+                                icon="mdi mdi-arrow-right"
+                                iconPos="right"
+                                @click="activateCallback('3')"
+                            />
+                        </div>
+                    </StepPanel>
 
-            <div class="mt-4 text-center">
-                <Button
-                    icon="mdi mdi-check"
-                    label="Salvar e enviar para análise"
-                    type="submit"
-                    :loading="form.processing"
-                />
-            </div>
+                    <StepPanel v-slot="{ activateCallback }" value="3">
+                        <div class="grid grid-cols-2 gap-2">
+                            <FieldWrap
+                                class="col-span-2"
+                                v-model="form"
+                                field="representante_legal_nome"
+                                label="Nome do representante legal"
+                            />
+                            <FieldWrap
+                                v-model="form"
+                                field="representante_legal_telefone"
+                                label="Telefone do representante legal"
+                                phone
+                            />
+                            <FieldWrap
+                                v-model="form"
+                                field="representante_legal_cpf"
+                                label="CPF do representante legal"
+                                cpf
+                            />
+                            <FieldWrap
+                                v-model="form"
+                                field="representante_legal_rg"
+                                label="RG do representante legal"
+                            />
+                            <FieldWrap v-model="form" field="representante_legal_cep" label="CEP" cep />
+                            <FieldWrap v-model="form" field="representante_legal_endereco" label="Endereço" />
+                            <FieldWrap v-model="form" field="representante_legal_numero" label="Número" />
+                            <FieldWrap v-model="form" field="representante_legal_complemento" label="Complemento" />
+                            <FieldWrap v-model="form" field="representante_legal_bairro" label="Bairro" />
+                            <FieldWrap
+                                v-model="form"
+                                field="representante_legal_cidade_id"
+                                label="Cidade (selecionar na lista)"
+                                city
+                                :cidades="cidades"
+                            />
+
+                            <FieldWrap v-model="form" field="observacoes" label="Observações" />
+                        </div>
+
+                        <div class="flex justify-between pt-6">
+                            <Button
+                                label="Anterior"
+                                severity="secondary"
+                                icon="mdi mdi-arrow-left"
+                                @click="activateCallback('2')"
+                            />
+                            <Button
+                                icon="mdi mdi-check"
+                                label="Salvar e enviar para análise"
+                                type="submit"
+                                :loading="form.processing"
+                            />
+                        </div>
+                    </StepPanel>
+                </StepPanels>
+            </Stepper>
         </form>
     </div>
 </template>

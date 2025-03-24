@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\FormularioContratanteMail;
 use App\Mail\PropostaContratanteMail;
 use App\Models\Cidade;
+use App\Models\Contratante;
 use App\Services\EventoHistoricoService;
 use App\Services\GeracaoModeloService;
 
@@ -73,7 +74,6 @@ class EventoWorkflowController extends Controller
 
     public function salvarFormulario(Request $request, Evento $evento)
     {
-
         $validatedData = $request->validate([
             'artista_pretendido' => ['required'],
             'valor_combinado' => ['required'],
@@ -100,9 +100,17 @@ class EventoWorkflowController extends Controller
             'observacoes' => ['nullable'],
         ]);
 
-        $contratante = $evento->contratante;
-        $contratante->update($request->except('artista_pretendido', 'valor_combinado', 'evento_cidade_id', 'evento_recinto', 'observacoes'));
+        $contratante = Contratante::where('cpf_cnpj', $request->cpf_cnpj);
 
+        if ($contratante) {
+            $contratante->update($request->except('artista_pretendido', 'valor_combinado', 'evento_cidade_id', 'evento_recinto', 'observacoes'));
+        } else {
+            $contratante = Contratante::create($request->except('artista_pretendido', 'valor_combinado', 'evento_cidade_id', 'evento_recinto', 'observacoes'));
+        }
+
+        if (empty($contratante)) throw new \Exception('Erro ao salvar contratante');
+
+        $evento->contratante_id = $contratante->id;
         $evento->valor = $validatedData['valor_combinado'];
         $evento->cidade_id = $validatedData['evento_cidade_id'];
         $evento->recinto = $validatedData['evento_recinto'];
