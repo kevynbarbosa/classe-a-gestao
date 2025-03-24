@@ -12,12 +12,12 @@
         </div>
 
         <div class="flex flex-col">
-            <div class="text-lg font-bold">{{ evento.artista.nome }}</div>
+            <div class="text-lg font-bold">{{ evento.artista?.nome }}</div>
             <div>
                 <i class="mdi mdi-map-marker"></i>
                 Em {{ evento.cidade.nome }} ({{ evento.recinto }})
             </div>
-            <div class="font-light">{{ evento.contratante.nome_completo }}</div>
+            <div class="font-light">{{ evento.contratante?.nome_completo }}</div>
         </div>
     </div>
 </template>

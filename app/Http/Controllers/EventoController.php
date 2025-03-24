@@ -48,16 +48,16 @@ class EventoController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'artista_id' => ['required'],
-            'contratante_id' => ['required'],
-            'vendedor_id' => ['required'],
-            'data_hora' => ['required', 'date'],
-            'evento_internacional' => ['required', 'boolean'],
-            'cidade_id' => ['required_if:evento_internacional,0'],
-            'cidade_exterior' => ['required_if:evento_internacional,1'],
-            'recinto' => ['required'],
-            'duracao' => ['required', 'numeric'],
-            'valor' => ['required'],
+            'artista_id' => ['nullable'],
+            'contratante_id' => ['nullable'],
+            'vendedor_id' => ['nullable'],
+            'data_hora' => ['nullable', 'date'],
+            'evento_internacional' => ['nullable', 'boolean'],
+            'cidade_id' => ['nullable'],
+            'cidade_exterior' => ['nullable'],
+            'recinto' => ['nullable'],
+            'duracao' => ['nullable', 'numeric'],
+            'valor' => ['nullable'],
         ]);
 
         $validatedData['data_hora'] = Carbon::parse($validatedData['data_hora']);

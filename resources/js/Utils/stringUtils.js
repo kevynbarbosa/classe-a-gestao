@@ -12,6 +12,7 @@ function iniciaisNome(nome = "") {
 }
 
 function formataCpfCnpj(value) {
+    if (!value) return null;
     // Remove todos os caracteres que não sejam números
     const cleanValue = value.replace(/\D/g, "");
 

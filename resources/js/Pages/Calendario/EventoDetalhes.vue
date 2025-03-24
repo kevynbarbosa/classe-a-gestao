@@ -16,12 +16,12 @@
                     <div class="my-2 grid grid-cols-2 gap-4 rounded bg-slate-100 p-2">
                         <div>
                             <b>Artista:</b>
-                            {{ evento.artista.nome }}
+                            {{ evento.artista?.nome }}
                         </div>
 
                         <div>
                             <b>Contratante:</b>
-                            {{ evento.contratante.nome_completo }}
+                            {{ evento.contratante?.nome_completo }}
                         </div>
 
                         <div>
@@ -31,12 +31,12 @@
 
                         <div>
                             <b>Vendedor:</b>
-                            {{ evento.vendedor.nome_completo }}
+                            {{ evento.vendedor?.nome_completo }}
                         </div>
 
                         <div>
                             <b>Cidade:</b>
-                            {{ evento.cidade_exterior || evento.cidade.nome }}
+                            {{ evento.cidade_exterior || evento.cidade?.nome }}
                         </div>
 
                         <div>
