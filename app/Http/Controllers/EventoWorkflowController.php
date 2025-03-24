@@ -106,7 +106,7 @@ class EventoWorkflowController extends Controller
             $contratante->update($request->except('artista_pretendido', 'valor_combinado', 'evento_cidade_id', 'evento_recinto', 'observacoes'));
         } else {
             $data = $request->except('artista_pretendido', 'valor_combinado', 'evento_cidade_id', 'evento_recinto', 'observacoes');
-            $data['tipo_pessoa'] = $data['cpf_cnpj'] > 11 ? 'juridica' : 'fisica';
+            $data['tipo_pessoa'] = $data['cpf_cnpj'] > 11 ? 'pj' : 'pf';
             $contratante = Contratante::create($data);
         }
 
