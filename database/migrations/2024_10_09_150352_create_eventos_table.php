@@ -18,11 +18,11 @@ return new class extends Migration
     {
         Schema::create('eventos', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Artista::class)->constrained();
-            $table->foreignIdFor(Contratante::class)->constrained();
+            $table->foreignIdFor(Artista::class)->nullable()->constrained();
+            $table->foreignIdFor(Contratante::class)->nullable()->constrained();
             $table->foreignIdFor(Vendedor::class)->nullable()->constrained('vendedores');
             $table->foreignIdFor(Cidade::class)->nullable()->constrained();
-            $table->timestampTz('data_hora');
+            $table->timestampTz('data_hora')->nullable();
             $table->boolean('evento_internacional')->nullable();
             $table->string('cidade_exterior')->nullable();
             $table->string('recinto')->nullable();

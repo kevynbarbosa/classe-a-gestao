@@ -15,6 +15,18 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
+        if (env('APP_ENV') == 'local') {
+            User::firstOrCreate(
+                [
+                    'email' => 'dev@dev.com',
+                ],
+                [
+                    'name' => 'Developer',
+                    'password' => Hash::make('password'),
+                ]
+            );
+        }
+
         User::firstOrCreate(
             [
                 'email' => 'kevynbarbosa1@gmail.com',
