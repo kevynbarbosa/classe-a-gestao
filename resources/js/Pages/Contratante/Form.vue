@@ -9,7 +9,7 @@
                 <div class="self-center">
                     <SelectButton
                         v-model="form.tipo_pessoa"
-                        :options="['Física', 'Jurídica']"
+                        :options="['Física', 'Jurídica', 'Prefeitura']"
                         aria-labelledby="basic"
                         :invalid="!!form.errors?.tipo_pessoa"
                     />
