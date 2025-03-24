@@ -13,7 +13,6 @@ use App\Http\Controllers\EventoServicoController;
 use App\Http\Controllers\EventoWorkflowController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VendedorController;
-use App\Services\GeracaoModeloService;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 
