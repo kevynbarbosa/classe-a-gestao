@@ -15,7 +15,12 @@
                     <div class="grid grid-cols-2 gap-2">
                         <div class="col-span-2 py-2">
                             Artista pretendido pelo contratante:
-                            <b>{{ form.artista_pretendido }}</b>
+                            <b>{{ evento.artista_pretendido }}</b>
+                        </div>
+
+                        <div v-if="evento.observacoes_contratante" class="col-span-2 py-2">
+                            Observações:
+                            <b>{{ evento.observacoes_contratante }}</b>
                         </div>
 
                         <FieldWrap
@@ -230,3 +235,9 @@ function gerarPropostaContratante() {
     form.post(route("evento-workflow.gerar-proposta", { evento: props.evento.id }));
 }
 </script>
+
+<style>
+.p-steppanel {
+    background: inherit;
+}
+</style>
