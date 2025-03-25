@@ -6,7 +6,13 @@
 
         <EventoFormularioReenviar v-if="evento.status == 'formulario_enviado'" :evento="evento" />
 
-        <GerarPropostaContratante v-if="evento.status == 'pendente_proposta'" :evento="evento" />
+        <GerarPropostaContratante
+            v-if="evento.status == 'pendente_proposta'"
+            :evento="evento"
+            :cidades="cidades"
+            :artistas="artistas"
+            :vendedores="vendedores"
+        />
 
         <EventoPropostaGerada v-if="evento.status == 'proposta_gerada'" :evento="evento" />
 
@@ -21,5 +27,5 @@ import EventoPropostaGerada from "./EventoPropostaGerada.vue";
 import GerarPropostaContratante from "./GerarPropostaContratante.vue";
 import UploadNotaFiscal from "./UploadNotaFiscal.vue";
 
-const props = defineProps({ evento: Object });
+const props = defineProps({ evento: Object, cidades: Array, artistas: Array, vendedores: Array });
 </script>

@@ -53,7 +53,7 @@
             </div>
         </div>
 
-        <FluxoEtapaControlador :evento="evento" />
+        <FluxoEtapaControlador :evento="evento" :cidades="cidades" :artistas="artistas" :vendedores="vendedores" />
 
         <Tabs value="observacoes" class="mt-14">
             <TabList class="mb-4">
@@ -105,7 +105,13 @@ import EventoWorkflowTimeline from "./Partials/EventoWorkflowTimeline.vue";
 import FluxoEtapaControlador from "./Partials/FluxoEtapaControlador.vue";
 import LinkProposta from "./Partials/LinkProposta.vue";
 
-const props = defineProps({ evento: Object, evento_status_enum: Array });
+const props = defineProps({
+    evento: Object,
+    evento_status_enum: Array,
+    cidades: Array,
+    artistas: Array,
+    vendedores: Array,
+});
 
 function downloadLoteDocumentos() {
     visitModal(route("documentos-internos.selecionar-lote-download", { evento: props.evento?.id }));

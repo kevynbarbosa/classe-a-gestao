@@ -41,7 +41,25 @@
                                 :cidades="cidades"
                                 autocomplete="off"
                             />
+
                             <FieldWrap v-model="form" field="evento_recinto" label="Recinto" />
+
+                            <div>
+                                <FloatLabel variant="in">
+                                    <InputNumber
+                                        id="duracao"
+                                        class="w-full"
+                                        size="small"
+                                        v-model="form.evento_duracao"
+                                        variant="filled"
+                                        suffix=" minutos"
+                                    />
+                                    <label for="duracao">Duração</label>
+                                </FloatLabel>
+                                <div class="text-red-500" v-if="form.errors.evento_duracao">
+                                    {{ form.errors.evento_duracao }}
+                                </div>
+                            </div>
                         </div>
 
                         <div class="flex justify-end pt-6">
@@ -174,6 +192,7 @@ const form = useForm("EventoWorkflowFormularioContratante", {
     valor_combinado: props.evento?.valor ?? null,
     evento_cidade_id: props.evento?.cidade_id ?? null,
     evento_recinto: props.evento?.recinto ?? null,
+    evento_duracao: props.evento.duracao ?? null,
     nome_completo: props.contratante?.nome_completo ?? null,
     cpf_cnpj: props.contratante?.cpf_cnpj ?? null,
     rg: props.contratante?.rg ?? null,

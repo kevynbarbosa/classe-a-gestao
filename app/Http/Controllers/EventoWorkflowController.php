@@ -10,10 +10,13 @@ use App\Enums\EventoStatusEnum;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\FormularioContratanteMail;
 use App\Mail\PropostaContratanteMail;
+use App\Models\Artista;
 use App\Models\Cidade;
 use App\Models\Contratante;
+use App\Models\Vendedor;
 use App\Services\EventoHistoricoService;
 use App\Services\GeracaoModeloService;
+use Illuminate\Support\Facades\DB;
 
 class EventoWorkflowController extends Controller
 {
@@ -23,6 +26,9 @@ class EventoWorkflowController extends Controller
 
         return Inertia::render('EventoWorkflow/Index', [
             'evento' => $evento,
+            'cidades' => Cidade::all(),
+            'artistas' => Artista::all(),
+            'vendedores' => Vendedor::all(),
             'evento_status_enum' => EventoStatusEnum::options()
         ]);
     }
@@ -79,6 +85,7 @@ class EventoWorkflowController extends Controller
             'valor_combinado' => ['required'],
             'evento_cidade_id' => ['required'],
             'evento_recinto' => ['required'],
+            'evento_duracao' => ['required'],
             'nome_completo' => ['required'],
             'cpf_cnpj' => ['required'],
             'cep' => ['required'],
@@ -102,10 +109,11 @@ class EventoWorkflowController extends Controller
 
         $contratante = Contratante::where('cpf_cnpj', $request->cpf_cnpj)->first();
 
+        $contratanteFields = ['artista_pretendido', 'valor_combinado', 'evento_cidade_id', 'evento_recinto', 'evento_duracao', 'observacoes'];
         if ($contratante) {
-            $contratante->update($request->except('artista_pretendido', 'valor_combinado', 'evento_cidade_id', 'evento_recinto', 'observacoes'));
+            $contratante->update($request->except($contratanteFields));
         } else {
-            $data = $request->except('artista_pretendido', 'valor_combinado', 'evento_cidade_id', 'evento_recinto', 'observacoes');
+            $data = $request->except($contratanteFields);
             $data['tipo_pessoa'] = $data['cpf_cnpj'] > 11 ? 'pj' : 'pf';
             $contratante = Contratante::create($data);
         }
@@ -117,6 +125,7 @@ class EventoWorkflowController extends Controller
         $evento->cidade_id = $validatedData['evento_cidade_id'];
         $evento->recinto = $validatedData['evento_recinto'];
         $evento->artista_pretendido = $validatedData['artista_pretendido'];
+        $evento->duracao = $validatedData['evento_duracao'];
         $evento->observacoes_contratante = $validatedData['observacoes'];
         $evento->save();
 
@@ -131,7 +140,53 @@ class EventoWorkflowController extends Controller
 
     public function gerarProposta(Request $request, Evento $evento)
     {
-        $request->validate([]);
+        $request->validate([
+            'evento_artista_id' => ['required'],
+            'evento_vendedor_id' => ['required'],
+            'valor_combinado' => ['required'],
+            'evento_cidade_id' => ['required'],
+            'evento_recinto' => ['required'],
+            'nome_completo' => ['required'],
+            'cpf_cnpj' => ['required'],
+            'cep' => ['required'],
+            'endereco' => ['required'],
+            'numero' => ['required'],
+            'complemento' => ['nullable'],
+            'bairro' => ['required'],
+            'cidade_id' => ['required'],
+            'representante_legal_nome' => ['required'],
+            'representante_legal_cpf' => ['required'],
+            'representante_legal_rg' => ['required'],
+            'representante_legal_cep' => ['required'],
+            'representante_legal_endereco' => ['required'],
+            'representante_legal_numero' => ['required'],
+            'representante_legal_complemento' => ['nullable'],
+            'representante_legal_bairro' => ['required'],
+            'representante_legal_cidade_id' => ['required'],
+            'representante_legal_telefone' => ['required'],
+        ]);
+
+        DB::beginTransaction();
+        $contratante = $evento->contratante;
+        $contratante->update($request->except(
+            [
+                'evento_artista_id',
+                'evento_vendedor_id',
+                'valor_combinado',
+                'evento_cidade_id',
+                'evento_recinto',
+                'evento_duracao'
+            ]
+        ));
+
+        $evento->artista_id = $request->evento_artista_id;
+        $evento->vendedor_id = $request->evento_vendedor_id;
+        $evento->valor = $request->valor_combinado;
+        $evento->cidade_id = $request->evento_cidade_id;
+        $evento->recinto = $request->evento_recinto;
+        $evento->duracao = $request->evento_duracao;
+        $evento->save();
+        DB::commit();
 
         $geracaoModeloService = new GeracaoModeloService($evento);
         $geracaoModeloService->gerarProposta();
