@@ -9,6 +9,7 @@
                 v-model="model[field]"
                 variant="filled"
                 v-mask="mask"
+                v-bind="$attrs"
             />
 
             <InputNumber
@@ -22,6 +23,7 @@
                 :minFractionDigits="2"
                 :maxFractionDigits="2"
                 fluid
+                v-bind="$attrs"
             />
 
             <Select
@@ -32,6 +34,7 @@
                 v-model="model[field]"
                 :options="props.selectOptions"
                 variant="filled"
+                v-bind="$attrs"
             />
 
             <CustomAutoComplete
@@ -45,9 +48,18 @@
                 :option-label="(item) => `${item.nome}/${item.uf_codigo}`"
                 variant="filled"
                 fluid
+                v-bind="$attrs"
             />
 
-            <InputText v-else :id="field" class="w-full" size="small" v-model="model[field]" variant="filled" />
+            <InputText
+                v-else
+                :id="field"
+                class="w-full"
+                size="small"
+                v-model="model[field]"
+                variant="filled"
+                v-bind="$attrs"
+            />
 
             <label :for="field">{{ label }}</label>
         </FloatLabel>
