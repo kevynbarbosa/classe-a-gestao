@@ -60,7 +60,9 @@ class EventoController extends Controller
             'valor' => ['nullable'],
         ]);
 
-        $validatedData['data_hora'] = Carbon::parse($validatedData['data_hora']);
+        if ($validatedData['data_hora']) {
+            $validatedData['data_hora'] = Carbon::parse($validatedData['data_hora']);
+        }
 
         $evento = Evento::create($validatedData);
 

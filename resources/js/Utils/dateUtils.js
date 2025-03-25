@@ -19,12 +19,20 @@ function parseDateTime(dateTime, timezone = -3) {
 
 // Formata a data formato americano para brasileiro
 function dateLocale(date, fuso = "-3") {
+    if (!date) {
+        return null;
+    }
+
     const [ano, mes, dia] = date.split("-").map(Number);
     const dateObj = new Date(ano, mes - 1, dia);
     return dateObj.toLocaleDateString();
 }
 
 function dateTimeLocale(date, fuso = -3) {
+    if (!date) {
+        return null;
+    }
+
     const dateObj = parseDateTime(date, fuso);
 
     const options = {
