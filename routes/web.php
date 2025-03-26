@@ -32,7 +32,7 @@ Route::get('/teste', function () {
     //     // 'canRegister' => Route::has('register'),
     //     'laravelVersion' => Application::VERSION,
     //     'phpVersion' => PHP_VERSION,
-    //     'cidades' => Cidade::all()
+    //     'cidades' => CidadeService::cacheCidades()
     // ]);
 });
 

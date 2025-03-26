@@ -38,7 +38,7 @@ class EventoController extends Controller
     public function create()
     {
         return Inertia::render('Evento/Form', [
-            'cidades' => Cidade::all(),
+            'cidades' => CidadeService::cacheCidades(),
             'artistas' => Artista::all(),
             'vendedores' => Vendedor::all(),
             'contratantes' => Contratante::all()
@@ -79,7 +79,7 @@ class EventoController extends Controller
         return Inertia::render('Evento/Form', [
             'evento' => $evento,
             'updating' => true,
-            'cidades' => Cidade::all(),
+            'cidades' => CidadeService::cacheCidades(),
             'artistas' => Artista::all(),
             'vendedores' => Vendedor::all(),
             'contratantes' => Contratante::all()

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\CommonResource;
 use App\Models\Artista;
 use App\Models\Cidade;
+use App\Services\CidadeService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
@@ -26,7 +27,7 @@ class ArtistaController extends Controller
 
     public function create()
     {
-        return Inertia::render('Artista/Form', ['cidades' => Cidade::all()]);
+        return Inertia::render('Artista/Form', ['cidades' => CidadeService::cacheCidades()]);
     }
 
     public function store(Request $request)
@@ -70,7 +71,7 @@ class ArtistaController extends Controller
             [
                 'artista' => $artista,
                 'updating' => true,
-                'cidades' => Cidade::all()
+                'cidades' => CidadeService::cacheCidades()
             ]
         );
     }

@@ -26,7 +26,7 @@ class EventoWorkflowController extends Controller
 
         return Inertia::render('EventoWorkflow/Index', [
             'evento' => $evento,
-            'cidades' => Cidade::all(),
+            'cidades' => CidadeService::cacheCidades(),
             'artistas' => Artista::all(),
             'vendedores' => Vendedor::all(),
             'evento_status_enum' => EventoStatusEnum::options()
@@ -70,7 +70,7 @@ class EventoWorkflowController extends Controller
 
             return Inertia::render('EventoWorkflow/Formulario', [
                 'evento' => $evento,
-                'cidades' => Cidade::all(),
+                'cidades' => CidadeService::cacheCidades(),
                 'contratante' => $evento->contratante
             ]);
         }
