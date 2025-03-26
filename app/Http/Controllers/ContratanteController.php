@@ -32,7 +32,7 @@ class ContratanteController extends Controller
     {
         $validated = $request->validate([
             'tipo_pessoa' => ['required'],
-            'cpf_cnpj' => ['required'],
+            'cpf_cnpj' => ['nullable'],
             'rg' => ['nullable'],
             'nome_completo' => ['required'],
             'foto_path' => ['nullable'],
@@ -58,7 +58,7 @@ class ContratanteController extends Controller
 
         $validated = $request->validate([
             'tipo_pessoa' => ['required'],
-            'cpf_cnpj' => ['required'],
+            'cpf_cnpj' => ['nullable'],
             'rg' => ['nullable'],
             'nome_completo' => ['required'],
             'foto_path' => ['nullable'],

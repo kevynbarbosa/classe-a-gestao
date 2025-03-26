@@ -9,7 +9,9 @@
                 <div class="self-center">
                     <SelectButton
                         v-model="form.tipo_pessoa"
-                        :options="['Física', 'Jurídica', 'Prefeitura']"
+                        :options="tipoPessoaOptions"
+                        option-label="label"
+                        option-value="value"
                         aria-labelledby="basic"
                         :invalid="!!form.errors?.tipo_pessoa"
                     />
@@ -31,23 +33,23 @@
                     <div class="text-red-500" v-if="form.errors.nome_completo">{{ form.errors.nome_completo }}</div>
                 </div>
 
-                <div>
+                <div v-if="form.tipo_pessoa != 'prefeitura'">
                     <FloatLabel variant="in">
                         <InputMask
                             id="cpf_cnpj"
                             class="w-full"
                             v-model="form.cpf_cnpj"
-                            :mask="form.tipo_pessoa == 'Jurídica' ? '99.999.999/9999-99' : '999.999.999.99'"
+                            :mask="form.tipo_pessoa == 'pj' ? '99.999.999/9999-99' : '999.999.999.99'"
                             variant="filled"
                             :auto-clear="false"
                             :invalid="!!form.errors?.cpf_cnpj"
                         />
-                        <label for="cpf_cnpj">{{ form.tipo_pessoa == "Jurídica" ? "CNPJ" : "CPF" }}</label>
+                        <label for="cpf_cnpj">{{ form.tipo_pessoa == "pj" ? "CNPJ" : "CPF" }}</label>
                     </FloatLabel>
                     <div class="text-red-500" v-if="form.errors.cpf_cnpj">{{ form.errors.cpf_cnpj }}</div>
                 </div>
 
-                <div>
+                <div v-if="form.tipo_pessoa != 'prefeitura'">
                     <FloatLabel variant="in">
                         <InputText
                             id="rg"
@@ -90,6 +92,12 @@ const titulo = props.updating ? "Editar contratante" : "Novo contratante";
 
 const modalRef = ref(null);
 const salvando = ref(false);
+
+const tipoPessoaOptions = [
+    { value: "pf", label: "Física" },
+    { value: "pj", label: "Jurídica" },
+    { value: "prefeitura", label: "Prefeitura" },
+];
 
 const form = useForm({
     tipo_pessoa: props.contratante?.tipo_pessoa ?? "",
