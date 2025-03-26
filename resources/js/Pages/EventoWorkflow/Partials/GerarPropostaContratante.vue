@@ -7,8 +7,8 @@
         <Stepper value="1">
             <StepList>
                 <Step value="1">Informações do evento</Step>
-                <Step value="2">Contratante</Step>
-                <Step value="3">Representante legal</Step>
+                <Step value="2" v-if="evento.contratante?.tipo_pessoa != 'prefeitura'">Contratante</Step>
+                <Step value="3" v-if="evento.contratante?.tipo_pessoa != 'prefeitura'">Representante legal</Step>
             </StepList>
             <StepPanels>
                 <StepPanel v-slot="{ activateCallback }" value="1">
@@ -81,10 +81,20 @@
 
                     <div class="flex justify-end pt-6">
                         <Button
+                            v-if="evento.contratante?.tipo_pessoa != 'prefeitura'"
                             label="Próximo"
                             icon="mdi mdi-arrow-right"
                             iconPos="right"
                             @click="activateCallback('2')"
+                        />
+
+                        <Button
+                            v-else
+                            class="mt-2"
+                            label="Gerar proposta"
+                            icon="mdi mdi-send"
+                            type="submit"
+                            :loading="form.processing"
                         />
                     </div>
                 </StepPanel>

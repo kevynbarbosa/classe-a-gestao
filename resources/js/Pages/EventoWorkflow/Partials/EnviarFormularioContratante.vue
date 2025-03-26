@@ -13,6 +13,12 @@
         </div>
     </form>
 
+    <!-- <form autocomplete="off" @submit.prevent="confirmarEnvio">
+        <div class="w-full text-center">
+            <Button class="mt-2" label="Preenchimento interno" icon="mdi mdi-pencil" severity="info" type="submit" />
+        </div>
+    </form> -->
+
     <!-- Modal de confirmação -->
     <Modal ref="modalRef" name="confirmar-envio" max-width="sm">
         <TituloCard titulo="Enviar link para o contratante"></TituloCard>
