@@ -14,6 +14,7 @@ use App\Models\Artista;
 use App\Models\Cidade;
 use App\Models\Contratante;
 use App\Models\Vendedor;
+use App\Services\CidadeService;
 use App\Services\EventoHistoricoService;
 use App\Services\GeracaoModeloService;
 use Illuminate\Support\Facades\DB;

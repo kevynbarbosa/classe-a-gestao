@@ -9,6 +9,7 @@ use App\Models\Cidade;
 use App\Models\Contratante;
 use App\Models\Evento;
 use App\Models\Vendedor;
+use App\Services\CidadeService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
