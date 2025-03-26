@@ -49,7 +49,7 @@
                     <div class="text-red-500" v-if="form.errors.cpf_cnpj">{{ form.errors.cpf_cnpj }}</div>
                 </div>
 
-                <div v-if="form.tipo_pessoa != 'prefeitura'">
+                <div v-if="form.tipo_pessoa == 'pf'">
                     <FloatLabel variant="in">
                         <InputText
                             id="rg"

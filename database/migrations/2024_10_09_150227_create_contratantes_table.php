@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('contratantes', function (Blueprint $table) {
             $table->id();
             $table->string('tipo_pessoa');
-            $table->string('cpf_cnpj');
+            $table->string('cpf_cnpj')->nullable();
             $table->string('rg')->nullable();
             $table->string('nome_completo');
             $table->string('telefone')->nullable();
