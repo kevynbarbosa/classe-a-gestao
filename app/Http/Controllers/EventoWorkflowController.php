@@ -45,6 +45,7 @@ class EventoWorkflowController extends Controller
 
             $evento->email_formulario = $validatedData['email_contratante'];
             $evento->token_formulario = Str::uuid();
+            // TODO: Correto seria enviar o email em uma fila
             try {
                 Mail::to($validatedData['email_contratante'])->send(new FormularioContratanteMail($evento, $request->nome));
             } catch (\Throwable $th) {
@@ -211,6 +212,7 @@ class EventoWorkflowController extends Controller
 
     public function enviarPropostaEmail(Evento $evento)
     {
+        // TODO: Correto seria enviar o email em uma fila
         Mail::to($evento->email_formulario)->send(new PropostaContratanteMail($evento));
 
         EventoHistoricoService::gerarHistorico($evento, EventoStatusEnum::PENDENTE_NF);
