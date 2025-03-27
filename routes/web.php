@@ -76,8 +76,11 @@ Route::controller(EventoWorkflowController::class)->name('evento-workflow.')->gr
         Route::post('evento-workflow/{evento}/enviar-proposta-email', 'enviarPropostaEmail')->name('enviar-proposta-email');
     });
     Route::get('contratante-formulario/{evento:token_formulario}', 'showFormulario')->name('contratante-formulario');
+    Route::get('contratante-formulario', 'showFormularioAberto')->name('contratante-formulario-aberto');
     Route::post('contratante-formulario/{evento:token_formulario}/salvar-formulario', 'salvarFormulario')->name('salvar-contratante-formulario');
+    Route::post('contratante-formulario/salvar-formulario-aberto', 'salvarFormularioAberto')->name('salvar-contratante-formulario-aberto');
 });
+
 
 Route::controller(DownloadModelosController::class)->name('download-modelo.')->group(function () {
     Route::middleware(['auth'])->group(function () {

@@ -51,6 +51,19 @@
                 v-bind="$attrs"
             />
 
+            <DatePicker
+                v-else-if="props.datepicker"
+                :id="field"
+                class="w-full"
+                size="small"
+                v-model="model[field]"
+                variant="filled"
+                show-time
+                hourFormat="24"
+                :stepMinute="5"
+                v-bind="$attrs"
+            />
+
             <InputText
                 v-else
                 :id="field"
@@ -101,6 +114,10 @@ const props = defineProps({
         default: false,
     },
     currency: {
+        type: Boolean,
+        default: false,
+    },
+    datepicker: {
         type: Boolean,
         default: false,
     },

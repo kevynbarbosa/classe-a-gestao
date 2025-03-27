@@ -15,8 +15,10 @@ use App\Models\Cidade;
 use App\Models\Contratante;
 use App\Models\Vendedor;
 use App\Services\CidadeService;
+use App\Services\ContratanteService;
 use App\Services\EventoHistoricoService;
 use App\Services\GeracaoModeloService;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
@@ -78,7 +80,64 @@ class EventoWorkflowController extends Controller
             ]);
         }
 
-        return Inertia::render('EventoWorkflow/FormularioConcluido',);
+        return Inertia::render('EventoWorkflow/FormularioConcluido');
+    }
+
+    public function showFormularioAberto(Evento $evento)
+    {
+        return Inertia::render('EventoWorkflow/FormularioAberto', [
+            'cidades' => CidadeService::cacheCidades(),
+        ]);
+    }
+
+    public function salvarFormularioAberto(Request $request, Evento $evento, ContratanteService $contratanteService)
+    {
+        $validatedData = $request->validate([
+            'tipo_pessoa' => ['required'],
+            'artista_pretendido' => ['required'],
+            'valor_combinado' => ['required'],
+            'evento_cidade_id' => ['required'],
+            'evento_recinto' => ['required'],
+            'evento_duracao' => ['required'],
+            'evento_data_hora' => ['required'],
+
+            'nome_completo' => [Rule::requiredIf($request->tipo_pessoa != 'prefeitura')],
+            'cpf_cnpj' => [Rule::requiredIf($request->tipo_pessoa != 'prefeitura')],
+            'cep' => [Rule::requiredIf($request->tipo_pessoa != 'prefeitura')],
+            'endereco' => [Rule::requiredIf($request->tipo_pessoa != 'prefeitura')],
+            'numero' => [Rule::requiredIf($request->tipo_pessoa != 'prefeitura')],
+            'complemento' => [Rule::requiredIf($request->tipo_pessoa != 'prefeitura')],
+            'bairro' => [Rule::requiredIf($request->tipo_pessoa != 'prefeitura')],
+            'cidade_id' => [Rule::requiredIf($request->tipo_pessoa != 'prefeitura')],
+            'representante_legal_nome' => [Rule::requiredIf($request->tipo_pessoa != 'prefeitura')],
+            'representante_legal_cpf' => [Rule::requiredIf($request->tipo_pessoa != 'prefeitura')],
+            'representante_legal_rg' => [Rule::requiredIf($request->tipo_pessoa != 'prefeitura')],
+            'representante_legal_cep' => [Rule::requiredIf($request->tipo_pessoa != 'prefeitura')],
+            'representante_legal_endereco' => [Rule::requiredIf($request->tipo_pessoa != 'prefeitura')],
+            'representante_legal_numero' => [Rule::requiredIf($request->tipo_pessoa != 'prefeitura')],
+            'representante_legal_complemento' => ['nullable'],
+            'representante_legal_bairro' => [Rule::requiredIf($request->tipo_pessoa != 'prefeitura')],
+            'representante_legal_cidade_id' => [Rule::requiredIf($request->tipo_pessoa != 'prefeitura')],
+            'representante_legal_telefone' => [Rule::requiredIf($request->tipo_pessoa != 'prefeitura')],
+            'observacoes' => ['nullable'],
+        ]);
+
+        $contratante = $contratanteService->obterOuCriarContratante($request);
+
+        $evento = new Evento;
+        $evento->contratante_id = $contratante->id;
+        $evento->valor = $validatedData['valor_combinado'];
+        $evento->cidade_id = $validatedData['evento_cidade_id'];
+        $evento->recinto = $validatedData['evento_recinto'];
+        $evento->artista_pretendido = $validatedData['artista_pretendido'];
+        $evento->data_hora = $validatedData['evento_data_hora'] ? Carbon::parse($validatedData['evento_data_hora']) : null;
+        $evento->duracao = $validatedData['evento_duracao'];
+        $evento->observacoes_contratante = $validatedData['observacoes'];
+        $evento->save();
+
+        EventoHistoricoService::gerarHistorico($evento, EventoStatusEnum::PENDENTE_PROPOSTA);
+
+        return Inertia::render('EventoWorkflow/FormularioConcluido');
     }
 
     public function salvarFormulario(Request $request, Evento $evento)

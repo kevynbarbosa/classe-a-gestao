@@ -8,7 +8,7 @@
     <div class="card mx-auto mt-4 max-w-2xl">
         <TituloCard titulo="Olá, bem vindo ao cadastro de contratantes"></TituloCard>
 
-        <p>Este formulário já foi respondido ou expirado.</p>
+        <p>Obrigado por preencher as informações, em breve entraremos em contato.</p>
     </div>
 </template>
 
