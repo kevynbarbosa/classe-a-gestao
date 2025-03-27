@@ -19,17 +19,17 @@ class GeracaoModeloService
 
         // Substituir os tokens no arquivo Word
         foreach ($dados as $token => $valor) {
-            $templateProcessor->setValue($token, $valor);
+            $templateProcessor->setValue($token, htmlspecialchars($valor, ENT_QUOTES, 'UTF-8'));
         }
 
-        if ($this->evento->artista->logo_path) {
-            $templateProcessor->setImageValue('IMAGEM', [
-                'path' => $this->evento->artista->logo_path, // Caminho da imagem
-                // 'width' => 200, // Largura em pixels
-                // 'height' => 150, // Altura em pixels
-                // 'ratio' => true // Mantém a proporção da imagem
-            ]);
-        }
+        // if ($this->evento->artista->logo_path) {
+        //     $templateProcessor->setImageValue('IMAGEM', [
+        //         'path' => $this->evento->artista->logo_path, // Caminho da imagem
+        //         // 'width' => 200, // Largura em pixels
+        //         // 'height' => 150, // Altura em pixels
+        //         // 'ratio' => true // Mantém a proporção da imagem
+        //     ]);
+        // }
 
         // Salvar o arquivo Word com os dados substituídos
         $templateProcessor->saveAs($pathDocx);
@@ -61,7 +61,7 @@ class GeracaoModeloService
         $result = null;
         $output = null;
         exec("libreoffice --headless --invisible --norestore --convert-to pdf $pathDocx --outdir $outputDir", $output, $result);
-        // dd($output, $result);
+        // dd($output, $result, $pathDocx, $outputDir, "libreoffice --headless --invisible --norestore --convert-to pdf $pathDocx --outdir $outputDir");
 
         if ($result !== 0) {
             throw new \Exception("Erro ao converter o arquivo Word para PDF.");
@@ -106,6 +106,8 @@ class GeracaoModeloService
             'RATEIO_4' => $this->evento->valor * 0.06,
             'RATEIO_5' => $this->evento->valor * 0.058,
         ];
+
+        // dd($dados);
 
         foreach ($dados as $key => $value) {
             if (is_null($value)) {
