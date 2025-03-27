@@ -100,11 +100,11 @@ class GeracaoModeloService
             'EVENTO_VALOR_EXTENSO' => MonetaryService::numberToExt($this->evento->valor),
             'PROPOSTA_DATA_GERACAO' => date('d/m/Y'),
 
-            'RATEIO_1' => $this->evento->valor * 0.422,
-            'RATEIO_2' => $this->evento->valor * 0.15,
-            'RATEIO_3' => $this->evento->valor * 0.2,
-            'RATEIO_4' => $this->evento->valor * 0.06,
-            'RATEIO_5' => $this->evento->valor * 0.058,
+            'RATEIO_1' => MonetaryService::formatMoney($this->evento->valor * 0.422),
+            'RATEIO_2' => MonetaryService::formatMoney($this->evento->valor * 0.15),
+            'RATEIO_3' => MonetaryService::formatMoney($this->evento->valor * 0.2),
+            'RATEIO_4' => MonetaryService::formatMoney($this->evento->valor * 0.06),
+            'RATEIO_5' => MonetaryService::formatMoney($this->evento->valor * 0.058),
         ];
 
         // dd($dados);

@@ -113,4 +113,9 @@ class MonetaryService
 
         return $value ?? "";
     }
+
+    public static function formatMoney($value)
+    {
+        return number_format($value, 2, ',', '.');
+    }
 }
