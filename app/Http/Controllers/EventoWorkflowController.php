@@ -67,22 +67,6 @@ class EventoWorkflowController extends Controller
         return back();
     }
 
-    public function showFormulario(Evento $evento)
-    {
-        if ($evento->status == EventoStatusEnum::FORMULARIO_ENVIADO) {
-            $evento->formulario_acessado = true;
-            $evento->save();
-
-            return Inertia::render('EventoWorkflow/Formulario', [
-                'evento' => $evento,
-                'cidades' => CidadeService::cacheCidades(),
-                'contratante' => $evento->contratante
-            ]);
-        }
-
-        return Inertia::render('EventoWorkflow/FormularioConcluido');
-    }
-
     public function showFormularioAberto(Evento $evento)
     {
         return Inertia::render('EventoWorkflow/FormularioAberto', [
@@ -140,66 +124,6 @@ class EventoWorkflowController extends Controller
         return Inertia::render('EventoWorkflow/FormularioConcluido');
     }
 
-    public function salvarFormulario(Request $request, Evento $evento)
-    {
-        $validatedData = $request->validate([
-            'artista_pretendido' => ['required'],
-            'valor_combinado' => ['required'],
-            'evento_cidade_id' => ['required'],
-            'evento_recinto' => ['required'],
-            'evento_duracao' => ['required'],
-
-            'nome_completo' => [Rule::requiredIf($evento->contratante->tipo_pessoa != 'prefeitura')],
-            'cpf_cnpj' => [Rule::requiredIf($evento->contratante->tipo_pessoa != 'prefeitura')],
-            'cep' => [Rule::requiredIf($evento->contratante->tipo_pessoa != 'prefeitura')],
-            'endereco' => [Rule::requiredIf($evento->contratante->tipo_pessoa != 'prefeitura')],
-            'numero' => [Rule::requiredIf($evento->contratante->tipo_pessoa != 'prefeitura')],
-            'complemento' => [Rule::requiredIf($evento->contratante->tipo_pessoa != 'prefeitura')],
-            'bairro' => [Rule::requiredIf($evento->contratante->tipo_pessoa != 'prefeitura')],
-            'cidade_id' => [Rule::requiredIf($evento->contratante->tipo_pessoa != 'prefeitura')],
-            'representante_legal_nome' => [Rule::requiredIf($evento->contratante->tipo_pessoa != 'prefeitura')],
-            'representante_legal_cpf' => [Rule::requiredIf($evento->contratante->tipo_pessoa != 'prefeitura')],
-            'representante_legal_rg' => [Rule::requiredIf($evento->contratante->tipo_pessoa != 'prefeitura')],
-            'representante_legal_cep' => [Rule::requiredIf($evento->contratante->tipo_pessoa != 'prefeitura')],
-            'representante_legal_endereco' => [Rule::requiredIf($evento->contratante->tipo_pessoa != 'prefeitura')],
-            'representante_legal_numero' => [Rule::requiredIf($evento->contratante->tipo_pessoa != 'prefeitura')],
-            'representante_legal_complemento' => ['nullable'],
-            'representante_legal_bairro' => [Rule::requiredIf($evento->contratante->tipo_pessoa != 'prefeitura')],
-            'representante_legal_cidade_id' => [Rule::requiredIf($evento->contratante->tipo_pessoa != 'prefeitura')],
-            'representante_legal_telefone' => [Rule::requiredIf($evento->contratante->tipo_pessoa != 'prefeitura')],
-            'observacoes' => ['nullable'],
-        ]);
-
-        $contratante = Contratante::where('cpf_cnpj', $request->cpf_cnpj)->first();
-
-        $contratanteFields = ['artista_pretendido', 'valor_combinado', 'evento_cidade_id', 'evento_recinto', 'evento_duracao', 'observacoes'];
-        if ($contratante) {
-            $contratante->update($request->except($contratanteFields));
-        } else {
-            $data = $request->except($contratanteFields);
-            $data['tipo_pessoa'] = $data['cpf_cnpj'] > 11 ? 'pj' : 'pf';
-            $contratante = Contratante::create($data);
-        }
-
-        if (empty($contratante)) throw new \Exception('Erro ao salvar contratante');
-
-        $evento->contratante_id = $contratante->id;
-        $evento->valor = $validatedData['valor_combinado'];
-        $evento->cidade_id = $validatedData['evento_cidade_id'];
-        $evento->recinto = $validatedData['evento_recinto'];
-        $evento->artista_pretendido = $validatedData['artista_pretendido'];
-        $evento->duracao = $validatedData['evento_duracao'];
-        $evento->observacoes_contratante = $validatedData['observacoes'];
-        $evento->save();
-
-        if (!$evento->status == EventoStatusEnum::FORMULARIO_ENVIADO) {
-            return 'expirado';
-        };
-
-        EventoHistoricoService::gerarHistorico($evento, EventoStatusEnum::PENDENTE_PROPOSTA);
-
-        return back();
-    }
 
     public function gerarProposta(Request $request, Evento $evento)
     {

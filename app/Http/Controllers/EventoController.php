@@ -10,6 +10,7 @@ use App\Models\Contratante;
 use App\Models\Evento;
 use App\Models\Vendedor;
 use App\Services\CidadeService;
+use App\Services\EventoHistoricoService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -66,6 +67,8 @@ class EventoController extends Controller
         }
 
         $evento = Evento::create($validatedData);
+
+        EventoHistoricoService::gerarHistorico($evento, EventoStatusEnum::PENDENTE_PROPOSTA);
 
         return to_route('evento-workflow.show', ['evento' => $evento->id]);
     }
