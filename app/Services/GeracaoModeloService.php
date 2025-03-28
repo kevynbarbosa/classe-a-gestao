@@ -94,7 +94,7 @@ class GeracaoModeloService
             'ARTISTA_REPRESENTANTE_LEGAL_RG' => $artista->representante_legal_rg,
             'EVENTO_CIDADE' => $this->evento->cidade->nome,
             'EVENTO_DURACAO' => $this->evento->duracao,
-            'EVENTO_DATA' => Carbon::parse($this->evento->data_hora)->format('d/m/Y H:i'),
+            'EVENTO_DATA' => Carbon::parse($this->evento->data_hora)->format('d/m/Y'),
             'EVENTO_RECINTO' => $this->evento->recinto,
             'EVENTO_VALOR' => number_format($this->evento->valor, 2, ',', '.'),
             'EVENTO_VALOR_EXTENSO' => MonetaryService::numberToExt($this->evento->valor),
@@ -105,6 +105,8 @@ class GeracaoModeloService
             'RATEIO_3' => MonetaryService::formatMoney($this->evento->valor * 0.2),
             'RATEIO_4' => MonetaryService::formatMoney($this->evento->valor * 0.06),
             'RATEIO_5' => MonetaryService::formatMoney($this->evento->valor * 0.058),
+
+            'TRATAMENTO_DECLARACAO' => 'Aos cuidados de ' . $this->evento->contratante->nome_completo,
         ];
 
         // dd($dados);

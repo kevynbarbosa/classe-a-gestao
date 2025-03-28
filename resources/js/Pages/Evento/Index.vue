@@ -63,7 +63,7 @@
                                 @click="router.visit(`/evento-workflow/${data.id}`)"
                             />
 
-                            <Button
+                            <!-- <Button
                                 icon="mdi mdi-dots-vertical"
                                 size="small"
                                 severity="secondary"
@@ -71,7 +71,7 @@
                                 aria-controls="overlay_menu"
                                 @click="abrirMenu($event, data)"
                                 :loading="loadingMenu"
-                            />
+                            /> -->
                         </div>
                     </template>
                 </Column>

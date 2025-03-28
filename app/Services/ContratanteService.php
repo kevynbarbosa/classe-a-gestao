@@ -45,7 +45,7 @@ class ContratanteService
 
         if ($request->tipo_pessoa == 'prefeitura') {
             $cidade = Cidade::find($request->evento_cidade_id);
-            $data['nome_completo'] = 'Prefeitura de ' . $cidade->nome . '/' . $cidade->uf_codigo;
+            $data['nome_completo'] = 'Prefeitura municipal de ' . $cidade->nome . '/' . $cidade->uf_codigo;
             $data['cidade_id'] = $request->evento_cidade_id;
         }
 
