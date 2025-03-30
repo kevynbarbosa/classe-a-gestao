@@ -206,6 +206,82 @@
                         {{ form.errors.representante_legal_email }}
                     </div>
                 </div>
+
+                <FieldWrap
+                    v-model="form"
+                    label="Telefone"
+                    field="representante_legal_telefone"
+                    :error="form.errors.representante_legal_telefone"
+                    phone
+                />
+
+                <FieldWrap
+                    v-model="form"
+                    label="Endereço"
+                    field="representante_legal_endereco"
+                    :error="form.errors.representante_legal_endereco"
+                />
+
+                <FieldWrap
+                    v-model="form"
+                    label="Número"
+                    field="representante_legal_numero"
+                    :error="form.errors.representante_legal_numero"
+                />
+
+                <FieldWrap
+                    v-model="form"
+                    label="Complemento"
+                    field="representante_legal_complemento"
+                    :error="form.errors.representante_legal_complemento"
+                />
+
+                <FieldWrap
+                    v-model="form"
+                    label="CEP"
+                    field="representante_legal_cep"
+                    :error="form.errors.representante_legal_cep"
+                    cep
+                />
+
+                <FieldWrap
+                    v-model="form"
+                    label="Cidade"
+                    field="representante_legal_cidade_id"
+                    :error="form.errors.representante_legal_cidade_id"
+                    city
+                    :cidades="cidades"
+                />
+
+                <FieldWrap
+                    v-model="form"
+                    label="Estado civil"
+                    field="representante_legal_estado_civil"
+                    :error="form.errors.representante_legal_estado_civil"
+                    select
+                    :options="[
+                        { label: 'Solteiro(a)', value: 'solteiro' },
+                        { label: 'Casado(a)', value: 'casado' },
+                        { label: 'Divorciado(a)', value: 'divorciado' },
+                        { label: 'Viúvo(a)', value: 'viuvo' },
+                    ]"
+                    option-value="value"
+                    option-label="label"
+                />
+
+                <FieldWrap
+                    v-model="form"
+                    label="Sexo"
+                    field="representante_legal_sexo"
+                    :error="form.errors.representante_legal_sexo"
+                    select
+                    :options="[
+                        { label: 'Masculino', value: 'M' },
+                        { label: 'Feminino', value: 'F' },
+                    ]"
+                    option-value="value"
+                    option-label="label"
+                />
             </div>
 
             <div class="my-2 pl-2 text-center font-bold">Cor exibida na documentação (quando aplicável)</div>
@@ -274,8 +350,18 @@ const form = useForm({
     representante_legal_cpf: props.artista?.representante_legal_cpf ?? null,
     representante_legal_rg: props.artista?.representante_legal_rg ?? null,
     representante_legal_email: props.artista?.representante_legal_email ?? null,
+    representante_legal_sexo: props.artista?.representante_legal_sexo ?? null,
+    representante_legal_estado_civil: props.artista?.representante_legal_estado_civil ?? null,
     color: props.artista?.color ?? null,
     logo_path: null,
+
+    representante_legal_endereco: props.artista?.representante_legal_endereco ?? null,
+    representante_legal_numero: props.artista?.representante_legal_numero ?? null,
+    representante_legal_complemento: props.artista?.representante_legal_complemento ?? null,
+    representante_legal_cep: props.artista?.representante_legal_cep ?? null,
+    representante_legal_cidade_id: props.artista?.representante_legal_cidade_id ?? null,
+    representante_legal_telefone: props.artista?.representante_legal_telefone ?? null,
+
     _method: props.updating ? "put" : "post",
 });
 

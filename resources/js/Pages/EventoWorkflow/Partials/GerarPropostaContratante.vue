@@ -173,6 +173,36 @@
                             city
                             :cidades="cidades"
                         />
+
+                        <FieldWrap
+                            v-model="form"
+                            label="Estado civil"
+                            field="representante_legal_estado_civil"
+                            :error="form.errors.representante_legal_estado_civil"
+                            select
+                            :options="[
+                                { label: 'Solteiro(a)', value: 'solteiro' },
+                                { label: 'Casado(a)', value: 'casado' },
+                                { label: 'Divorciado(a)', value: 'divorciado' },
+                                { label: 'Viúvo(a)', value: 'viuvo' },
+                            ]"
+                            option-value="value"
+                            option-label="label"
+                        />
+
+                        <FieldWrap
+                            v-model="form"
+                            label="Sexo"
+                            field="representante_legal_sexo"
+                            :error="form.errors.representante_legal_sexo"
+                            select
+                            :options="[
+                                { label: 'Masculino', value: 'M' },
+                                { label: 'Feminino', value: 'F' },
+                            ]"
+                            option-value="value"
+                            option-label="label"
+                        />
                     </div>
 
                     <div class="flex justify-between pt-6">
@@ -239,6 +269,8 @@ const form = useForm("GerarContratoFormulario", {
     representante_legal_bairro: props.evento.contratante?.representante_legal_bairro ?? null,
     representante_legal_cidade_id: props.evento.contratante?.representante_legal_cidade_id ?? null,
     representante_legal_telefone: props.evento.contratante?.representante_legal_telefone ?? null,
+    representante_legal_estado_civil: props.evento.contratante?.representante_legal_estado_civil ?? null,
+    representante_legal_sexo: props.evento.contratante?.representante_legal_sexo ?? null,
 });
 
 function gerarPropostaContratante() {

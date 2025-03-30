@@ -49,6 +49,14 @@ class ArtistaController extends Controller
             'representante_legal_cpf' => ['required'],
             'representante_legal_rg' => ['required'],
             'representante_legal_email' => ['required'],
+            'representante_legal_endereco' => ['required'],
+            'representante_legal_numero' => ['required'],
+            'representante_legal_complemento' => ['required'],
+            'representante_legal_cep' => ['required'],
+            'representante_legal_cidade_id' => ['required'],
+            'representante_legal_telefone' => ['required'],
+            'representante_legal_estado_civil' => ['required'],
+            'representante_legal_sexo' => ['required'],
             'logo_path' => ['required', 'image']
         ]);
 
@@ -96,6 +104,12 @@ class ArtistaController extends Controller
             'representante_legal_cpf' => ['required'],
             'representante_legal_rg' => ['required'],
             'representante_legal_email' => ['required'],
+            'representante_legal_endereco' => ['required'],
+            'representante_legal_numero' => ['required'],
+            'representante_legal_complemento' => ['required'],
+            'representante_legal_cep' => ['required'],
+            'representante_legal_cidade_id' => ['required'],
+            'representante_legal_telefone' => ['required'],
             'logo_path' => ['nullable', 'image']
         ]);
 

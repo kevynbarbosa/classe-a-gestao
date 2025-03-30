@@ -10,7 +10,12 @@ use PhpOffice\PhpWord\TemplateProcessor;
 class GeracaoModeloService
 {
 
-    public function __construct(public Evento $evento) {}
+    private array $dados;
+
+    public function __construct(public Evento $evento)
+    {
+        $this->dados = $this->getDados();
+    }
 
     function substituirTokensNoDocx($modeloDocx, $dados, $pathDocx)
     {
@@ -71,53 +76,13 @@ class GeracaoModeloService
 
     function gerarProposta()
     {
-        $artista = $this->evento->artista;
-
         $modeloDocx = resource_path('modelos_proposta/MODELO_PROPOSTA.docx');
         $pathDocx = storage_path('app/public/eventos/' . $this->evento->id . '/proposta.docx');
 
-        $dados = [
-            'CONTRATANTE_NOME' => $this->evento->contratante->nome_completo,
-            'ARTISTA_NOME' => $artista->nome,
-            'ARTISTA_RAZAO_SOCIAL' => $artista->razao_social,
-            'ARTISTA_CNPJ' => $artista->cnpj,
-            'ARTISTA_ENDERECO' => $artista->endereco,
-            'ARTISTA_NUMERO' => $artista->numero,
-            'ARTISTA_COMPLEMENTO' => $artista->complemento,
-            'ARTISTA_BAIRRO' => $artista->bairro,
-            'ARTISTA_CIDADE' => $artista->cidade->nome,
-            'ARTISTA_CEP' => $artista->cep,
-            'ARTISTA_TELEFONE' => $artista->telefone,
-            'ARTISTA_EMAIL' => $artista->email,
-            'ARTISTA_REPRESENTANTE_LEGAL_NOME' => $artista->representante_legal_nome,
-            'ARTISTA_REPRESENTANTE_LEGAL_CPF' => $artista->representante_legal_cpf,
-            'ARTISTA_REPRESENTANTE_LEGAL_RG' => $artista->representante_legal_rg,
-            'EVENTO_CIDADE' => $this->evento->cidade->nome,
-            'EVENTO_DURACAO' => $this->evento->duracao,
-            'EVENTO_DATA' => Carbon::parse($this->evento->data_hora)->format('d/m/Y'),
-            'EVENTO_RECINTO' => $this->evento->recinto,
-            'EVENTO_VALOR' => number_format($this->evento->valor, 2, ',', '.'),
-            'EVENTO_VALOR_EXTENSO' => MonetaryService::numberToExt($this->evento->valor),
-            'PROPOSTA_DATA_GERACAO' => date('d/m/Y'),
-
-            'RATEIO_1' => MonetaryService::formatMoney($this->evento->valor * 0.422),
-            'RATEIO_2' => MonetaryService::formatMoney($this->evento->valor * 0.15),
-            'RATEIO_3' => MonetaryService::formatMoney($this->evento->valor * 0.2),
-            'RATEIO_4' => MonetaryService::formatMoney($this->evento->valor * 0.06),
-            'RATEIO_5' => MonetaryService::formatMoney($this->evento->valor * 0.058),
-
-            'TRATAMENTO_DECLARACAO' => 'Aos cuidados de ' . $this->evento->contratante->nome_completo,
-        ];
-
-        // dd($dados);
-
-        foreach ($dados as $key => $value) {
-            if (is_null($value)) {
-                throw new \Exception("O valor para o token '$key' n o pode ser nulo.");
-            }
-        }
+        $dados = $this->getDados();
 
         Storage::makeDirectory('public/eventos/' . $this->evento->id);
+
         // Proposta
         $this->substituirTokensNoDocx($modeloDocx, $dados, $pathDocx);
         $this->alterarCores($pathDocx);
@@ -130,5 +95,94 @@ class GeracaoModeloService
         // Declarações econômicas
         $this->substituirTokensNoDocx(resource_path('modelos_proposta/DECLARACOES_ECONOMICAS.docx'), $dados, storage_path('app/public/eventos/' . $this->evento->id . '/declaracoes_economicas.docx'));
         $this->converteEmPdf(storage_path('app/public/eventos/' . $this->evento->id . '/declaracoes_economicas.docx'), storage_path('app/public/eventos/' . $this->evento->id));
+
+        // Contrato
+        $this->substituirTokensNoDocx(resource_path('modelos_proposta/CONTRATO.docx'), $dados, storage_path('app/public/eventos/' . $this->evento->id . '/contrato.docx'));
+        $this->converteEmPdf(storage_path('app/public/eventos/' . $this->evento->id . '/contrato.docx'), storage_path('app/public/eventos/' . $this->evento->id));
+    }
+
+    private function getDados()
+    {
+        $artista = $this->evento->artista;
+        $contratante = $this->evento->contratante;
+
+        $dados = [
+            'CONTRATANTE_NOME' => $this->evento->contratante->nome_completo,
+            'CONTRATANTE_CNPJ' => $contratante->cpf_cnpj,
+            'CONTRATANTE_ENDERECO' => $contratante->endereco,
+            'CONTRATANTE_NUMERO' => $contratante->numero,
+            'CONTRATANTE_COMPLEMENTO' => $contratante->complemento,
+            'CONTRATANTE_BAIRRO' => $contratante->bairro,
+            'CONTRATANTE_CIDADE' => $contratante->cidade->nome,
+            'CONTRATANTE_CEP' => $contratante->cep,
+            'CONTRATANTE_REPRESENTANTE_LEGAL_NOME' => $contratante->representante_legal_nome,
+            'CONTRATANTE_REPRESENTANTE_LEGAL_CPF' => $contratante->representante_legal_cpf,
+            'CONTRATANTE_REPRESENTANTE_LEGAL_RG' => $contratante->representante_legal_rg,
+            'CONTRATANTE_REPRESENTANTE_LEGAL_ENDERECO' => $contratante->representante_legal_endereco,
+            'CONTRATANTE_REPRESENTANTE_LEGAL_NUMERO' => $contratante->representante_legal_numero,
+            'CONTRATANTE_REPRESENTANTE_LEGAL_COMPLEMENTO' => $contratante->representante_legal_complemento,
+            'CONTRATANTE_REPRESENTANTE_LEGAL_CEP' => $contratante->representante_legal_cep,
+            'CONTRATANTE_REPRESENTANTE_LEGAL_CIDADE' => $contratante->representanteLegalCidade->nome,
+            'CONTRATANTE_REPRESENTANTE_LEGAL_ESTADO' => $contratante->representanteLegalCidade->uf_codigo,
+            'CONTRATANTE_REPRESENTANTE_LEGAL_TELEFONE' => $contratante->representante_legal_telefone,
+
+            'ARTISTA_NOME' => $artista->nome,
+            'ARTISTA_RAZAO_SOCIAL' => $artista->razao_social,
+            'ARTISTA_CNPJ' => $artista->cnpj,
+            'ARTISTA_ENDERECO' => $artista->endereco,
+            'ARTISTA_NUMERO' => $artista->numero,
+            'ARTISTA_COMPLEMENTO' => $artista->complemento,
+            'ARTISTA_BAIRRO' => $artista->bairro,
+            'ARTISTA_CIDADE' => $artista->cidade->nome,
+            'ARTISTA_CEP' => $artista->cep,
+            'ARTISTA_TELEFONE' => $artista->telefone,
+            'ARTISTA_EMAIL' => $artista->email,
+            'ARTISTA_REPRESENTANTE_LEGAL_NOME' => $artista->representante_legal_nome,
+            'ARTISTA_REPRESENTANTE_LEGAL_NOME' => $artista->representante_legal_nome,
+            'ARTISTA_REPRESENTANTE_LEGAL_CPF' => $artista->representante_legal_cpf,
+            'ARTISTA_REPRESENTANTE_LEGAL_RG' => $artista->representante_legal_rg,
+            'ARTISTA_REPRESENTANTE_LEGAL_ENDERECO' => $artista->representante_legal_endereco,
+            'ARTISTA_REPRESENTANTE_LEGAL_NUMERO' => $artista->representante_legal_numero,
+            'ARTISTA_REPRESENTANTE_LEGAL_COMPLEMENTO' => $artista->representante_legal_complemento,
+            'ARTISTA_REPRESENTANTE_LEGAL_CEP' => $artista->representante_legal_cep,
+            'ARTISTA_REPRESENTANTE_LEGAL_CIDADE' => $artista->representanteLegalCidade->nome,
+            'ARTISTA_REPRESENTANTE_LEGAL_ESTADO' => $artista->representanteLegalCidade->uf_codigo,
+            'ARTISTA_REPRESENTANTE_LEGAL_TELEFONE' => $artista->representante_legal_telefone,
+
+            'EVENTO_CIDADE' => $this->evento->cidade->nome,
+            'EVENTO_DURACAO' => $this->evento->duracao,
+            'EVENTO_DATA' => Carbon::parse($this->evento->data_hora)->format('d/m/Y'),
+            'EVENTO_RECINTO' => $this->evento->recinto,
+            'EVENTO_VALOR' => number_format($this->evento->valor, 2, ',', '.'),
+            'EVENTO_VALOR_EXTENSO' => MonetaryService::numberToExt($this->evento->valor),
+
+            'PROPOSTA_DATA_GERACAO' => date('d/m/Y'),
+
+            'RATEIO_1' => MonetaryService::formatMoney($this->evento->valor * 0.422),
+            'RATEIO_2' => MonetaryService::formatMoney($this->evento->valor * 0.15),
+            'RATEIO_3' => MonetaryService::formatMoney($this->evento->valor * 0.2),
+            'RATEIO_4' => MonetaryService::formatMoney($this->evento->valor * 0.06),
+            'RATEIO_5' => MonetaryService::formatMoney($this->evento->valor * 0.058),
+
+            'TRATAMENTO_DECLARACAO' => 'Aos cuidados de ' . $this->evento->contratante->nome_completo,
+        ];
+
+        foreach ($dados as $key => $value) {
+            if (is_null($value)) {
+                throw new \Exception("O valor para o token '$key' n o pode ser nulo.");
+            }
+
+            if (strpos($key, "ARTISTA_REPRESENTANTE_LEGAL") !== false) {
+                $novaChave = str_replace("ARTISTA_REPRESENTANTE_LEGAL", "AL", $key);
+                $dados[$novaChave] = $value;
+            }
+
+            if (strpos($key, "CONTRATANTE") !== false) {
+                $novaChave = str_replace("ARTISTA_REPRESENTANTE_LEGAL", "AL", $key);
+                $dados[$novaChave] = $value;
+            }
+        }
+
+        return $dados;
     }
 }

@@ -15,4 +15,9 @@ class Artista extends Model
     {
         return $this->belongsTo(Cidade::class);
     }
+
+    public function representanteLegalCidade()
+    {
+        return $this->hasOne(Cidade::class, 'id', 'representante_legal_cidade_id');
+    }
 }
