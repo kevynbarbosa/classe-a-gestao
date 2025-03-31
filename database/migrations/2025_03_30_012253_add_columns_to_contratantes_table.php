@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('contratantes', function (Blueprint $table) {
+            $table->string('email')->nullable()->after('telefone');
             $table->after('representante_legal_cidade_id', function ($table) {
                 $table->string('representante_legal_sexo')->nullable();
                 $table->string('representante_legal_nacionalidade')->nullable();
@@ -27,9 +28,10 @@ return new class extends Migration
     {
         Schema::table('contratantes', function (Blueprint $table) {
             $table->dropColumn([
+                'email',
                 'representante_legal_sexo',
                 'representante_legal_nacionalidade',
-                'representante_legal_estado_civil'
+                'representante_legal_estado_civil',
             ]);
         });
     }

@@ -110,6 +110,9 @@
                         />
                         <FieldWrap v-model="form" field="cpf_cnpj" label="CNPJ da empresa contratante" cnpj />
 
+                        <FieldWrap v-model="form" field="telefone" label="Telefone" phone />
+                        <FieldWrap v-model="form" field="email" label="E-mail" />
+
                         <FieldWrap v-model="form" field="cep" label="CEP" cep />
                         <FieldWrap v-model="form" field="endereco" label="Endereço" />
                         <FieldWrap v-model="form" field="numero" label="Número" />
@@ -234,15 +237,6 @@ import { useForm } from "@inertiajs/vue3";
 
 const props = defineProps({ evento: Object, cidades: Array, artistas: Array, vendedores: Array });
 
-const variable = ref(null);
-
-// const form = useForm({
-//     nome_completo: props.evento.contratante?.nome_completo ?? null,
-//     cpf_cnpj: props.evento.contratante?.cpf_cnpj ?? null,
-//     rg: props.evento.contratante?.rg ?? null,
-//     atualizar_cadastro: false,
-// });
-
 const form = useForm("GerarContratoFormulario", {
     valor_combinado: props.evento.valor ? Number(props.evento.valor) : null,
     evento_cidade_id: props.evento.cidade_id ?? null,
@@ -252,6 +246,8 @@ const form = useForm("GerarContratoFormulario", {
     evento_duracao: props.evento.duracao ?? null,
     nome_completo: props.evento.contratante?.nome_completo ?? null,
     cpf_cnpj: props.evento.contratante?.cpf_cnpj ?? null,
+    telefone: props.evento.contratante?.telefone ?? null,
+    email: props.evento.contratante?.email ?? null,
     rg: props.evento.contratante?.rg ?? null,
     cep: props.evento.contratante?.cep ?? null,
     endereco: props.evento.contratante?.endereco ?? null,

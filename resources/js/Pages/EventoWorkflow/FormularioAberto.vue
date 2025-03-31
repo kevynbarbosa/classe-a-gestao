@@ -118,6 +118,9 @@
                             />
                             <FieldWrap v-model="form" field="cpf_cnpj" label="CNPJ da empresa contratante" cnpj />
 
+                            <FieldWrap v-model="form" field="telefone" label="Telefone" phone />
+                            <FieldWrap v-model="form" field="email" label="E-mail" />
+
                             <FieldWrap v-model="form" field="cep" label="CEP" cep />
                             <FieldWrap v-model="form" field="endereco" label="Endereço" />
                             <FieldWrap v-model="form" field="numero" label="Número" />
@@ -262,6 +265,8 @@ const form = useForm("EventoWorkflowFormularioContratante", {
     evento_data_hora: null,
     nome_completo: null,
     cpf_cnpj: null,
+    telefone: null,
+    email: null,
     rg: null,
     cep: null,
     endereco: null,
