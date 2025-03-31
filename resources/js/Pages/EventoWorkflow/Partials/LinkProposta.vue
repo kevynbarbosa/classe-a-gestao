@@ -9,7 +9,7 @@
             <Button label="Download PDF" class="mdi mdi-file-pdf-box" icon-class="text-2xl" @click="downloadPdf" />
         </div>
 
-        <div class="mb-2 font-bold">Declarão geradas</div>
+        <div class="mb-2 font-bold">Declaração geradas</div>
         <div class="flex w-full justify-center gap-2">
             <Button
                 label="Download Word"
@@ -25,7 +25,7 @@
             />
         </div>
 
-        <div class="mb-2 font-bold">Declarão econômicas geradas</div>
+        <div class="mb-2 font-bold">Declaração econômicas geradas</div>
         <div class="flex w-full justify-center gap-2">
             <Button
                 label="Download Word"
