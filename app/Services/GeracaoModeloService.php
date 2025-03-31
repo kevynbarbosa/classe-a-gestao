@@ -79,7 +79,8 @@ class GeracaoModeloService
         $modeloDocx = resource_path('modelos_proposta/MODELO_PROPOSTA.docx');
         $pathDocx = storage_path('app/public/eventos/' . $this->evento->id . '/proposta.docx');
 
-        $dados = $this->getDados();
+        $dados = $this->dados;
+        $this->validateDados();
 
         Storage::makeDirectory('public/eventos/' . $this->evento->id);
 
@@ -114,7 +115,9 @@ class GeracaoModeloService
             'CONTRATANTE_COMPLEMENTO' => $contratante->complemento,
             'CONTRATANTE_BAIRRO' => $contratante->bairro,
             'CONTRATANTE_CIDADE' => $contratante->cidade->nome,
+            'CONTRATANTE_ESTADO' => $contratante->cidade->uf_codigo,
             'CONTRATANTE_CEP' => $contratante->cep,
+            'CONTRATANTE_EMAIL' => $contratante->email,
             'CONTRATANTE_REPRESENTANTE_LEGAL_NOME' => $contratante->representante_legal_nome,
             'CONTRATANTE_REPRESENTANTE_LEGAL_CPF' => $contratante->representante_legal_cpf,
             'CONTRATANTE_REPRESENTANTE_LEGAL_RG' => $contratante->representante_legal_rg,
@@ -125,6 +128,10 @@ class GeracaoModeloService
             'CONTRATANTE_REPRESENTANTE_LEGAL_CIDADE' => $contratante->representanteLegalCidade->nome,
             'CONTRATANTE_REPRESENTANTE_LEGAL_ESTADO' => $contratante->representanteLegalCidade->uf_codigo,
             'CONTRATANTE_REPRESENTANTE_LEGAL_TELEFONE' => $contratante->representante_legal_telefone,
+            'CONTRATANTE_REPRESENTANTE_LEGAL_ESTADO_CIVIL' => $artista->representante_legal_estado_civil,
+            'CONTRATANTE_REPRESENTANTE_LEGAL_NACIONALIDADE' => $this->formatarNacionalidade($artista->representante_legal_sexo),
+            'CONTRATANTE_REPRESENTANTE_LEGAL_SEXO' => $artista->representante_legal_sexo,
+
 
             'ARTISTA_NOME' => $artista->nome,
             'ARTISTA_RAZAO_SOCIAL' => $artista->razao_social,
@@ -148,6 +155,9 @@ class GeracaoModeloService
             'ARTISTA_REPRESENTANTE_LEGAL_CIDADE' => $artista->representanteLegalCidade->nome,
             'ARTISTA_REPRESENTANTE_LEGAL_ESTADO' => $artista->representanteLegalCidade->uf_codigo,
             'ARTISTA_REPRESENTANTE_LEGAL_TELEFONE' => $artista->representante_legal_telefone,
+            'ARTISTA_REPRESENTANTE_LEGAL_ESTADO_CIVIL' => $artista->representante_legal_estado_civil,
+            'ARTISTA_REPRESENTANTE_LEGAL_NACIONALIDADE' => $this->formatarNacionalidade($artista->representante_legal_sexo),
+            'ARTISTA_REPRESENTANTE_LEGAL_SEXO' => $artista->representante_legal_sexo,
 
             'EVENTO_CIDADE' => $this->evento->cidade->nome,
             'EVENTO_DURACAO' => $this->evento->duracao,
@@ -168,21 +178,46 @@ class GeracaoModeloService
         ];
 
         foreach ($dados as $key => $value) {
-            if (is_null($value)) {
-                throw new \Exception("O valor para o token '$key' n o pode ser nulo.");
-            }
-
             if (strpos($key, "ARTISTA_REPRESENTANTE_LEGAL") !== false) {
                 $novaChave = str_replace("ARTISTA_REPRESENTANTE_LEGAL", "AL", $key);
                 $dados[$novaChave] = $value;
-            }
-
-            if (strpos($key, "CONTRATANTE") !== false) {
-                $novaChave = str_replace("ARTISTA_REPRESENTANTE_LEGAL", "AL", $key);
+            } else if (strpos($key, "CONTRATANTE_REPRESENTANTE_LEGAL") !== false) {
+                $novaChave = str_replace("CONTRATANTE_REPRESENTANTE_LEGAL", "CL", $key);
+                $dados[$novaChave] = $value;
+            } else if (strpos($key, "CONTRATANTE_") !== false) {
+                $novaChave = str_replace("CONTRATANTE_", "C_", $key);
                 $dados[$novaChave] = $value;
             }
         }
 
+        // dd($dados);
         return $dados;
+    }
+
+    private function validateDados()
+    {
+        $nullables = [
+            'CONTRATANTE_REPRESENTANTE_LEGAL_COMPLEMENTO',
+            'CL_COMPLEMENTO',
+            'ARTISTA_REPRESENTANTE_LEGAL_COMPLEMENTO',
+            'AL_COMPLEMENTO'
+        ];
+
+        foreach ($this->dados as $key => $value) {
+            if (is_null($value) && !in_array($key, $nullables)) {
+                throw new \Exception("O valor para o token '$key' nao pode ser nulo.");
+            }
+        }
+    }
+
+    private function formatarNacionalidade($sexo): string | null
+    {
+        if ($sexo == 'M') {
+            return 'brasileiro';
+        } elseif ($sexo == 'F') {
+            return 'brasileira';
+        } else {
+            return null;
+        }
     }
 }

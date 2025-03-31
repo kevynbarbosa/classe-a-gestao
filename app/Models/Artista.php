@@ -2,9 +2,12 @@
 
 namespace App\Models;
 
+use App\Observers\ArtistaObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+#[ObservedBy([ArtistaObserver::class])]
 class Artista extends Model
 {
     use HasFactory;
