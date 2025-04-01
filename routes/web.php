@@ -81,16 +81,7 @@ Route::controller(EventoWorkflowController::class)->name('evento-workflow.')->gr
 
 
 Route::get('download-modelo/{evento}/{tipo}', [DownloadModelosController::class, 'downloadDocumentoGerado'])->name('download-modelo.gerado');
-// Route::controller(DownloadModelosController::class)->name('download-modelo.')->group(function () {
-//     Route::middleware(['auth'])->group(function () {
-//         Route::get('download-modelo/{evento}/pdf-proposta', 'downloadPdfProposta')->name('pdf-proposta');
-//         Route::get('download-modelo/{evento}/word-proposta', 'downloadWordProposta')->name('word-proposta');
-//         Route::get('download-modelo/{evento}/pdf-declaracao', 'downloadPdfDeclaracao')->name('pdf-declaracao');
-//         Route::get('download-modelo/{evento}/word-declaracao', 'downloadWordDeclaracao')->name('word-declaracao');
-//         Route::get('download-modelo/{evento}/pdf-declaracao-economica', 'downloadPdfDeclaracaoEconomica')->name('pdf-declaracao-economica');
-//         Route::get('download-modelo/{evento}/word-declaracao-economica', 'downloadWordDeclaracaoEconomica')->name('word-declaracao-economica');
-//     });
-// });
+
 
 
 require __DIR__ . '/auth.php';
