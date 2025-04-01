@@ -35,6 +35,7 @@
         />
 
         <DownloadModelo
+            v-if="evento.contratante.tipo_pessoa != 'prefeitura'"
             label="Contrato"
             :docxLink="
                 route('download-modelo.gerado', { evento: props.evento.id, tipo: 'contratoDocx' }) + '?' + Date.now()

@@ -131,8 +131,8 @@ class GeracaoModeloService
             'CONTRATANTE_REPRESENTANTE_LEGAL_NUMERO' => $contratante->representante_legal_numero,
             'CONTRATANTE_REPRESENTANTE_LEGAL_COMPLEMENTO' => $contratante->representante_legal_complemento,
             'CONTRATANTE_REPRESENTANTE_LEGAL_CEP' => $contratante->representante_legal_cep,
-            'CONTRATANTE_REPRESENTANTE_LEGAL_CIDADE' => $contratante->representanteLegalCidade->nome,
-            'CONTRATANTE_REPRESENTANTE_LEGAL_ESTADO' => $contratante->representanteLegalCidade->uf_codigo,
+            'CONTRATANTE_REPRESENTANTE_LEGAL_CIDADE' => $contratante->representanteLegalCidade->nome  ?? "",
+            'CONTRATANTE_REPRESENTANTE_LEGAL_ESTADO' => $contratante->representanteLegalCidade->uf_codigo  ?? "",
             'CONTRATANTE_REPRESENTANTE_LEGAL_TELEFONE' => $contratante->representante_legal_telefone,
             'CONTRATANTE_REPRESENTANTE_LEGAL_ESTADO_CIVIL' => $artista->representante_legal_estado_civil,
             'CONTRATANTE_REPRESENTANTE_LEGAL_NACIONALIDADE' => $this->formatarNacionalidade($artista->representante_legal_sexo),
@@ -206,10 +206,43 @@ class GeracaoModeloService
     {
         $nullables = [
             'CONTRATANTE_REPRESENTANTE_LEGAL_COMPLEMENTO',
-            'CL_COMPLEMENTO',
             'ARTISTA_REPRESENTANTE_LEGAL_COMPLEMENTO',
-            'AL_COMPLEMENTO'
         ];
+
+        $contratante = $this->evento->contratante;
+        if ($contratante->tipo_pessoa == 'prefeitura') {
+            $nullables[] = 'CONTRATANTE_CNPJ';
+            $nullables[] = 'CONTRATANTE_ENDERECO';
+            $nullables[] = 'CONTRATANTE_NUMERO';
+            $nullables[] = 'CONTRATANTE_COMPLEMENTO';
+            $nullables[] = 'CONTRATANTE_BAIRRO';
+            $nullables[] = 'CONTRATANTE_CEP';
+            $nullables[] = 'CONTRATANTE_EMAIL';
+            $nullables[] = 'CONTRATANTE_REPRESENTANTE_LEGAL_NUMERO';
+            $nullables[] = 'CONTRATANTE_REPRESENTANTE_LEGAL_CEP';
+            $nullables[] = 'CONTRATANTE_REPRESENTANTE_LEGAL_ENDERECO';
+            $nullables[] = 'CONTRATANTE_REPRESENTANTE_LEGAL_NOME';
+            $nullables[] = 'CONTRATANTE_REPRESENTANTE_LEGAL_CPF';
+            $nullables[] = 'CONTRATANTE_REPRESENTANTE_LEGAL_RG';
+            $nullables[] = 'CONTRATANTE_REPRESENTANTE_LEGAL_CIDADE';
+            $nullables[] = 'CONTRATANTE_REPRESENTANTE_LEGAL_ESTADO';
+            $nullables[] = 'CONTRATANTE_REPRESENTANTE_LEGAL_TELEFONE';
+            $nullables[] = 'CONTRATANTE_REPRESENTANTE_LEGAL_ESTADO_CIVIL';
+            $nullables[] = 'CONTRATANTE_REPRESENTANTE_LEGAL_NACIONALIDADE';
+            $nullables[] = 'CONTRATANTE_REPRESENTANTE_LEGAL_SEXO';
+        }
+
+        foreach ($nullables as $value) {
+            if (strpos($value, "ARTISTA_REPRESENTANTE_LEGAL") !== false) {
+                $nullables[] = str_replace("ARTISTA_REPRESENTANTE_LEGAL", "AL", $value);
+            } else if (strpos($value, "CONTRATANTE_REPRESENTANTE_LEGAL") !== false) {
+                $nullables[] = str_replace("CONTRATANTE_REPRESENTANTE_LEGAL", "CL", $value);
+            } else if (strpos($value, "CONTRATANTE_") !== false) {
+                $nullables[] = str_replace("CONTRATANTE_", "C_", $value);
+            }
+        }
+
+        // dd($nullables);
 
         foreach ($this->dados as $key => $value) {
             if (is_null($value) && !in_array($key, $nullables)) {

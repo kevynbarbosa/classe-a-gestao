@@ -154,8 +154,8 @@ class EventoWorkflowController extends Controller
             'representante_legal_bairro' => [Rule::requiredIf($evento->contratante->tipo_pessoa != 'prefeitura')],
             'representante_legal_cidade_id' => [Rule::requiredIf($evento->contratante->tipo_pessoa != 'prefeitura')],
             'representante_legal_telefone' => [Rule::requiredIf($evento->contratante->tipo_pessoa != 'prefeitura')],
-            'representante_legal_estado_civil' => [Rule::requiredIf($request->tipo_pessoa != 'prefeitura')],
-            'representante_legal_sexo' => [Rule::requiredIf($request->tipo_pessoa != 'prefeitura')],
+            'representante_legal_estado_civil' => [Rule::requiredIf($evento->contratante->tipo_pessoa != 'prefeitura')],
+            'representante_legal_sexo' => [Rule::requiredIf($evento->contratante->tipo_pessoa != 'prefeitura')],
         ]);
 
         DB::beginTransaction();
