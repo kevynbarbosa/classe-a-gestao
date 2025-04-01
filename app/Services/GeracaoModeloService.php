@@ -40,23 +40,44 @@ class GeracaoModeloService
         $templateProcessor->saveAs($pathDocx);
     }
 
-    private function alterarCores($pathDocx)
+    private function alterarCores($pathDocx, $corBase = 'fffac2')
     {
-        $baseColor = 'fffac2';
         $artista = $this->evento->artista;
-        $newColor = $artista->color ?? 'fffac2';
+        $newColor = $artista->color ?? $corBase;
 
         $zip = new \ZipArchive();
         $zip->open($pathDocx);
+
+        // Documento principal
         $content = $zip->getFromName('word/document.xml');
+        $content = str_replace("#$corBase", "#$newColor", $content);
+        $content = str_replace(strtolower($corBase), strtolower($newColor), $content);
+        $content = str_replace(strtoupper($corBase), strtoupper($newColor), $content);
 
-        $content = str_replace("#$baseColor", "#$newColor", $content);
-        $content = str_replace(strtolower($baseColor), strtolower($newColor), $content);
-        $content = str_replace(strtoupper($baseColor), strtoupper($newColor), $content);
+        $this->alterarCorSecao($zip, 'document', $corBase, $newColor);
+        $this->alterarCorSecao($zip, 'footer1', $corBase, $newColor);
+        $this->alterarCorSecao($zip, 'footer2', $corBase, $newColor);
+        $this->alterarCorSecao($zip, 'footer3', $corBase, $newColor);
+        $this->alterarCorSecao($zip, 'header1', $corBase, $newColor);
+        $this->alterarCorSecao($zip, 'header2', $corBase, $newColor);
+        $this->alterarCorSecao($zip, 'header3', $corBase, $newColor);
 
-        $zip->deleteName('word/document.xml');
-        $zip->addFromString('word/document.xml', $content);
         $zip->close();
+    }
+
+    private function alterarCorSecao($zip, $secao, $corBase, $newColor)
+    {
+        $nomeArquivo = "word/$secao.xml";
+
+        $content = $zip->getFromName($nomeArquivo);
+        if ($content) {
+            $content = str_replace("#$corBase", "#$newColor", $content);
+            $content = str_replace(strtolower($corBase), strtolower($newColor), $content);
+            $content = str_replace(strtoupper($corBase), strtoupper($newColor), $content);
+
+            $zip->deleteName($nomeArquivo);
+            $zip->addFromString($nomeArquivo, $content);
+        }
     }
 
     private function converteEmPdf($pathDocx, $pathPdf)
@@ -98,14 +119,16 @@ class GeracaoModeloService
         $this->converteEmPdf(storage_path('app/public/eventos/' . $this->evento->id . '/declaracoes_economicas.docx'), storage_path('app/public/eventos/' . $this->evento->id));
 
         // Contrato
-        $this->substituirTokensNoDocx(resource_path('modelos_proposta/CONTRATO.docx'), $dados, storage_path('app/public/eventos/' . $this->evento->id . '/contrato.docx'));
-        $this->converteEmPdf(storage_path('app/public/eventos/' . $this->evento->id . '/contrato.docx'), storage_path('app/public/eventos/' . $this->evento->id));
+        $this->gerarContrato();
     }
 
-    function gerarContrato()
+    public function gerarContrato()
     {
-        $this->substituirTokensNoDocx(resource_path('modelos_proposta/CONTRATO.docx'), $this->dados, storage_path('app/public/eventos/' . $this->evento->id . '/contrato.docx'));
-        $this->converteEmPdf(storage_path('app/public/eventos/' . $this->evento->id . '/contrato.docx'), storage_path('app/public/eventos/' . $this->evento->id));
+        $pathContratoDocx = storage_path('app/public/eventos/' . $this->evento->id . '/contrato.docx');
+
+        $this->substituirTokensNoDocx(resource_path('modelos_proposta/CONTRATO.docx'), $this->dados, $pathContratoDocx);
+        $this->alterarCores($pathContratoDocx, '31521a');
+        $this->converteEmPdf($pathContratoDocx, storage_path('app/public/eventos/' . $this->evento->id));
     }
 
     private function getDados()
