@@ -63,8 +63,8 @@
                 </Tab>
                 <Tab value="timeline">Timeline</Tab>
                 <Tab value="contratante">Contratante</Tab>
-                <!-- <Tab value="pagamentos">Pagamentos</Tab> -->
-                <!-- <Tab value="documentacao">Documentação</Tab> -->
+                <Tab value="pagamentos">Pagamentos</Tab>
+                <Tab value="documentacao">Documentação</Tab>
             </TabList>
 
             <TabPanel value="observacoes">
@@ -76,7 +76,7 @@
             </TabPanel>
 
             <TabPanel value="documentacao">
-                <EventoWorkflowDocumentacao />
+                <EventoWorkflowDocumentacao :evento="evento" />
             </TabPanel>
 
             <TabPanel value="timeline">

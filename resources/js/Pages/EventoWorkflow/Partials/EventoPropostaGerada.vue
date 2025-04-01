@@ -2,13 +2,13 @@
     <div class="text-center">Como deseja enviar a proposta?</div>
 
     <div class="grid grid-cols-2 gap-2">
-        <Button
+        <!-- <Button
             label="Enviar PDF por E-mail "
             class="mdi mdi-email-fast"
             icon-class="text-2xl"
             severity="info"
             @click="confirmarModal"
-        />
+        /> -->
         <!-- <Button label="WhatsApp" class="mdi mdi-whatsapp" icon-class="text-2xl" severity="info" /> -->
 
         <Button

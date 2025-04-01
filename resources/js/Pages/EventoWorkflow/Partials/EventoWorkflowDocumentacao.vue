@@ -1,15 +1,53 @@
 <template>
     <div class="grid grid-cols-2 gap-2">
-        <div v-for="i in 7" class="flex cursor-pointer gap-2 rounded bg-slate-100 p-2 hover:bg-slate-200">
-            <i class="mdi mdi-file" style="font-size: 3rem"></i>
-            <div>
-                <div>Documento 1</div>
-                <div>Inserido em: 01/01/2023</div>
-            </div>
-        </div>
+        <DownloadModelo
+            label="Proposta"
+            :docxLink="
+                route('download-modelo.gerado', { evento: props.evento.id, tipo: 'propostaDocx' }) + '?' + Date.now()
+            "
+            :pdfLink="
+                route('download-modelo.gerado', { evento: props.evento.id, tipo: 'propostaPdf' }) + '?' + Date.now()
+            "
+        />
+
+        <DownloadModelo
+            label="Declarações"
+            :docxLink="
+                route('download-modelo.gerado', { evento: props.evento.id, tipo: 'declaracoesDocx' }) + '?' + Date.now()
+            "
+            :pdfLink="
+                route('download-modelo.gerado', { evento: props.evento.id, tipo: 'declaracoesPdf' }) + '?' + Date.now()
+            "
+        />
+
+        <DownloadModelo
+            label="Declarações econômicas"
+            :docxLink="
+                route('download-modelo.gerado', { evento: props.evento.id, tipo: 'declaracoesEconomicasDocx' }) +
+                '?' +
+                Date.now()
+            "
+            :pdfLink="
+                route('download-modelo.gerado', { evento: props.evento.id, tipo: 'declaracoesEconomicasPdf' }) +
+                '?' +
+                Date.now()
+            "
+        />
+
+        <DownloadModelo
+            label="Contrato"
+            :docxLink="
+                route('download-modelo.gerado', { evento: props.evento.id, tipo: 'contratoDocx' }) + '?' + Date.now()
+            "
+            :pdfLink="
+                route('download-modelo.gerado', { evento: props.evento.id, tipo: 'contratoPdf' }) + '?' + Date.now()
+            "
+        />
     </div>
 </template>
 
 <script setup>
-const variable = ref(null);
+import DownloadModelo from "@/Components/Evento/DownloadModelo.vue";
+
+const props = defineProps({ evento: Object });
 </script>

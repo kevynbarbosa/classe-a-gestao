@@ -7,59 +7,46 @@ use Illuminate\Http\Request;
 
 class DownloadModelosController extends Controller
 {
-    public function downloadPdfProposta(Evento $evento)
+    public function downloadDocumentoGerado(Evento $evento, $tipo)
     {
-        $path = storage_path('/app/public/eventos/') . $evento->id . '/proposta.pdf';
-        return response()->download($path, null, [
-            'Cache-Control' => 'no-store, no-cache, must-revalidate, max-age=0',
-            'Pragma' => 'no-cache',
-            'Expires' => 'Sat, 01 Jan 2000 00:00:00 GMT',
-        ]);
-    }
+        switch ($tipo) {
+            case 'propostaDocx':
+                $path = storage_path('/app/public/eventos/') . $evento->id . '/proposta.docx';
+                break;
 
-    public function downloadWordProposta(Evento $evento)
-    {
-        $path = storage_path('/app/public/eventos/') . $evento->id . '/proposta.docx';
-        return response()->download($path, null, [
-            'Cache-Control' => 'no-store, no-cache, must-revalidate, max-age=0',
-            'Pragma' => 'no-cache',
-            'Expires' => 'Sat, 01 Jan 2000 00:00:00 GMT',
-        ]);
-    }
+            case 'propostaPdf':
+                $path = storage_path('/app/public/eventos/') . $evento->id . '/proposta.pdf';
+                break;
 
-    public function downloadPdfDeclaracao(Evento $evento)
-    {
-        $path = storage_path('/app/public/eventos/') . $evento->id . '/declaracoes.pdf';
-        return response()->download($path, null, [
-            'Cache-Control' => 'no-store, no-cache, must-revalidate, max-age=0',
-            'Pragma' => 'no-cache',
-            'Expires' => 'Sat, 01 Jan 2000 00:00:00 GMT',
-        ]);
-    }
+            case 'declaracoesDocx':
+                $path = storage_path('/app/public/eventos/') . $evento->id . '/declaracoes.docx';
+                break;
 
-    public function downloadWordDeclaracao(Evento $evento)
-    {
-        $path = storage_path('/app/public/eventos/') . $evento->id . '/declaracoes.docx';
-        return response()->download($path, null, [
-            'Cache-Control' => 'no-store, no-cache, must-revalidate, max-age=0',
-            'Pragma' => 'no-cache',
-            'Expires' => 'Sat, 01 Jan 2000 00:00:00 GMT',
-        ]);
-    }
+            case 'declaracoesPdf':
+                $path = storage_path('/app/public/eventos/') . $evento->id . '/declaracoes.pdf';
+                break;
 
-    public function downloadPdfDeclaracaoEconomica(Evento $evento)
-    {
-        $path = storage_path('/app/public/eventos/') . $evento->id . '/declaracoes_economicas.pdf';
-        return response()->download($path, null, [
-            'Cache-Control' => 'no-store, no-cache, must-revalidate, max-age=0',
-            'Pragma' => 'no-cache',
-            'Expires' => 'Sat, 01 Jan 2000 00:00:00 GMT',
-        ]);
-    }
+            case 'declaracoesEconomicasDocx':
+                $path = storage_path('/app/public/eventos/') . $evento->id . '/declaracoes_economicas.docx';
+                break;
 
-    public function downloadWordDeclaracaoEconomica(Evento $evento)
-    {
-        $path = storage_path('/app/public/eventos/') . $evento->id . '/declaracoes_economicas.docx';
+            case 'declaracoesEconomicasPdf':
+                $path = storage_path('/app/public/eventos/') . $evento->id . '/declaracoes_economicas.pdf';
+                break;
+
+            case 'contratoDocx':
+                $path = storage_path('/app/public/eventos/') . $evento->id . '/contrato.docx';
+                break;
+
+            case 'contratoPdf':
+                $path = storage_path('/app/public/eventos/') . $evento->id . '/contrato.pdf';
+                break;
+
+            default:
+                break;
+        }
+
+
         return response()->download($path, null, [
             'Cache-Control' => 'no-store, no-cache, must-revalidate, max-age=0',
             'Pragma' => 'no-cache',
