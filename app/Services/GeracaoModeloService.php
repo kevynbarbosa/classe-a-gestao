@@ -181,6 +181,8 @@ class GeracaoModeloService
             'RATEIO_5' => MonetaryService::formatMoney($this->evento->valor * 0.058),
 
             'TRATAMENTO_DECLARACAO' => 'Aos cuidados de ' . $this->evento->contratante->nome_completo,
+
+            'PAGAMENTOS' => $this->gerarPagamentos(),
         ];
 
         foreach ($dados as $key => $value) {
@@ -225,5 +227,18 @@ class GeracaoModeloService
         } else {
             return null;
         }
+    }
+
+    private function gerarPagamentos()
+    {
+        $pagamentos = $this->evento->pagamentos;
+
+        $dados = [];
+        foreach ($pagamentos as $pagamento) {
+            $data_pagamento = Carbon::parse($pagamento->data_pagamento)->format('d/m/Y');
+            $dados[] = "R$ " . MonetaryService::formatMoney($pagamento->valor) . " (" . MonetaryService::numberToExt($pagamento->valor) . ") - " . "em " . $data_pagamento;
+        }
+
+        return implode("\n", $dados);
     }
 }

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Evento;
 use App\Models\EventoPagamento;
+use App\Services\GeracaoModeloService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -20,6 +22,9 @@ class EventoPagamentoController extends Controller
         $dados['data_pagamento'] = Carbon::parse($request->data_pagamento)->timezone('UTC')->toDateString();
 
         $eventoPagamento = EventoPagamento::create($dados);
+
+        $evento = Evento::find($request->evento_id);
+        (new GeracaoModeloService($evento))->gerarContrato();
 
         return redirect()->back();
     }
