@@ -23,8 +23,7 @@ class EventoPagamentoController extends Controller
 
         $eventoPagamento = EventoPagamento::create($dados);
 
-        $evento = Evento::find($request->evento_id);
-        (new GeracaoModeloService($evento))->gerarContrato();
+        (new GeracaoModeloService(Evento::find($request->evento_id)))->gerarContrato();
 
         return redirect()->back();
     }
@@ -32,6 +31,8 @@ class EventoPagamentoController extends Controller
     public function destroy(EventoPagamento $eventoPagamento)
     {
         $eventoPagamento->delete();
+
+        (new GeracaoModeloService(Evento::find($eventoPagamento->evento_id)))->gerarContrato();
 
         return redirect()->back();
     }
