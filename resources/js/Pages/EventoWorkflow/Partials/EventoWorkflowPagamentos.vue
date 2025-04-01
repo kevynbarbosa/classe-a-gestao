@@ -30,7 +30,7 @@
         v-if="somaDivergente"
         class="mt-4 flex items-center justify-center rounded bg-red-200 p-2 font-bold text-red-500"
     >
-        <i class="mdi mdi-alert-box text-[22px]" v-tooltip="tooltip"></i>
+        <i class="mdi mdi-alert-box text-[22px]"></i>
         <div>Atenção, os valores de pagamento não fecha com o valor do evento!</div>
     </div>
 

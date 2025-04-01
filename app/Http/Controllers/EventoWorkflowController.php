@@ -203,7 +203,7 @@ class EventoWorkflowController extends Controller
     public function enviarPropostaEmail(Evento $evento)
     {
         // TODO: Correto seria enviar o email em uma fila
-        Mail::to($evento->email_formulario)->send(new PropostaContratanteMail($evento));
+        // Mail::to($evento->email_formulario)->send(new PropostaContratanteMail($evento));
 
         EventoHistoricoService::gerarHistorico($evento, EventoStatusEnum::PENDENTE_NF);
 

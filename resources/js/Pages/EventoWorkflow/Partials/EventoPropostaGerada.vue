@@ -1,6 +1,4 @@
 <template>
-    <div class="text-center">Como deseja enviar a proposta?</div>
-
     <div class="grid grid-cols-2 gap-2">
         <!-- <Button
             label="Enviar PDF por E-mail "
