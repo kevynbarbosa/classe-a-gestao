@@ -9,6 +9,7 @@ use App\Http\Controllers\DocumentoInternoController;
 use App\Http\Controllers\DownloadModelosController;
 use App\Http\Controllers\EventoController;
 use App\Http\Controllers\EventoObservacaoController;
+use App\Http\Controllers\EventoPagamentoController;
 use App\Http\Controllers\EventoServicoController;
 use App\Http\Controllers\EventoWorkflowController;
 use App\Http\Controllers\ProfileController;
@@ -49,6 +50,9 @@ Route::middleware(['auth', /* SimulateRealNetwork::class */])->group(function ()
     Route::resource('eventos', EventoController::class);
     Route::resource('evento-observacoes', EventoObservacaoController::class)->parameters([
         'evento-observacoes' => 'eventoObservacao'
+    ]);
+    Route::resource('evento-pagamentos', EventoPagamentoController::class)->parameters([
+        'evento-pagamentos' => 'eventoPagamento'
     ]);
     Route::prefix('eventos/{evento}')->group(function () {
         Route::resource('evento-servicos', EventoServicoController::class);

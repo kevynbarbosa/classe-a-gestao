@@ -47,6 +47,11 @@ class Evento extends Model
         return $this->hasMany(EventoObservacao::class);
     }
 
+    public function pagamentos()
+    {
+        return $this->hasMany(EventoPagamento::class);
+    }
+
     public function servicos()
     {
         return $this->hasMany(EventoServico::class);

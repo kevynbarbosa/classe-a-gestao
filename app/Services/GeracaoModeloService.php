@@ -102,6 +102,12 @@ class GeracaoModeloService
         $this->converteEmPdf(storage_path('app/public/eventos/' . $this->evento->id . '/contrato.docx'), storage_path('app/public/eventos/' . $this->evento->id));
     }
 
+    function gerarContrato()
+    {
+        $this->substituirTokensNoDocx(resource_path('modelos_proposta/CONTRATO.docx'), $this->dados, storage_path('app/public/eventos/' . $this->evento->id . '/contrato.docx'));
+        $this->converteEmPdf(storage_path('app/public/eventos/' . $this->evento->id . '/contrato.docx'), storage_path('app/public/eventos/' . $this->evento->id));
+    }
+
     private function getDados()
     {
         $artista = $this->evento->artista;

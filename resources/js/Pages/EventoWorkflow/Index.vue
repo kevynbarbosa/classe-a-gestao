@@ -84,7 +84,7 @@
             </TabPanel>
 
             <TabPanel value="pagamentos">
-                <EventoWorkflowPagamentos :evento="evento" :evento_status_enum="evento_status_enum" />
+                <EventoWorkflowPagamentos :evento="evento" />
             </TabPanel>
         </Tabs>
     </div>
