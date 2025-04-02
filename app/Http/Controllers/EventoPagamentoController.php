@@ -23,7 +23,11 @@ class EventoPagamentoController extends Controller
 
         $eventoPagamento = EventoPagamento::create($dados);
 
-        (new GeracaoModeloService(Evento::find($request->evento_id)))->gerarContrato();
+        try {
+            (new GeracaoModeloService(Evento::find($request->evento_id)))->gerarContrato();
+        } catch (\Throwable $th) {
+            // Handle exception if needed
+        }
 
         return redirect()->back();
     }
@@ -32,7 +36,11 @@ class EventoPagamentoController extends Controller
     {
         $eventoPagamento->delete();
 
-        (new GeracaoModeloService(Evento::find($eventoPagamento->evento_id)))->gerarContrato();
+        try {
+            (new GeracaoModeloService(Evento::find($eventoPagamento->evento_id)))->gerarContrato();
+        } catch (\Throwable $th) {
+            // Handle exception if needed
+        }
 
         return redirect()->back();
     }

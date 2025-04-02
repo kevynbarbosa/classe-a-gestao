@@ -124,6 +124,8 @@ class GeracaoModeloService
 
     public function gerarContrato()
     {
+        if ($this->evento->contratante->tipo_pessoa == 'prefeitura') return;
+
         $pathContratoDocx = storage_path('app/public/eventos/' . $this->evento->id . '/contrato.docx');
 
         $this->substituirTokensNoDocx(resource_path('modelos_proposta/CONTRATO.docx'), $this->dados, $pathContratoDocx);
@@ -154,7 +156,7 @@ class GeracaoModeloService
             'CONTRATANTE_REPRESENTANTE_LEGAL_NUMERO' => $contratante->representante_legal_numero,
             'CONTRATANTE_REPRESENTANTE_LEGAL_COMPLEMENTO' => $contratante->representante_legal_complemento,
             'CONTRATANTE_REPRESENTANTE_LEGAL_CEP' => $contratante->representante_legal_cep,
-            'CONTRATANTE_REPRESENTANTE_LEGAL_CIDADE' => $contratante->representanteLegalCidade->nome  ?? "",
+            'CONTRATANTE_REPRESENTANTE_LEGAL_CIDADE' => $contratante->representanteLegalCidade->nome ?? "",
             'CONTRATANTE_REPRESENTANTE_LEGAL_ESTADO' => $contratante->representanteLegalCidade->uf_codigo  ?? "",
             'CONTRATANTE_REPRESENTANTE_LEGAL_TELEFONE' => $contratante->representante_legal_telefone,
             'CONTRATANTE_REPRESENTANTE_LEGAL_ESTADO_CIVIL' => $artista->representante_legal_estado_civil,
