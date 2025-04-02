@@ -42,7 +42,7 @@
                 severity="danger"
                 size="small"
                 rounded
-                @click="form.delete('/evento-pagamentos/' + item.id)"
+                @click="deletar(item.id)"
                 :loading="form.processing"
             ></Button>
 
@@ -76,6 +76,15 @@ const somaDivergente = computed(() => {
 });
 
 function submit() {
-    form.post("/evento-pagamentos", { onSuccess: () => form.reset(), preserveScroll: true });
+    form.post(route("evento-pagamentos.store"), {
+        onSuccess: () => form.reset(),
+        preserveScroll: true,
+    });
+}
+
+function deletar(id) {
+    form.delete(route("evento-pagamentos.destroy", id), {
+        preserveScroll: true,
+    });
 }
 </script>
