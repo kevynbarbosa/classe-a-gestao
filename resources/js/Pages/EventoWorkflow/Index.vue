@@ -55,6 +55,8 @@
 
         <FluxoEtapaControlador :evento="evento" :cidades="cidades" :artistas="artistas" :vendedores="vendedores" />
 
+        <EventoWorkflowPagamentos :evento="evento" />
+
         <Tabs value="observacoes" class="mt-14">
             <TabList class="mb-4">
                 <Tab value="observacoes">
@@ -84,7 +86,7 @@
             </TabPanel>
 
             <TabPanel value="pagamentos">
-                <EventoWorkflowPagamentos :evento="evento" />
+                <!-- <EventoWorkflowPagamentos :evento="evento" /> -->
             </TabPanel>
         </Tabs>
     </div>
