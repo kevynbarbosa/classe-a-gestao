@@ -76,7 +76,6 @@ const somaDivergente = computed(() => {
 });
 
 function submit() {
-    console.log(route("evento-pagamentos.store"));
     form.post(route("evento-pagamentos.store"), {
         onSuccess: () => form.reset(),
         preserveScroll: true,
@@ -84,7 +83,6 @@ function submit() {
 }
 
 function deletar(id) {
-    console.log(route("evento-pagamentos.destroy", id));
     form.delete(route("evento-pagamentos.destroy", id), {
         preserveScroll: true,
     });
