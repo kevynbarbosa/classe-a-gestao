@@ -43,7 +43,7 @@ class GeracaoModeloService
     private function alterarCores($pathDocx, $corBase = 'fffac2')
     {
         $artista = $this->evento->artista;
-        $newColor = $artista->color ?? $corBase;
+        $newColor = $artista->color ? str_replace("#", "", $artista->color) : $corBase;
 
         $zip = new \ZipArchive();
         $zip->open($pathDocx);
@@ -53,6 +53,8 @@ class GeracaoModeloService
         $content = str_replace("#$corBase", "#$newColor", $content);
         $content = str_replace(strtolower($corBase), strtolower($newColor), $content);
         $content = str_replace(strtoupper($corBase), strtoupper($newColor), $content);
+
+        // dd($newColor, $corBase);
 
         $this->alterarCorSecao($zip, 'document', $corBase, $newColor);
         $this->alterarCorSecao($zip, 'footer1', $corBase, $newColor);
