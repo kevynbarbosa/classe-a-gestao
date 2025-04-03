@@ -334,7 +334,7 @@ const titulo = props.updating ? "Editar artista" : "Novo artista";
 const modalRef = ref(null);
 const salvando = ref(false);
 
-const form = useForm({
+const form = useForm("ArtistaForm", {
     nome: props.artista?.nome ?? "",
     razao_social: props.artista?.razao_social ?? null,
     cnpj: props.artista?.cnpj ?? null,
